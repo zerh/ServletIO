@@ -8,8 +8,6 @@
 	</head>
 	
 	<body>
-		<% out.println("PEPE"); %>
-		
 		<form action="http://localhost:8080/servletio/path/form" method="POST">
 			<input type="text" name="name" />
 			<input type="text" name="lastName" />
