@@ -303,7 +303,7 @@ public class Request {
 			for (Method m : methods) {
 				if (m.getName().startsWith("set")) {
 
-					String prop = m.getName().substring(2).toLowerCase();
+					String prop = m.getName().substring(3).toLowerCase();
 					String value = raw.getParameter(prop);
 
 					if (value != null) {
