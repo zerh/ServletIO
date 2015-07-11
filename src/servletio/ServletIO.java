@@ -178,8 +178,8 @@ public class ServletIO extends HttpServlet{
 
 	private void callMethod(Method m, HttpServletRequest request, HttpServletResponse response) {
 		try {
-			Class<?>[] types = m.getParameterTypes();
 			if(m!=null){
+				Class<?>[] types = m.getParameterTypes();
 				if (types.length == 1) {
 					if (types[0].isAssignableFrom(Request.class)) {
 						m.invoke(this, new Request(request));
