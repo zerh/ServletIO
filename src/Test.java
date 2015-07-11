@@ -19,8 +19,9 @@ public class Test extends ServletIO {
     	req.dispatcher("/WEB-INF/views/index.jsp").forward(req, res);
 	}
 	
-	@Get("/nestle2")
+	@Post("/form")
 	public void chiquindolo(Request req, Response res) {
-    	res.print("test");
+    	Person p = req.bindParams(Person.class);
+    	res.print(p.getName());
 	}
 }
