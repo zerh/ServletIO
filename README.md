@@ -1,14 +1,14 @@
 # ServletIO - Convert your servlets to MVC controllers
 
 #### Add repository:
-```
+```xml
 <repository>
 	<id>jitpack.io</id>
 	<url>https://jitpack.io</url>
 </repository>
 ```
 #### Add dependency:
-```
+```xml
 <dependency>
     <groupId>com.github.zerh</groupId>
     <artifactId>ServletIO</artifactId>
@@ -19,7 +19,7 @@
 ## Get Started
 Add **"/*"** to your mapped url, example: ```@WebServlet("/your-path/*")```
 
-```
+```java
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -44,7 +44,7 @@ public class Prueba extends ServletIO {
 
 ```
 #### Or put your old ```doGet``` code inside another method mapped with with the old path
-```
+```java
 import javax.servlet.annotation.WebServlet;
 
 import servletio.*;
