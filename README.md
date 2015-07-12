@@ -66,10 +66,10 @@ public class MyApp extends ServletIO {
 ```
 
 Of course, you also can use:
-```- @Post```
-```- @Put```
-```- @Delete```
-```- @Options```
+- ```@Post```
+- ```@Put```
+- ```@Delete```
+- ```@Options```
 
 #### @Before and @After
 
