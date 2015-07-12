@@ -92,7 +92,7 @@ public class MyApp extends ServletIO {
     }
     
     @After()
-    public void validateUser(Request req, Response res){
+    public void log(Request req, Response res){
         System.out.println("Action executed...");
     }
 
@@ -118,7 +118,7 @@ public class MyApp extends ServletIO {
     }
     
     @After(only={"/login", "/logout"})
-    public void validateUser(Request req, Response res){
+    public void log(Request req, Response res){
         System.out.prinln("/login or /logout executed")
     }
     ...
