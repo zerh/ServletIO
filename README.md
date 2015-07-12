@@ -154,7 +154,7 @@ you can use only ```Request``` or only ```Response``` like method parameters. Th
 - ```request.bindParam(MyBean.class)``` return a instance of ```MyBean``` with all values of HTML form, mapping by bean properties names;
 - ```request.getFile("paramName")``` return a File with the uploaded file reference.
 - ```request.dispatcher()``` return a instance of ```servletio.Dispatcher```, wrap of ```RequestDispatcher```
-
+- ```request.raw``` final propierty with ```HttpServletRequest``` object reference of the current request
 ###### Response
 - ```response.print(htmlString, contentType)```
 - ```response.print(text)``` print text plain
@@ -164,4 +164,4 @@ you can use only ```Request``` or only ```Response``` like method parameters. Th
 - ```response.redirect(location)``` redirect
 - ```response.redirect(location, httpStatusCode)``` redirect with status code (int)
 - ```response.badRequest()``` throws 404 to browser
-- ```response.raw``` final propierty with ```HttpServletResponse``` object reference
+- ```response.raw``` final propierty with ```HttpServletResponse``` object reference of the current request
