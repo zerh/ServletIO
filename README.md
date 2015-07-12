@@ -155,6 +155,7 @@ you can use only ```Request``` or only ```Response``` like method parameters. Th
 - ```request.getFile("paramName")``` return a File with the uploaded file reference.
 - ```request.dispatcher()``` return a instance of ```servletio.Dispatcher```, wrap of ```RequestDispatcher```
 - ```request.raw``` final propierty with ```HttpServletRequest``` object reference of the current request
+
 ###### Response
 - ```response.print(htmlString, contentType)```
 - ```response.print(text)``` print text plain
