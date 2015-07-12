@@ -64,6 +64,13 @@ public class MyApp extends ServletIO {
     }
 }
 ```
+
+Of course, you also can use:
+- @Post
+- @Put
+- @Delete
+- @Options
+
 #### @Before and @After
 
 Methods annotated with the @Before annotation are executed before each action call for ServletIO, and methods annotated with the @After annotation are executed after each action call for the Servlet:
