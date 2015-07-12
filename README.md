@@ -151,16 +151,16 @@ public class MyApp extends ServletIO {
 you can use only ```Request``` or only ```Response``` like method parameters. This classes wrap HttpServletRequest and HttpServletResponse and offer some facilities. The most prominent are:
 
 ###### Request
--```request.bindParam(MyBean.class)``` return a instance of ```MyBean``` with all values of HTML form, mapping by bean properties names;
--```request.getFile("paramName")``` return a File with the uploaded file reference.
+- ```request.bindParam(MyBean.class)``` return a instance of ```MyBean``` with all values of HTML form, mapping by bean properties names;
+- ```request.getFile("paramName")``` return a File with the uploaded file reference.
 
 ###### Response
--```response.print(htmlString, contentType)```
--```response.print(text)``` print text plain
--```response.printHtml(htmlString)``` print text with HTML content type
--```response.printXml(xmlString)``` print text with xML content type
--```response.printJson(xmlString)``` print text with JSON content type
--```response.redirect(location)``` redirect
--```response.redirect(location, httpStatusCode)``` redirect with status code (int)
--```response.badRequest()``` throws 404 to browser
--```response.raw``` final propierty with ```HttpServletResponse``` object reference
+- ```response.print(htmlString, contentType)```
+- ```response.print(text)``` print text plain
+- ```response.printHtml(htmlString)``` print text with HTML content type
+- ```response.printXml(xmlString)``` print text with xML content type
+- ```response.printJson(xmlString)``` print text with JSON content type
+- ```response.redirect(location)``` redirect
+- ```response.redirect(location, httpStatusCode)``` redirect with status code (int)
+- ```response.badRequest()``` throws 404 to browser
+- ```response.raw``` final propierty with ```HttpServletResponse``` object reference
