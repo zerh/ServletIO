@@ -29,7 +29,7 @@ import servletio.*;
 import servletio.annotation.Get;
 
 @WebServlet("/base-path/*")
-public class Prueba extends ServletIO {
+public class MyApp extends ServletIO {
     
     protected void doGet(HttpServletRequest req, HttpServletResponse res) {
         super.doGet(req, res);
