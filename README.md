@@ -98,7 +98,7 @@ public class MyApp extends ServletIO {
 
 }
 ```
-If you don’t want the @Before or @After method to intercept all request, you can specify a list of actions usin only param:
+If you don’t want the @Before or @After method to intercept all request, you can specify a list of actions using only param:
 
 ```java
 import javax.servlet.annotation.WebServlet;
