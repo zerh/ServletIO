@@ -17,7 +17,7 @@
 ```
 
 ## Get Started
-Add **"/*"** to your mapped url, example: ```@WebServlet("/your-path/*")``` and replace the super class HttpServlet by ServletIO
+Add **"/*"** to your mapped url, example: ```@WebServlet("/your-path/*")``` and replace the super class ```HttpServlet``` by ```ServletIO```
 
 ```java
 import javax.servlet.ServletException;
