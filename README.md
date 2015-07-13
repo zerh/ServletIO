@@ -167,7 +167,7 @@ you can use only ```Request``` or only ```Response``` like method parameters. Th
 - ```response.print(htmlString, contentType)```
 - ```response.print(text)``` print text plain
 - ```response.printHtml(htmlString)``` print text with HTML content type
-- ```response.printXml(xmlString)``` print text with xML content type
+- ```response.printXml(xmlString)``` print text with XML content type
 - ```response.printJson(xmlString)``` print text with JSON content type
 - ```response.redirect(location)``` redirect
 - ```response.redirect(location, httpStatusCode)``` redirect with status code (int)
