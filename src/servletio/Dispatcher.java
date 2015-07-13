@@ -2,45 +2,40 @@ package servletio;
 
 import java.io.IOException;
 
-import javax.servlet.RequestDispatcher;
-import javax.servlet.ServletException;
-import javax.servlet.ServletRequest;
-import javax.servlet.ServletResponse;
+import javax.servlet.*;
 
-public class Dispatcher implements RequestDispatcher{
+public class Dispatcher implements RequestDispatcher {
 
-	public final RequestDispatcher raw;
-	
-	public Dispatcher(RequestDispatcher dispatcher){
-		this.raw = dispatcher;
-	}
-	
-	@Override
-	public void forward(ServletRequest arg0, ServletResponse arg1)
-			throws ServletException, IOException {
-		raw.forward(arg0, arg1);
-	}
+  public final RequestDispatcher raw;
 
-	@Override
-	public void include(ServletRequest arg0, ServletResponse arg1)
-			throws ServletException, IOException {
-		raw.include(arg0, arg1);;
-	}
-	
-	public void forward(Request req, Response res){
-		try{
-			forward(req.raw, res.raw);
-		}catch(IOException | ServletException ex){
-			ex.printStackTrace();
-		}
-	}
-	
-	public void include(Request req, Response res){
-		try {
-			include(req.raw, res.raw);
-		} catch (ServletException | IOException ex) {
-			ex.printStackTrace();
-		}
-	}
+  public Dispatcher(final RequestDispatcher dispatcher) {
+    this.raw = dispatcher;
+  }
+
+  @Override
+  public void forward(final ServletRequest req, final ServletResponse resp) throws ServletException, IOException {
+    raw.forward(req, resp);
+  }
+
+  @Override
+  public void include(final ServletRequest req, final ServletResponse resp) throws ServletException, IOException {
+    raw.include(req, resp);
+  }
+
+  public void forward(final Request req, final Response res) {
+    try {
+      forward(req.raw, res.raw);
+    } catch (IOException | ServletException ex) {
+      ex.printStackTrace();
+    }
+  }
+
+  public void include(final Request req, final Response res) {
+    try {
+      include(req.raw, res.raw);
+    } catch (ServletException | IOException ex) {
+      ex.printStackTrace();
+    }
+  }
 
 }
