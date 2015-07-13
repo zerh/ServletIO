@@ -19,11 +19,11 @@ public class Response {
         this.raw = response;
     }
 
-
     /**
      * Sets the status code for the
      *
-     * @param statusCode the status code
+     * @param statusCode
+     *            the status code
      */
     public void status(int statusCode) {
         raw.setStatus(statusCode);
@@ -32,7 +32,8 @@ public class Response {
     /**
      * Sets the content type for the response
      *
-     * @param contentType the content type
+     * @param contentType
+     *            the content type
      */
     public void type(String contentType) {
         raw.setContentType(contentType);
@@ -41,7 +42,8 @@ public class Response {
     /**
      * Sets the body
      *
-     * @param body the body
+     * @param body
+     *            the body
      */
     public void body(String body) {
         this.body = body;
@@ -59,7 +61,8 @@ public class Response {
     /**
      * Trigger a browser redirect
      *
-     * @param location Where to redirect
+     * @param location
+     *            Where to redirect
      */
     public void redirect(String location) {
         try {
@@ -72,8 +75,10 @@ public class Response {
     /**
      * Trigger a browser redirect with specific http 3XX status code.
      *
-     * @param location       Where to redirect permanently
-     * @param httpStatusCode the http status code
+     * @param location
+     *            Where to redirect permanently
+     * @param httpStatusCode
+     *            the http status code
      */
     public void redirect(String location, int httpStatusCode) {
         raw.setStatus(httpStatusCode);
@@ -89,115 +94,137 @@ public class Response {
     /**
      * Adds/Sets a response header
      *
-     * @param header the header
-     * @param value  the value
+     * @param header
+     *            the header
+     * @param value
+     *            the value
      */
     public void header(String header, String value) {
         raw.addHeader(header, value);
     }
 
     /**
-     * Adds not persistent cookie to the response.
-     * Can be invoked multiple times to insert more than one cookie.
+     * Adds not persistent cookie to the response. Can be invoked multiple times
+     * to insert more than one cookie.
      *
-     * @param name  name of the cookie
-     * @param value value of the cookie
+     * @param name
+     *            name of the cookie
+     * @param value
+     *            value of the cookie
      */
     public void cookie(String name, String value) {
         cookie(name, value, -1, false);
     }
 
     /**
-     * Adds cookie to the response. Can be invoked multiple times to insert more than one cookie.
+     * Adds cookie to the response. Can be invoked multiple times to insert more
+     * than one cookie.
      *
-     * @param name   name of the cookie
-     * @param value  value of the cookie
-     * @param maxAge max age of the cookie in seconds (negative for the not persistent cookie,
-     *               zero - deletes the cookie)
+     * @param name
+     *            name of the cookie
+     * @param value
+     *            value of the cookie
+     * @param maxAge
+     *            max age of the cookie in seconds (negative for the not
+     *            persistent cookie, zero - deletes the cookie)
      */
     public void cookie(String name, String value, int maxAge) {
         cookie(name, value, maxAge, false);
     }
 
     /**
-     * Adds cookie to the response. Can be invoked multiple times to insert more than one cookie.
+     * Adds cookie to the response. Can be invoked multiple times to insert more
+     * than one cookie.
      *
-     * @param name    name of the cookie
-     * @param value   value of the cookie
-     * @param maxAge  max age of the cookie in seconds (negative for the not persistent cookie, zero - deletes the cookie)
-     * @param secured if true : cookie will be secured
-     *                zero - deletes the cookie)
+     * @param name
+     *            name of the cookie
+     * @param value
+     *            value of the cookie
+     * @param maxAge
+     *            max age of the cookie in seconds (negative for the not
+     *            persistent cookie, zero - deletes the cookie)
+     * @param secured
+     *            if true : cookie will be secured zero - deletes the cookie)
      */
     public void cookie(String name, String value, int maxAge, boolean secured) {
         cookie("", name, value, maxAge, secured);
     }
 
     /**
-     * Adds cookie to the response. Can be invoked multiple times to insert more than one cookie.
+     * Adds cookie to the response. Can be invoked multiple times to insert more
+     * than one cookie.
      *
-     * @param path    path of the cookie
-     * @param name    name of the cookie
-     * @param value   value of the cookie
-     * @param maxAge  max age of the cookie in seconds (negative for the not persistent cookie, zero - deletes the cookie)
-     * @param secured if true : cookie will be secured
-     *                zero - deletes the cookie)
+     * @param path
+     *            path of the cookie
+     * @param name
+     *            name of the cookie
+     * @param value
+     *            value of the cookie
+     * @param maxAge
+     *            max age of the cookie in seconds (negative for the not
+     *            persistent cookie, zero - deletes the cookie)
+     * @param secured
+     *            if true : cookie will be secured zero - deletes the cookie)
      */
-    public void cookie(String path, String name, String value, int maxAge, boolean secured) {
+    public void cookie(String path, String name, String value, int maxAge,
+            boolean secured) {
         Cookie cookie = new Cookie(name, value);
         cookie.setPath(path);
         cookie.setMaxAge(maxAge);
         cookie.setSecure(secured);
         raw.addCookie(cookie);
     }
-    
+
     /**
      * Removes the cookie.
      *
-     * @param name name of the cookie
+     * @param name
+     *            name of the cookie
      */
     public void removeCookie(String name) {
         Cookie cookie = new Cookie(name, "");
         cookie.setMaxAge(0);
         raw.addCookie(cookie);
     }
-    
-    public void badRequest(){
-    	try {
-			raw.sendError(HttpServletResponse.SC_BAD_REQUEST);
-		} catch (IOException ex) {
-			ex.printStackTrace();
-		}
+
+    public void badRequest() {
+        try {
+            raw.sendError(HttpServletResponse.SC_BAD_REQUEST);
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
     }
-    
+
     /**
      * Print from writer of request.
      *
-     * @param Object to print
+     * @param Object
+     *            to print
      */
-    public void print(Object o, String contentType){
-    	try {
-    		PrintWriter pw = raw.getWriter();
-    		raw.setContentType(contentType);
-    		pw.print(o);
-    		//pw.close();
-		} catch (IOException ex) {
-			ex.printStackTrace();
-		}
+    public void print(Object o, String contentType) {
+        try {
+            PrintWriter pw = raw.getWriter();
+            raw.setContentType(contentType);
+            pw.print(o);
+            pw.close();
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
     }
-    
-    public void print(Object o){
-    	print(o, "text/plain");
+
+    public void print(Object o) {
+        print(o, "text/plain");
     }
-    
-    public void printHtml(Object o){
-    	print(o, "text/html");
+
+    public void printHtml(Object o) {
+        print(o, "text/html");
     }
-    
-    public void printJson(Object o){
-    	print(o, "application/json");
+
+    public void printJson(Object o) {
+        print(o, "application/json");
     }
-    
-    public void printXml(Object o){
-    	print(o, "application/xml");
+
+    public void printXml(Object o) {
+        print(o, "application/xml");
     }
 }
