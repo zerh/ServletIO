@@ -143,6 +143,7 @@ public class MyApp extends ServletIO {
         if(req.session().attribute("user")==null)
             res.printHtml("bye bye!!");
     }
+    ...
 }
 ```
 
