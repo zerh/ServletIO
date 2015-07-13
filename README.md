@@ -168,5 +168,5 @@ You can either user ```Request``` or ```Response``` only as method parameters. T
 - ```response.printJson(xmlString)``` print text with JSON content type
 - ```response.redirect(location)``` redirect
 - ```response.redirect(location, httpStatusCode)``` redirect with status code (int)
-- ```response.badRequest()``` throws 404 to browser
+- ```response.badRequest()``` throws 404 to the browser
 - ```response.raw``` final propierty with ```HttpServletResponse``` object reference of the current request
