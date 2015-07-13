@@ -124,7 +124,7 @@ public class MyApp extends ServletIO {
     @Before(only={"/admin"})
     public void validateUser(Request req, Response res){
         if(req.session().attribute("user")==null)  
-            req.dispatcher("/base-path/login").forward(req, res);;
+            req.dispatcher("/base-path/login").forward(req, res);
     }
     
     @After(only={"/login", "/logout"})
