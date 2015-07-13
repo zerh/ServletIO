@@ -86,7 +86,7 @@ import servletio.annotation.*;
 
 @WebServlet("/base-path/*")
 public class MyApp extends ServletIO {
-       
+
     @Get("/index")
     public void index(Response res){
         res.printHtml("<h1>hello world</h1>");
@@ -116,15 +116,15 @@ import servletio.annotation.*;
 @WebServlet("/base-path/*")
 public class MyApp extends ServletIO {
     
-    @Get("/index")
-    public void index(Request req, Response res){
-    	res.printHtml("<h1>hello world</h1>");
+    @Get("/login")
+    public void login(Request req, Response res){
+    	res.printHtml("<h1>login</h1>");
     }
     
     @Before(only={"/admin"})
     public void validateUser(Request req, Response res){
         if(req.session().attribute("user")==null)  
-            req.dispatcher("/base-path/index").forward(req, res);;
+            req.dispatcher("/base-path/login").forward(req, res);;
     }
     
     @After(only={"/login", "/logout"})
