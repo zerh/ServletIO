@@ -43,7 +43,7 @@ public class MyApp extends ServletIO {
 }
 
 ```
-Or put your old ```doGet``` code inside another method mapped with the old path
+Or put your old ```doGet``` code inside another method mapped with the base path
 ```java
 import javax.servlet.annotation.WebServlet;
 
