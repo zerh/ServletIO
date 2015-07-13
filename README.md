@@ -17,7 +17,7 @@
 ```
 
 ---
-or download [servletio-1.1.jar](https://mega.nz/#!h0lVGYjL!pKf_q6WPZRQT_5epzcY4TzNbPaKz05oejEXIAoVIc6M)
+Or download [servletio-1.1.jar](https://mega.nz/#!h0lVGYjL!pKf_q6WPZRQT_5epzcY4TzNbPaKz05oejEXIAoVIc6M)
 
 ## Getting Started
 Add **"/*"** to your mapped url, example: ```@WebServlet("/your-path/*")```, and replace the super class ```HttpServlet``` by ```ServletIO```
