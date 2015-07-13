@@ -19,7 +19,7 @@
 ---
 or download [servletio-1.1.jar](https://mega.nz/#!h0lVGYjL!pKf_q6WPZRQT_5epzcY4TzNbPaKz05oejEXIAoVIc6M)
 
-## Get Started
+## Getting Started
 Add **"/*"** to your mapped url, example: ```@WebServlet("/your-path/*")```, and replace the super class ```HttpServlet``` by ```ServletIO```
 
 ```java
@@ -155,18 +155,18 @@ public class MyApp extends ServletIO {
 You can either user ```Request``` or ```Response``` only as method parameters. This classes wrap HttpServletRequest and HttpServletResponse and offer some facilities. The most prominents are:
 
 ###### Request
-- ```request.bindParam(MyBean.class)``` return a instance of ```MyBean``` with all values of HTML form, mapping by bean properties names;
+- ```request.bindParam(MyBean.class)``` return a instance of ```MyBean``` with all values of HTML form, mapping by bean properties names.
 - ```request.getFile("paramName")``` return a File with the uploaded file reference.
-- ```request.dispatcher(dispatcherName)``` return an instance of ```servletio.Dispatcher```, wrap of ```RequestDispatcher```
-- ```request.raw``` final propierty with ```HttpServletRequest``` object reference of the current request
+- ```request.dispatcher(dispatcherName)``` return an instance of ```servletio.Dispatcher```, wrap of ```RequestDispatcher```.
+- ```request.raw``` final propierty with ```HttpServletRequest``` object reference of the current request.
 
 ###### Response
-- ```response.print(htmlString, contentType)```
-- ```response.print(text)``` print text plain
-- ```response.printHtml(htmlString)``` print text with HTML content type
-- ```response.printXml(xmlString)``` print text with XML content type
-- ```response.printJson(xmlString)``` print text with JSON content type
-- ```response.redirect(location)``` redirect
-- ```response.redirect(location, httpStatusCode)``` redirect with status code (int)
+- ```response.print(htmlString, contentType)```.
+- ```response.print(text)``` print text plain.
+- ```response.printHtml(htmlString)``` print text with HTML content type.
+- ```response.printXml(xmlString)``` print text with XML content type.
+- ```response.printJson(xmlString)``` print text with JSON content type.
+- ```response.redirect(location)``` redirect to the specified location.
+- ```response.redirect(location, httpStatusCode)``` redirect to the specified location with status code (int).
 - ```response.badRequest()``` throws 404 to the browser
 - ```response.raw``` final propierty with ```HttpServletResponse``` object reference of the current request
