@@ -78,11 +78,8 @@ Methods annotated with the @Before annotation are executed before each action ca
 ```java
 import javax.servlet.annotation.WebServlet;
 
-import servletio.Request;
-import servletio.Response;
-import servletio.ServletIO;
-import servletio.annotation.Before;
-import servletio.annotation.Get;
+import servletio.*;
+import servletio.annotation.*;
 
 @WebServlet("/base-path/*")
 public class MyApp extends ServletIO {
@@ -110,9 +107,7 @@ If you don’t want the @Before or @After method to intercept all request, you c
 ```java
 import javax.servlet.annotation.WebServlet;
 
-import servletio.Request;
-import servletio.Response;
-import servletio.ServletIO;
+import servletio.*;
 import servletio.annotation.*;
 
 @WebServlet("/base-path/*")
@@ -137,9 +132,7 @@ Or you can specify a list of actions to exclude for @After or @Before using the 
 ```java
 import javax.servlet.annotation.WebServlet;
 
-import servletio.Request;
-import servletio.Response;
-import servletio.ServletIO;
+import servletio.*;
 import servletio.annotation.*;
 
 @WebServlet("/base-path/*")
