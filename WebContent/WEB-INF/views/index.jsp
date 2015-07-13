@@ -8,12 +8,10 @@
 	</head>
 	
 	<body>
-		<% out.println("PEPE"); %>
-		
-		<form action="http://localhost:8080/ManguServer/ola" method="POST">
+		<form action="http://localhost:8080/servletio/path/form" method="POST">
 			<input type="text" name="name" />
-			<input type="text" name="lastName" />
-			<input type="text" name="age" />
+			<input type="text" name="lastname" />
+			<input type="text" name="numericTest" />
 			
 			<input type="submit">
 		</form>	
