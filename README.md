@@ -81,7 +81,7 @@ ServletIO contains some helper methods that return objects Result:
 - ```status(statusCode, content)``` returns HTTP results with the specified status.
 - ```badRequest(optionalContent)```returns HTTP results with the 400 code.
 - ```notFound(optionalContent)``` returns HTTP results with the 404 code.
-- ```redirect(optionalStatusCode, target)``` returns HTTP results with the 404 code.
+- ```redirect(optionalStatusCode, target)``` redirect to the target.
 
 #### @Before and @After
 
