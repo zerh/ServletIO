@@ -155,10 +155,10 @@ import servletio.annotation.*;
 @WebServlet("/base-path/*")
 public class MyApp extends ServletIO {
     
-    @Before(unless={"/index"})
+    @Before(unless={"/login"})
     public void validateUser(Request req, Response res){
         if(req.session().attribute("user")==null)
-            res.printHtml("bye bye!!");
+            req.dispatcher("/base-path/login").forward(req, res);
     }
     ...
 }
