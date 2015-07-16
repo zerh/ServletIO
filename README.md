@@ -114,7 +114,7 @@ public class MyApp extends ServletIO {
 
 }
 ```
-If you don’t want the ```@Before``` or ```@After``` method to intercept all request, you can specify a list of actions using only param:
+If you don’t want the ```@Before``` or ```@After``` method to intercept all request, you can specify a list of actions using ```only``` param:
 
 ```java
 import javax.servlet.annotation.WebServlet;
@@ -144,7 +144,7 @@ public class MyApp extends ServletIO {
 }
 ```
 
-Or you can specify a list of actions to exclude for ```@After``` or ```@Before``` using the unless param:
+Or you can specify a list of actions to exclude for ```@After``` or ```@Before``` using the ```unless``` param:
 
 ```java
 import javax.servlet.annotation.WebServlet;
