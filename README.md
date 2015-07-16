@@ -103,9 +103,8 @@ public class MyApp extends ServletIO {
     
     @Before()
     public void validateUser(Request req, Response res){
-        if(req.session().attribute("user")==null){
-            req.dispatcher("/base-path/index").forward(req, res);
-        }
+        if(req.session().attribute("user")==null)
+            res.printHtml("bye bye!!");
     }
     
     @After()
