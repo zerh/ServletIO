@@ -8,10 +8,17 @@ public class Result {
     String content;
     String contentType;
     
+    String redirect;
+    String foward;
+    
     Result(String content){ this.content = content; }
     Result(){}
     
-    void printContent(Response res){
+    void resultLogic(Response res){
+        
+        if(redirect!=null)
+            res.redirect(redirect);
+        
         if(contentType!=null)
             res.print(content, contentType);
         else
