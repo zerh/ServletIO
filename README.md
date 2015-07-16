@@ -75,7 +75,7 @@ Of course, you also can use:
 - ```@Options```
 
 #### Result
-Totally inspired by (Play Framework)[https://www.playframework.com/], is an elegant way to declare controllers methods. The ```Result``` object wrap with ```ServletIO``` the printers methos of the ```Response``` object, to produce standard HTTP results. 
+Totally inspired by [Play Framework](https://www.playframework.com/), is an elegant way to declare controllers methods. The ```Result``` object wrap with ```ServletIO``` the printers methos of the ```Response``` object, to produce standard HTTP results. 
 
 ServletIO contains some helper methods that return objects Result:
 
