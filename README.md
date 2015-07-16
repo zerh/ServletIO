@@ -40,7 +40,7 @@ public class MyApp extends ServletIO {
     }
     
     @Get("/hello")
-    public Result index(Response res){
+    public Result index(Request req){
         return ok("<h1>hello world</h1>").as("text/html");
     }
 }
