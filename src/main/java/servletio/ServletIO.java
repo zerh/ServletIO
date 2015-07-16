@@ -95,6 +95,20 @@ public class ServletIO extends HttpServlet {
         return result;
     }
     
+    protected static Result redirect(Integer status, String target){
+        Result result = new Result();
+        result.redirect = target;
+        result.status = status;
+        return result;
+    }
+    
+    protected static Result redirect(String target){
+        Result result = new Result();
+        result.redirect = target;
+        return result;
+    }
+    
+    
     private void map() {
 
         for (Method m : getPublicMethods(getClass())) {
@@ -241,27 +255,13 @@ public class ServletIO extends HttpServlet {
                 if(m.getReturnType().equals(Result.class)){
                     try{
                         Result result = (Result)m.invoke(this, new Request(request));
-                        result.printContent(new Response(response));
+                        result.resultLogic(new Response(response));
                     }catch(Exception ex){ 
                         new Response(response).badRequest();
                     }
                 }
                 
                 Class<?>[] types = m.getParameterTypes();
-                if (types.length == 1) {
-                    if (types[0].isAssignableFrom(Request.class)) {
-                        m.invoke(this, new Request(request));
-                    } else if (types[0].isAssignableFrom(Response.class)) {
-                        m.invoke(this, new Response(response));
-                    } else if (types[0]
-                            .isAssignableFrom(HttpServletResponse.class)) {
-                        m.invoke(this, response);
-                    } else if (types[0]
-                            .isAssignableFrom(HttpServletRequest.class)) {
-                        m.invoke(this, request);
-                    }
-                }
-
                 if (types.length == 2) {
                     if (types[0].isAssignableFrom(HttpServletRequest.class)
                             && types[1]
