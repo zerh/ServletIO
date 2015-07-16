@@ -205,7 +205,7 @@ public class Response {
         try {
             PrintWriter pw = raw.getWriter();
             raw.setContentType(contentType);
-            pw.print(o);
+            if(o!=null) pw.print(o);
             pw.close();
         } catch (IOException ex) {
             ex.printStackTrace();

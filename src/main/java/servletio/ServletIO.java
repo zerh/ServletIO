@@ -52,7 +52,49 @@ public class ServletIO extends HttpServlet {
     public ServletConfig getServletConfig() {
         return servletConfig;
     }
-
+    
+    protected static Result ok(String content){
+        Result result = new Result(content);
+        result.status = HttpServletResponse.SC_OK;
+        return result; 
+    }
+    
+    protected static Result internalServerError(String content){
+        Result result = new Result(content);
+        result.status = HttpServletResponse.SC_INTERNAL_SERVER_ERROR;
+        return result; 
+    }
+    
+    protected static Result status(Integer status, String content){
+        Result result = new Result(content);
+        result.status = status;
+        return result; 
+    }
+    
+    protected static Result badRequest(){
+        Result result = new Result();
+        result.status = HttpServletResponse.SC_BAD_REQUEST;
+        return result;
+    }
+    
+    protected static Result badRequest(String content){
+        Result result = new Result(content);
+        result.status = HttpServletResponse.SC_BAD_REQUEST;
+        return result;
+    }
+    
+    protected static Result notFound(String content){
+        Result result = new Result(content);
+        result.status = HttpServletResponse.SC_NOT_FOUND;
+        return result; 
+    }
+    
+    protected static Result notFound(){
+        Result result = new Result();
+        result.status = HttpServletResponse.SC_NOT_FOUND;
+        return result;
+    }
+    
     private void map() {
 
         for (Method m : getPublicMethods(getClass())) {
@@ -117,17 +159,16 @@ public class ServletIO extends HttpServlet {
             }
         };
 
-        beforeList.sort(comp);
-        afterList.sort(comp);
+        Collections.sort(beforeList, comp);
+        Collections.sort(afterList, comp);
     }
-
     private String urlPath(HttpServletRequest request) {
         String uri = request.getRequestURI();
         String ctx = request.getContextPath();
         String servletPath = request.getServletPath();
         return uri.substring(ctx.length() + servletPath.length(), uri.length());
     }
-
+    
     private void callBeforeMethods(HttpServletRequest request,
             HttpServletResponse response) {
         if (!beforeList.isEmpty()) {
@@ -196,6 +237,16 @@ public class ServletIO extends HttpServlet {
             HttpServletResponse response) {
         try {
             if (m != null) {
+                
+                if(m.getReturnType().equals(Result.class)){
+                    try{
+                        Result result = (Result)m.invoke(this, new Request(request));
+                        result.printContent(new Response(response));
+                    }catch(Exception ex){ 
+                        new Response(response).badRequest();
+                    }
+                }
+                
                 Class<?>[] types = m.getParameterTypes();
                 if (types.length == 1) {
                     if (types[0].isAssignableFrom(Request.class)) {
@@ -223,12 +274,15 @@ public class ServletIO extends HttpServlet {
                     }
                 }
             }
-        } catch (IllegalAccessException | IllegalArgumentException
-                | InvocationTargetException e) {
+        } catch (IllegalAccessException e){
+            e.printStackTrace();
+        } catch(IllegalArgumentException e) {
+            e.printStackTrace();
+        } catch(InvocationTargetException e) {
             e.printStackTrace();
         }
     }
-
+    
     public static final List<Method> getPublicMethods(Class<?> clazz) {
         List<Method> methods = new ArrayList<Method>();
         for (Method method : clazz.getMethods()) {
