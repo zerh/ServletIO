@@ -40,8 +40,8 @@ public class MyApp extends ServletIO {
     }
     
     @Get("/hello")
-    public void index(Response res){
-        res.printHtml("<h1>hello world</h1>");
+    public Result index(Response res){
+        return ok("<h1>hello world</h1>").as("text/html");
     }
 }
 
@@ -62,8 +62,8 @@ public class MyApp extends ServletIO {
     }
 
     @Get("/index")
-    public void index(Request req, Response res){
-        res.printHtml("<h1>hello world</h1>");
+    public Result index(Request req){
+        return ok("<h1>hello world</h1>").as("text/html");
     }
 }
 ```
@@ -88,8 +88,8 @@ import servletio.annotation.*;
 public class MyApp extends ServletIO {
 
     @Get("/index")
-    public void index(Response res){
-        res.printHtml("<h1>hello world</h1>");
+    public Result index(Request req){
+        return ok("<h1>hello world</h1>").as("text/html");
     }
     
     @Before()
@@ -117,8 +117,8 @@ import servletio.annotation.*;
 public class MyApp extends ServletIO {
     
     @Get("/login")
-    public void login(Request req, Response res){
-    	res.printHtml("<h1>login</h1>");
+    public Result login(Request req, Response res){
+    	return ok("<h1>login</h1>").as("text/html");
     }
     
     @Before(only={"/admin"})
