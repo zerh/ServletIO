@@ -74,6 +74,17 @@ Of course, you also can use:
 - ```@Delete```
 - ```@Options```
 
+#### Result
+Totally inspired by Play Framework, is an elegant way to declare controllers methods. The ```Result``` object wrap with ```ServletIO``` the printers methos of the ```Response``` object, to produce standard HTTP results. 
+
+ServletIO contains some helper methods that return objects Result:
+
+- ```ok(content)``` returns HTTP results with the 200 code;.
+- ```internalServerError(content)``` returns HTTP results with the 500 code.
+- ```status(statusCode, content)``` returns HTTP results with the specified status.
+- ```badRequest(optionalContent)```returns HTTP results with the 400 code.
+- ```notFound(optionalContent)``` returns HTTP results with the 404 code.
+
 #### @Before and @After
 
 Methods annotated with the ```@Before``` annotation are executed before each action call for ```ServletIO```, and methods annotated with the ```@After``` annotation are executed after each action call for the Servlet:
