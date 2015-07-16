@@ -15,6 +15,8 @@
     <version>d19bdceefe</version>
 </dependency>
 ```
+---
+**Note:** since Servlet **3.0** or higher
 
 ## Getting Started
 Add **"/*"** to your mapped url, example: ```@WebServlet("/your-path/*")```, and replace the super class ```HttpServlet``` by ```ServletIO```
