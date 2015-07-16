@@ -252,16 +252,17 @@ public class ServletIO extends HttpServlet {
         try {
             if (m != null) {
                 
-                if(m.getReturnType().equals(Result.class)){
+                Class<?>[] types = m.getParameterTypes();
+                
+                if(m.getReturnType().equals(Result.class) && types.length == 1 && types[0].isAssignableFrom(Request.class)){
                     try{
                         Result result = (Result)m.invoke(this, new Request(request));
                         result.resultLogic(new Response(response));
                     }catch(Exception ex){ 
-                        new Response(response).badRequest();
+                        ex.printStackTrace();
                     }
                 }
                 
-                Class<?>[] types = m.getParameterTypes();
                 if (types.length == 2) {
                     if (types[0].isAssignableFrom(HttpServletRequest.class)
                             && types[1]
