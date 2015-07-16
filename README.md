@@ -125,7 +125,7 @@ import servletio.annotation.*;
 public class MyApp extends ServletIO {
     
     @Get("/login")
-    public Result login(Request req, Response res){
+    public Result login(Request req){
     	return ok("<h1>login</h1>").as("text/html");
     }
     
