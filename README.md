@@ -73,7 +73,7 @@ Of course, you also can use:
 - ```@Delete```
 - ```@Options```
 
-#### Result
+### Result
 Totally inspired by [Play Framework](https://www.playframework.com/), is an elegant way to declare controllers methods. The ```Result``` object wraps with ```ServletIO``` the printers methos of the ```Response``` object, to produce standard HTTP results. 
 
 ServletIO contains some helper methods that return objects Result:
@@ -85,7 +85,7 @@ ServletIO contains some helper methods that return objects Result:
 - ```notFound(optionalContent)``` returns HTTP results with the 404 code.
 - ```redirect(optionalStatusCode, target)``` redirect to the target.
 
-#### @Before and @After
+### @Before and @After
 
 Methods annotated with the ```@Before``` annotation are executed before each action call for ```ServletIO```, and methods annotated with the ```@After``` annotation are executed after each action call for the Servlet:
 
@@ -166,7 +166,7 @@ public class MyApp extends ServletIO {
 }
 ```
 
-#### Request and Response
+### Request and Response
 
 You can either use ```Request``` or ```Response``` only as method parameters. This classes wrap HttpServletRequest and HttpServletResponse and offer some facilities. The most prominents are:
 
