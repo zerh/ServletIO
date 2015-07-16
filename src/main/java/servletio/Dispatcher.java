@@ -25,13 +25,14 @@ public class Dispatcher implements RequestDispatcher {
     public void include(ServletRequest arg0, ServletResponse arg1)
             throws ServletException, IOException {
         raw.include(arg0, arg1);
-        ;
     }
 
     public void forward(Request req, Response res) {
         try {
             forward(req.raw, res.raw);
-        } catch (IOException | ServletException ex) {
+        } catch (IOException ex){
+            ex.toString();
+        } catch(ServletException ex) {
             ex.printStackTrace();
         }
     }
@@ -39,7 +40,9 @@ public class Dispatcher implements RequestDispatcher {
     public void include(Request req, Response res) {
         try {
             include(req.raw, res.raw);
-        } catch (ServletException | IOException ex) {
+        } catch (IOException ex){
+            ex.toString();
+        } catch(ServletException ex) {
             ex.printStackTrace();
         }
     }

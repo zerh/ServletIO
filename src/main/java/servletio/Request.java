@@ -105,7 +105,10 @@ public class Request {
                 ex.printStackTrace();
                 return null;
             }
-        } catch (IOException | ServletException ex) {
+        } catch (IOException ex){
+            ex.printStackTrace();
+            return null;
+        } catch(ServletException ex) {
             ex.printStackTrace();
             return null;
         }
@@ -127,8 +130,11 @@ public class Request {
     public Part part(String name) {
         try {
             return raw.getPart(name);
-        } catch (IOException | ServletException e) {
-            e.printStackTrace();
+        } catch (IOException ex){
+            ex.printStackTrace();
+            return null;
+        } catch(ServletException ex) {
+            ex.printStackTrace();
             return null;
         }
     }
@@ -136,8 +142,11 @@ public class Request {
     public Collection<Part> parts() {
         try {
             return raw.getParts();
-        } catch (IOException | ServletException e) {
-            e.printStackTrace();
+        } catch (IOException ex){
+            ex.printStackTrace();
+            return null;
+        } catch(ServletException ex) {
+            ex.printStackTrace();
             return null;
         }
     }
@@ -349,9 +358,14 @@ public class Request {
                     }
                 }
             }
-        } catch (InstantiationException | IllegalAccessException
-                | IllegalArgumentException | InvocationTargetException e) {
-            e.printStackTrace();
+        } catch (InstantiationException ex){
+            ex.printStackTrace();
+        } catch(IllegalAccessException ex){
+            ex.printStackTrace();
+        } catch(IllegalArgumentException ex){
+            ex.printStackTrace();
+        } catch(InvocationTargetException ex) {
+            ex.printStackTrace();
         }
 
         return returnObject;
