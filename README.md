@@ -74,7 +74,8 @@ Of course, you also can use:
 - ```@Options```
 
 ### Result
-Totally inspired by [Play Framework](https://www.playframework.com/), is an elegant way to declare controllers methods. The ```Result``` object wraps with ```ServletIO``` the printers methos of the ```Response``` object, to produce standard HTTP results. The ```as(contentType)``` method returns the same instance of the ```Result``` Object, but assigning the cotent type to the result data.
+
+Inspired by [Play Framework](https://www.playframework.com/), ```Result``` object is just an elegant way to declare controllers methods. The ```Result``` object wraps with ```ServletIO``` the printers methos of the ```Response``` object, to produce standard HTTP results. The ```as(contentType)``` method returns the same instance of the ```Result``` object, but assigning the cotent type to the result data.
 
 ServletIO contains some helper methods that return objects Result:
 
