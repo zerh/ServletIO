@@ -19,7 +19,7 @@
 **Note:** since Servlet **3.0** or higher
 
 ## Getting Started
-Add **"/*"** to your mapped url, example: ```@WebServlet("/your-path/*")```, and replace the super class ```HttpServlet``` by ```ServletIO```
+Add **"/*"** to your mapped url, example: ```@WebServlet("/your-path/*")```, and replace the super class ```HttpServlet``` by ```ServletIO```.
 
 ```java
 import javax.servlet.ServletException;
@@ -45,7 +45,7 @@ public class MyApp extends ServletIO {
 }
 
 ```
-Or put your old ```doGet``` code inside another method mapped with the base path
+Or put your old ```doGet``` code inside another method mapped with the base path:
 ```java
 import javax.servlet.annotation.WebServlet;
 
@@ -185,5 +185,5 @@ You can either use ```Request``` or ```Response``` only as method parameters. Th
 - ```response.printJson(xmlString)``` print text with JSON content type.
 - ```response.redirect(location)``` redirect to the specified location.
 - ```response.redirect(location, httpStatusCode)``` redirect to the specified location with status code (int).
-- ```response.badRequest()``` throws 404 to the browser
+- ```response.badRequest()``` throws 404 to the browser.
 - ```response.raw``` final propierty with ```HttpServletResponse``` object reference of the current request
