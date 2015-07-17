@@ -74,11 +74,11 @@ Of course, you also can use:
 - ```@Options```
 
 ### Result
-Totally inspired by [Play Framework](https://www.playframework.com/), is an elegant way to declare controllers methods. The ```Result``` object wraps with ```ServletIO``` the printers methos of the ```Response``` object, to produce standard HTTP results. 
+Totally inspired by [Play Framework](https://www.playframework.com/), is an elegant way to declare controllers methods. The ```Result``` object wraps with ```ServletIO``` the printers methos of the ```Response``` object, to produce standard HTTP results. The ```as(contentType)``` method returns the same instance of the ```Result``` Object, but assigning the cotent type to the result data.
 
 ServletIO contains some helper methods that return objects Result:
 
-- ```ok(content)``` returns HTTP results with the 200 code;.
+- ```ok(content)``` returns HTTP results with the 200 code.
 - ```internalServerError(content)``` returns HTTP results with the 500 code.
 - ```status(statusCode, content)``` returns HTTP results with the specified status.
 - ```badRequest(optionalContent)```returns HTTP results with the 400 code.
