@@ -294,45 +294,40 @@ public class ServletIO extends HttpServlet {
         return Collections.unmodifiableList(methods);
     }
 
+    protected void process(Method method, HttpServletRequest request,
+            HttpServletResponse response){
+        callBeforeMethods(request, response);
+        callMethod(method, request, response);
+        callAfterMethods(request, response);
+    }
+    
     protected void doGet(HttpServletRequest request,
             HttpServletResponse response) throws ServletException, IOException {
-
         Method m = urlGetMap.get(urlPath(request));
-        callBeforeMethods(request, response);
-        callMethod(m, request, response);
-        callAfterMethods(request, response);
-
+        process(m, request, response);
     }
 
     protected void doPost(HttpServletRequest request,
             HttpServletResponse response) throws ServletException, IOException {
         Method m = urlPostMap.get(urlPath(request));
-        callBeforeMethods(request, response);
-        callMethod(m, request, response);
-        callAfterMethods(request, response);
+        process(m, request, response);
     }
 
     protected void doPut(HttpServletRequest request,
             HttpServletResponse response) throws ServletException, IOException {
         Method m = urlPutMap.get(urlPath(request));
-        callBeforeMethods(request, response);
-        callMethod(m, request, response);
-        callAfterMethods(request, response);
+        process(m, request, response);
     }
 
     protected void doDelete(HttpServletRequest request,
             HttpServletResponse response) throws ServletException, IOException {
         Method m = urlDeleteMap.get(urlPath(request));
-        callBeforeMethods(request, response);
-        callMethod(m, request, response);
-        callAfterMethods(request, response);
+        process(m, request, response);
     }
 
     protected void doOptions(HttpServletRequest request,
             HttpServletResponse response) throws ServletException, IOException {
         Method m = urlOptionsMap.get(urlPath(request));
-        callBeforeMethods(request, response);
-        callMethod(m, request, response);
-        callAfterMethods(request, response);
+        process(m, request, response);
     }
 }
