@@ -77,13 +77,13 @@ Of course, you also can use:
 
 ### Result
 
-Inspired by [Play Framework](https://www.playframework.com/), ```Result``` object is just an elegant way to declare controllers methods. The ```Result``` object wraps with ```ServletIO``` the methods printers of the ```Response``` object, to produce standard HTTP results. The methods```as(contentType)```, ```withCookies(Cookies...)``` and ```discardingCookies(Cookies...)```  returns the same instance of the ```Result``` object.
+Inspired by [Play Framework](https://www.playframework.com/), ```Result``` object is just an elegant way to declare controllers methods. The ```Result``` object wraps with ```ServletIO``` the methods printers of the ```Response``` object, to produce standard HTTP results. The methods```java as(String contentType)```, ```withCookies(Cookies... cookies)``` and ```discardingCookies(Cookies... cookies)```  returns the same instance of the ```Result``` object.
 
 ServletIO contains some helper methods that return objects Result:
 
-- ```ok(content)``` returns HTTP results with the 200 code.
-- ```internalServerError(content)``` returns HTTP results with the 500 code.
-- ```status(statusCode, content)``` returns HTTP results with the specified status.
+- ```ok(String content)``` returns HTTP results with the 200 code.
+- ```internalServerError(String content)``` returns HTTP results with the 500 code.
+- ```status(int statusCode, String content)``` returns HTTP results with the specified status.
 - ```badRequest(optionalContent)```returns HTTP results with the 400 code.
 - ```notFound(optionalContent)``` returns HTTP results with the 404 code.
 - ```redirect(optionalStatusCode, target)``` redirect to the target.
@@ -176,17 +176,17 @@ You can either use ```Request``` or ```Response``` only as method parameters. Th
 
 ###### Request
 - ```request.bindParam(MyBean.class)``` return a instance of ```MyBean``` with all values of HTML form, mapping by bean properties names.
-- ```request.getFile("paramName")``` return a File with the uploaded file reference.
-- ```request.dispatcher(dispatcherName)``` return an instance of ```servletio.Dispatcher```, wrap of ```RequestDispatcher```.
+- ```request.getFile(String paramName)``` return a File with the uploaded file reference.
+- ```request.dispatcher(String dispatcherName)``` return an instance of ```servletio.Dispatcher```, wrap of ```RequestDispatcher```.
 - ```request.raw``` final propierty with ```HttpServletRequest``` object reference of the current request.
 
 ###### Response
-- ```response.print(htmlString, contentType)```.
-- ```response.print(text)``` print text plain.
-- ```response.printHtml(htmlString)``` print text with HTML content type.
-- ```response.printXml(xmlString)``` print text with XML content type.
-- ```response.printJson(xmlString)``` print text with JSON content type.
-- ```response.redirect(location)``` redirect to the specified location.
-- ```response.redirect(location, httpStatusCode)``` redirect to the specified location with status code.
+- ```response.print(String htmlString, String contentType)```.
+- ```response.print(String text)``` print text plain.
+- ```response.printHtml(String htmlString)``` print text with HTML content type.
+- ```response.printXml(String xmlString)``` print text with XML content type.
+- ```response.printJson(String xmlString)``` print text with JSON content type.
+- ```response.redirect(String location)``` redirect to the specified location.
+- ```response.redirect(String location, int httpStatusCode)``` redirect to the specified location with status code.
 - ```response.badRequest()``` throws 404 to the browser.
 - ```response.raw``` final propierty with ```HttpServletResponse``` object reference of the current request
