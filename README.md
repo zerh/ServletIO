@@ -106,13 +106,13 @@ public class MyApp extends ServletIO {
         return ok("<h1>hello world</h1>").as("text/html");
     }
     
-    @Before()
+    @Before
     public void validateUser(Request req, Response res){
         if(req.session().attribute("user")==null)
             res.printHtml("bye bye!!");
     }
     
-    @After()
+    @After
     public void log(Request req, Response res){
         System.out.println("Action executed...");
     }
