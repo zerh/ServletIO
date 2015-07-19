@@ -7,7 +7,7 @@ public class Result {
     
     Integer status = HttpServletResponse.SC_OK;
     String content;
-    String contentType = "text/html";
+    String contentType;
     String redirect;
     String foward;
     Cookie[] cookies;
