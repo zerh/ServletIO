@@ -170,6 +170,26 @@ public class MyApp extends ServletIO {
 }
 ```
 
+The parameters unless or only could receive path with "**/***" at the end, so Before or After could filter every request that begins with the specified path.
+
+```java
+import javax.servlet.annotation.WebServlet;
+
+import servletio.*;
+import servletio.annotation.*;
+
+@WebServlet("/base-path/*")
+public class MyApp extends ServletIO {
+    
+    @Before(only={"/admin/*"})
+    public void validateUser(Request req, Response res){
+        if(req.session().attribute("user")==null)
+            req.dispatcher("/base-path/login").forward(req, res);
+    }
+    ...
+}
+```
+
 ### Request and Response
 
 You can either use ```Request``` or ```Response``` only as method parameters. This classes wrap HttpServletRequest and HttpServletResponse and offer some facilities. The most prominents are:
