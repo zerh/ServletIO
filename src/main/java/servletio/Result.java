@@ -1,5 +1,6 @@
 package servletio;
 
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletResponse;
 
 public class Result {
@@ -7,22 +8,36 @@ public class Result {
     Integer status = HttpServletResponse.SC_OK;
     String content;
     String contentType;
-    
     String redirect;
     String foward;
+    Cookie[] cookies;
+    Cookie[] discardingCookies;
     
-    Result(String content){ this.content = content; }
+    Result(String content){
+        this.content = content;
+    }
+    
     Result(){}
     
     void resultLogic(Response res){
         
-        if(redirect!=null)
-            res.redirect(redirect);
+        if(redirect!=null) res.redirect(redirect);
         
-        if(contentType!=null)
+        if(cookies!=null)
+            for(Cookie cookie : cookies) res.raw.addCookie(cookie);
+        
+        if(discardingCookies!=null){
+            for(Cookie cookie: discardingCookies){
+                cookie.setMaxAge(0);
+                res.raw.addCookie(cookie);
+            }
+        }
+        
+        if(contentType!=null){
             res.print(content, contentType);
-        else
+        }else{
             res.print(content);
+        }
         
         res.status(status);
     }
@@ -32,4 +47,13 @@ public class Result {
         return this;
     }
     
+    public Result withCookies(Cookie... cookies){
+        this.cookies = cookies;
+        return this;
+    }
+    
+    public Result discardingCookies(Cookie... discardingCookies){
+        this.discardingCookies = discardingCookies;
+        return this;
+    }
 }

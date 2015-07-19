@@ -8,12 +8,9 @@ import javax.servlet.http.HttpServletResponse;
 
 public class Response {
 
-    public HttpServletResponse raw;
+    public final HttpServletResponse raw;
     private String body;
 
-    protected Response() {
-
-    }
 
     Response(HttpServletResponse response) {
         this.raw = response;
@@ -201,30 +198,31 @@ public class Response {
      * @param Object
      *            to print
      */
-    public void print(Object o, String contentType) {
+    public void print(String text, String contentType) {
         try {
+            System.out.print(text);
             PrintWriter pw = raw.getWriter();
             raw.setContentType(contentType);
-            if(o!=null) pw.print(o);
+            if(text!=null) pw.print(text);
             pw.close();
         } catch (IOException ex) {
             ex.printStackTrace();
         }
     }
 
-    public void print(Object o) {
-        print(o, "text/plain");
+    public void print(String text) {
+        print(text, "text/plain");
     }
 
-    public void printHtml(Object o) {
-        print(o, "text/html");
+    public void printHtml(String text) {
+        print(text, "text/html");
     }
 
-    public void printJson(Object o) {
-        print(o, "application/json");
+    public void printJson(String text) {
+        print(text, "application/json");
     }
 
-    public void printXml(Object o) {
-        print(o, "application/xml");
+    public void printXml(String text) {
+        print(text, "application/xml");
     }
 }
