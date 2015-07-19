@@ -17,10 +17,17 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import servletio.annotation.*;
+import servletio.annotation.After;
+import servletio.annotation.Before;
+import servletio.annotation.Delete;
+import servletio.annotation.Get;
+import servletio.annotation.Options;
+import servletio.annotation.Post;
+import servletio.annotation.Put;
 
-public class ServletIO extends HttpServlet {
-    private static final long serialVersionUID = 1L;
+public class ServletIO extends HttpServlet{
+    
+    private static final long serialVersionUID = -2453789677978887728L;
 
     private ServletConfig servletConfig;
 
@@ -108,6 +115,13 @@ public class ServletIO extends HttpServlet {
         return result;
     }
     
+    protected static Result temporaryRedirect(String target){
+        Result result = new Result();
+        result.redirect = target;
+        result.status = HttpServletResponse.SC_TEMPORARY_REDIRECT;
+        return result;
+    }
+    
     
     private void map() {
 
@@ -115,6 +129,7 @@ public class ServletIO extends HttpServlet {
 
             if (m.isAnnotationPresent(After.class))
                 afterList.add(m);
+            
             if (m.isAnnotationPresent(Before.class))
                 beforeList.add(m);
 
@@ -176,6 +191,7 @@ public class ServletIO extends HttpServlet {
         Collections.sort(beforeList, comp);
         Collections.sort(afterList, comp);
     }
+    
     private String urlPath(HttpServletRequest request) {
         String uri = request.getRequestURI();
         String ctx = request.getContextPath();
@@ -259,7 +275,7 @@ public class ServletIO extends HttpServlet {
                         Result result = (Result)m.invoke(this, new Request(request));
                         result.resultLogic(new Response(response));
                     }catch(Exception ex){ 
-                        ex.printStackTrace();
+                        response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
                     }
                 }
                 

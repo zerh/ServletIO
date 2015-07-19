@@ -11,9 +11,7 @@ import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.util.Collection;
 import java.util.Enumeration;
-import java.util.HashMap;
 import java.util.HashSet;
-import java.util.Map;
 import java.util.Set;
 import java.util.TreeSet;
 
@@ -43,10 +41,9 @@ public class Request {
     public final String contextPath;
     public final String contentType;
     public final int contentLength;
-
+    
     public final int port;
-
-    public final Map<String, String> cookies;
+    public final Cookie[] cookies;
     public final Set<String> attributes;
     public final Set<String> queryParams;
     public final Set<String> headers;
@@ -71,7 +68,7 @@ public class Request {
         contentLength = request.getContentLength();
         queryParams = request.getParameterMap().keySet();
 
-        cookies = cookies();
+        cookies = raw.getCookies();
         attributes = attributes();
         headers = headers();
     }
@@ -267,32 +264,18 @@ public class Request {
     }
 
     /**
-     * @return request cookies (or empty Map if cookies dosn't present)
-     */
-    private Map<String, String> cookies() {
-        Map<String, String> result = new HashMap<String, String>();
-        Cookie[] cookies = raw.getCookies();
-        if (cookies != null) {
-            for (Cookie cookie : cookies) {
-                result.put(cookie.getName(), cookie.getValue());
-            }
-        }
-        return result;
-    }
-
-    /**
      * Gets cookie by name.
      *
      * @param name
      *            name of the cookie
-     * @return cookie value or null if the cookie was not found
+     * @return <code>Cookie</code> with the specified name
      */
-    public String cookie(String name) {
+    public Cookie cookie(String name) {
         Cookie[] cookies = raw.getCookies();
         if (cookies != null) {
             for (Cookie cookie : cookies) {
                 if (cookie.getName().equals(name)) {
-                    return cookie.getValue();
+                    return cookie;
                 }
             }
         }
