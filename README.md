@@ -77,7 +77,7 @@ Of course, you also can use:
 
 ### Result
 
-Inspired by [Play Framework](https://www.playframework.com/), ```Result``` object is just an elegant way to declare controllers methods. The ```Result``` object wraps with ```ServletIO``` the methods printers of the ```Response``` object, to produce standard HTTP results. The methods```as(String contentType)```, ```withCookies(Cookies... cookies)``` and ```discardingCookies(Cookies... cookies)```  returns the same instance of the ```Result``` object.
+Inspired by [Play Framework](https://www.playframework.com/), ```Result``` is just an elegant way to declare controllers methods. The ```Result``` object wraps with ```ServletIO``` the methods printers of the ```Response``` object, to produce standard HTTP results. The methods```as(String contentType)```, ```withCookies(Cookies... cookies)``` and ```discardingCookies(Cookies... cookies)```  returns the same instance of the ```Result``` object.
 
 ServletIO contains some helper methods that return objects Result:
 
