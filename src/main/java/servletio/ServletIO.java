@@ -19,8 +19,8 @@ import javax.servlet.http.HttpServletResponse;
 
 import servletio.annotation.*;
 
-public class ServletIO extends HttpServlet{
-    
+public class ServletIO extends HttpServlet {
+
     private static final long serialVersionUID = -2453789677978887728L;
 
     private ServletConfig servletConfig;
@@ -53,77 +53,76 @@ public class ServletIO extends HttpServlet{
     public ServletConfig getServletConfig() {
         return servletConfig;
     }
-    
-    protected static Result ok(String content){
+
+    protected static Result ok(String content) {
         Result result = new Result(content);
         result.status = HttpServletResponse.SC_OK;
-        return result; 
+        return result;
     }
-    
-    protected static Result internalServerError(String content){
+
+    protected static Result internalServerError(String content) {
         Result result = new Result(content);
         result.status = HttpServletResponse.SC_INTERNAL_SERVER_ERROR;
-        return result; 
+        return result;
     }
-    
-    protected static Result status(Integer status, String content){
+
+    protected static Result status(int status, String content) {
         Result result = new Result(content);
         result.status = status;
-        return result; 
+        return result;
     }
-    
-    protected static Result badRequest(){
+
+    protected static Result badRequest() {
         Result result = new Result();
         result.status = HttpServletResponse.SC_BAD_REQUEST;
         return result;
     }
-    
-    protected static Result badRequest(String content){
+
+    protected static Result badRequest(String content) {
         Result result = new Result(content);
         result.status = HttpServletResponse.SC_BAD_REQUEST;
         return result;
     }
-    
-    protected static Result notFound(String content){
+
+    protected static Result notFound(String content) {
         Result result = new Result(content);
         result.status = HttpServletResponse.SC_NOT_FOUND;
-        return result; 
+        return result;
     }
-    
-    protected static Result notFound(){
+
+    protected static Result notFound() {
         Result result = new Result();
         result.status = HttpServletResponse.SC_NOT_FOUND;
         return result;
     }
-    
-    protected static Result redirect(Integer status, String target){
+
+    protected static Result redirect(int status, String target) {
         Result result = new Result();
         result.redirect = target;
         result.status = status;
         return result;
     }
-    
-    protected static Result redirect(String target){
+
+    protected static Result redirect(String target) {
         Result result = new Result();
         result.redirect = target;
         return result;
     }
-    
-    protected static Result temporaryRedirect(String target){
+
+    protected static Result temporaryRedirect(String target) {
         Result result = new Result();
         result.redirect = target;
         result.status = HttpServletResponse.SC_TEMPORARY_REDIRECT;
         return result;
     }
-    
-    
+
     private void map() {
 
         for (Method m : getPublicMethods(getClass())) {
 
             if (m.isAnnotationPresent(After.class))
                 afterList.add(m);
-            
+
             if (m.isAnnotationPresent(Before.class))
                 beforeList.add(m);
 
@@ -185,7 +184,7 @@ public class ServletIO extends HttpServlet{
         Collections.sort(beforeList, comp);
         Collections.sort(afterList, comp);
     }
-    
+
     private String urlPath(HttpServletRequest request) {
         String uri = request.getRequestURI();
         String ctx = request.getContextPath();
@@ -193,107 +192,114 @@ public class ServletIO extends HttpServlet{
         return uri.substring(ctx.length() + servletPath.length(), uri.length());
     }
     
-    private void callBeforeMethods(HttpServletRequest request,
-            HttpServletResponse response) {
-        if (!beforeList.isEmpty()) {
-            for (Method beforeMethod : beforeList) {
-                String[] only = ((Before) beforeMethod
-                        .getAnnotation(Before.class)).only();
-                if (only.length > 0) {
-                    for (String path : only) {
-                        if (path.equals(urlPath(request))) {
-                            callMethod(beforeMethod, request, response);
-                        }
-                    }
-                } else {
-                    String[] unless = ((Before) beforeMethod
-                            .getAnnotation(Before.class)).unless();
-                    if (unless.length > 0) {
-                        boolean call = true;
-                        for (String path : unless) {
-                            if (path.equals(urlPath(request))) {
-                                call = false;
-                            }
-                        }
-
-                        if (call)
-                            callMethod(beforeMethod, request, response);
-                    } else
-                        callMethod(beforeMethod, request, response);
+    private void callOnly(String[] only, Method method, HttpServletRequest request, HttpServletResponse response){
+        for (String path : only) {
+            if(path.endsWith("/*")){
+                
+                String path2 = path.substring(0, path.length()-2);
+                if(urlPath(request).startsWith(path2)){
+                    callMethod(method, request, response);
+                    break;
                 }
+                
+            }else if (path.equals(urlPath(request))) {
+                callMethod(method, request, response);
+                break;
             }
         }
     }
-
-    private void callAfterMethods(HttpServletRequest request,
-            HttpServletResponse response) {
-        if (!afterList.isEmpty()) {
-            for (Method afterMethod : afterList) {
-                String[] paths = ((After) afterMethod
-                        .getAnnotation(After.class)).only();
-                if (paths.length > 0) {
-                    for (String path : paths) {
-                        if (path.equals(urlPath(request))) {
-                            callMethod(afterMethod, request, response);
-                        }
+    
+    private void callUnless(String[] unless, Method method, HttpServletRequest request, HttpServletResponse response){
+        if (unless.length > 0) {
+            boolean call = true;
+            for (String path : unless) {
+                if(path.endsWith("/*")){
+                    
+                    String path2 = path.substring(0, path.length()-2);
+                    if(urlPath(request).startsWith(path2)){ 
+                        call = false;
+                        break;
                     }
-                } else {
-                    String[] unless = ((After) afterMethod
-                            .getAnnotation(After.class)).unless();
-                    if (unless.length > 0) {
-                        boolean call = true;
-                        for (String path : unless) {
-                            if (path.equals(urlPath(request))) {
-                                call = false;
-                            }
-                        }
+                    
+                }else if (path.equals(urlPath(request))){
+                    call = false;
+                    break;
+                }
+            }
+            if (call) callMethod(method, request, response);
+        } else callMethod(method, request, response);
+    }
 
-                        if (call)
-                            callMethod(afterMethod, request, response);
-                    } else
-                        callMethod(afterMethod, request, response);
+    private void callFilter(Class<?> filterType, HttpServletRequest request, HttpServletResponse response){
+
+        boolean after=false, before=false; 
+        if(filterType.isAssignableFrom(After.class))
+            after = true;
+        else if(filterType.isAssignableFrom(Before.class))
+            before = true;
+        
+        List<Method> list = after ? afterList : before ? beforeList : null;      
+                
+        if (list!=null) {
+            for (Method method : list) {
+                
+                String[] only = after ? ((After) method
+                        .getAnnotation(After.class)).only() : ((Before) method
+                                .getAnnotation(Before.class)).only();
+              
+                if (only.length > 0) 
+                    callOnly(only, method, request, response);
+                
+                else {
+                    String[] unless = after ? ((After) method
+                            .getAnnotation(After.class)).unless() : ((Before) method
+                                    .getAnnotation(Before.class)).unless();
+                    
+                    callUnless(unless, method, request, response);
                 }
             }
         }
-    }
 
-    private void callMethod(Method m, HttpServletRequest request,
-            HttpServletResponse response) {
+    }
+    
+    private void callMethod(Method m, HttpServletRequest req,
+            HttpServletResponse res) {
+        Request request = new Request(req);
+        Response response = new Response(res);
         try {
             if (m != null) {
-                
                 Class<?>[] types = m.getParameterTypes();
-                
-                if(m.getReturnType().equals(Result.class) && types.length == 1 && types[0].isAssignableFrom(Request.class)){
-                    try{
-                        Result result = (Result)m.invoke(this, new Request(request));
-                        result.resultLogic(new Response(response));
-                    }catch(Exception ex){ 
-                        response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+
+                if (m.getReturnType().equals(Result.class) && types.length == 1
+                        && types[0].isAssignableFrom(Request.class)) {
+                    try {
+                        Result result = (Result) m.invoke(this, request);
+                        result.resultLogic(response);
+                    } catch (Exception ex) {
+                        response.badRequest();
                     }
                 }
-                
+
                 if (types.length == 2) {
                     if (types[0].isAssignableFrom(HttpServletRequest.class)
                             && types[1]
                                     .isAssignableFrom(HttpServletResponse.class)) {
-                        m.invoke(this, request, response);
+                        m.invoke(this, req, res);
                     } else if (types[0].isAssignableFrom(Request.class)
                             && types[1].isAssignableFrom(Response.class)) {
-                        m.invoke(this, new Request(request), new Response(
-                                response));
+                        m.invoke(this, request, response);
                     }
                 }
             }
-        } catch (IllegalAccessException e){
+        } catch (IllegalAccessException e) {
             e.printStackTrace();
-        } catch(IllegalArgumentException e) {
+        } catch (IllegalArgumentException e) {
             e.printStackTrace();
-        } catch(InvocationTargetException e) {
+        } catch (InvocationTargetException e) {
             e.printStackTrace();
         }
     }
-    
+
     public static final List<Method> getPublicMethods(Class<?> clazz) {
         List<Method> methods = new ArrayList<Method>();
         for (Method method : clazz.getMethods()) {
@@ -305,12 +311,12 @@ public class ServletIO extends HttpServlet{
     }
 
     protected void process(Method method, HttpServletRequest request,
-            HttpServletResponse response){
-        callBeforeMethods(request, response);
+            HttpServletResponse response) {
+        callFilter(Before.class, request, response);
         callMethod(method, request, response);
-        callAfterMethods(request, response);
+        callFilter(After.class, request, response);
     }
-    
+
     protected void doGet(HttpServletRequest request,
             HttpServletResponse response) throws ServletException, IOException {
         Method m = urlGetMap.get(urlPath(request));
