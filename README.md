@@ -19,7 +19,7 @@
 ```
 ---
 **Note:**
-- since Servlet **3.0.x** or higher
+- since Servlet **3.0** or higher
 - since Java **6** or higher
 
 ## Getting Started
