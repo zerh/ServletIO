@@ -18,8 +18,9 @@
 </dependency>
 ```
 ---
-- **Servlet API Support:** since Servlet **3.0** or higher
-- **Java Version Support:** Java **6** or higher
+**Note:**
+- since Servlet **3.0** or higher
+- since Java **6** or higher
 
 ## Getting Started
 Add **"/*"** to your mapped url, example: ```@WebServlet("/your-path/*")```, and replace the super class ```HttpServlet``` by ```ServletIO```.
