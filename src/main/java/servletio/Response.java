@@ -200,7 +200,6 @@ public class Response {
      */
     public void print(String text, String contentType) {
         try {
-            System.out.print(text);
             PrintWriter pw = raw.getWriter();
             raw.setContentType(contentType);
             if(text!=null) pw.print(text);
