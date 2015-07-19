@@ -1,5 +1,7 @@
 # ServletIO - Convert your servlets to MVC controllers
 
+Supported since Servlet **3.0.1** or higher, and Java **6** or higher
+
 #### Add repository:
 ```xml
 <repository>
@@ -17,10 +19,6 @@
     <version>50b7d724b8</version>
 </dependency>
 ```
----
-**Note:**
-- since Servlet **3.0.1** or higher
-- since Java **6** or higher
 
 ## Getting Started
 Add **"/*"** to your mapped url, example: ```@WebServlet("/your-path/*")```, and replace the super class ```HttpServlet``` by ```ServletIO```.
