@@ -17,13 +17,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import servletio.annotation.After;
-import servletio.annotation.Before;
-import servletio.annotation.Delete;
-import servletio.annotation.Get;
-import servletio.annotation.Options;
-import servletio.annotation.Post;
-import servletio.annotation.Put;
+import servletio.annotation.*;
 
 public class ServletIO extends HttpServlet{
     
