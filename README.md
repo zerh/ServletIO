@@ -84,9 +84,9 @@ ServletIO contains some helper methods that return objects Result:
 - ```ok(String content)``` returns HTTP results with the 200 code.
 - ```internalServerError(String content)``` returns HTTP results with the 500 code.
 - ```status(int statusCode, String content)``` returns HTTP results with the specified status.
-- ```badRequest(optionalContent)```returns HTTP results with the 400 code.
-- ```notFound(optionalContent)``` returns HTTP results with the 404 code.
-- ```redirect(optionalStatusCode, target)``` redirect to the target.
+- ```badRequest(String optionalContent)```returns HTTP results with the 400 code.
+- ```notFound(String optionalContent)``` returns HTTP results with the 404 code.
+- ```redirect(int optionalStatusCode, String target)``` redirect to the target.
 - ```temporaryRedirect``` redirect to the target with 303 code
 
 ### @Before and @After
