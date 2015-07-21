@@ -170,7 +170,7 @@ public class MyApp extends ServletIO {
 }
 ```
 
-The parameters unless or only could receive paths with "**/***" at the end, so ```@Before``` or ```@After``` could filter every request that begins with the specified paths.
+The parameters unless or only could receive paths with "**/***" at the end, so ```@Before``` or ```@After``` could filter every request that begins with the specified paths:
 
 ```java
 import javax.servlet.annotation.WebServlet;
