@@ -190,7 +190,7 @@ public class MyApp extends ServletIO {
 }
 ```
 
-You can set execution priority of ```@Before``` or ```@After``` methods using ```priority``` param, example ```@Before(priority=1)```, by default priority is 0 (executed first),
+You can set execution priority of ```@Before``` or ```@After``` methods using ```priority``` param, example ```@Before(priority=1)```, by default priority is 0 (executed first)
 
 ### Request and Response
 
