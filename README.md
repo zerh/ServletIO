@@ -201,15 +201,15 @@ import servletio.annotation.*;
 @WebServlet("/base-path/*")
 public class MyApp extends ServletIO {
     
+    @Before(only={"/admin/something"}, priority=2)
+    public void adminSomething(Request req, Response res){
+        //some filter for this action
+    }
+    
     @Before(only={"/admin/*"}, priority=1)
     public void validateUser(Request req, Response res){
         if(req.session().attribute("user")==null)
             res.redirect("/context/base-path/login");
-    }
-    
-    @Before(only={"/admin/something"}, priority=2)
-    public void adminSomething(Request req, Response res){
-        //some code
     }
 }
 ```
