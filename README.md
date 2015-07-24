@@ -120,6 +120,8 @@ public class MyApp extends ServletIO {
 
 }
 ```
+
+##### Using only param
 If you don’t want the ```@Before``` or ```@After``` methods to intercept all request, you can specify a list of actions using ```only``` param:
 
 ```java
