@@ -192,6 +192,28 @@ public class MyApp extends ServletIO {
 
 You can set execution priority of ```@Before``` or ```@After``` methods using ```priority``` param, example ```@Before(priority=1)```, by default priority is 0 (executed first)
 
+```java
+import javax.servlet.annotation.WebServlet;
+
+import servletio.*;
+import servletio.annotation.*;
+
+@WebServlet("/base-path/*")
+public class MyApp extends ServletIO {
+    
+    @Before(only={"/admin/*"}, priority=1)
+    public void validateUser(Request req, Response res){
+        if(req.session().attribute("user")==null)
+            res.redirect("/context/base-path/login");
+    }
+    
+    @Before(only={"/admin/something"}, priority=2)
+    public void adminSomething(Request req, Response res){
+        //some code
+    }
+}
+```
+
 ### Request and Response
 
 You can either use ```Request``` or ```Response``` only as method parameters. This classes wrap HttpServletRequest and HttpServletResponse and offer some facilities. The most prominents are:
