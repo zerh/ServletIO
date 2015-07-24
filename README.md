@@ -212,6 +212,7 @@ public class MyApp extends ServletIO {
         if(req.session().attribute("user")==null)
             res.redirect("/context/base-path/login");
     }
+    ...
 }
 ```
 
