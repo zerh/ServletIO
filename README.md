@@ -137,7 +137,7 @@ public class MyApp extends ServletIO {
     	return ok("<h1>login</h1>").as("text/html");
     }
     
-    @Before(only={"/admin"})
+    @Before(only="/admin")
     public void validateUser(Request req, Response res){
         if(req.session().attribute("user")==null)  
             res.redirect("/context/base-path/login");
@@ -162,7 +162,7 @@ import servletio.annotation.*;
 @WebServlet("/base-path/*")
 public class MyApp extends ServletIO {
     
-    @Before(unless={"/login"})
+    @Before(unless="/login")
     public void validateUser(Request req, Response res){
         if(req.session().attribute("user")==null)
             req.dispatcher("/base-path/login").forward(req, res);
@@ -182,7 +182,7 @@ import servletio.annotation.*;
 @WebServlet("/base-path/*")
 public class MyApp extends ServletIO {
     
-    @Before(only={"/admin/*"})
+    @Before(only="/admin/*")
     public void validateUser(Request req, Response res){
         if(req.session().attribute("user")==null)
             res.redirect("/context/base-path/login");
@@ -202,12 +202,12 @@ import servletio.annotation.*;
 @WebServlet("/base-path/*")
 public class MyApp extends ServletIO {
     
-    @Before(only={"/admin/something"}, priority=2)
+    @Before(only="/admin/something", priority=2)
     public void adminSomething(Request req, Response res){
         //some filter for this action
     }
     
-    @Before(only={"/admin/*"}, priority=1)
+    @Before(only="/admin/*", priority=1)
     public void validateUser(Request req, Response res){
         if(req.session().attribute("user")==null)
             res.redirect("/context/base-path/login");
