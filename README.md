@@ -1,4 +1,4 @@
-# ServletIO - Convert your servlets to MVC controllers
+# Servlet IO - Convert your servlets to MVC controllers
 
 *Supported since Servlet* **3.0.1** *or higher, and Java* **6** *or higher*
 
