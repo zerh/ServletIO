@@ -112,7 +112,7 @@ ServletIO contains some helper methods that return objects Result:
 - ```sendFile(InputStream inputStream)``` send file to client.
 - ```badRequest(String optionalContent)```returns HTTP results with the 400 code.
 - ```notFound(String optionalContent)``` returns HTTP results with the 404 code.
-- ```redirect(int optionalStatusCode, String target)``` redirect to the target.
+- ```redirect(String target)``` redirect to the target.
 - ```temporaryRedirect(String target)``` redirect to the target with 303 code
 
 ### @Before and @After
