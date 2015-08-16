@@ -1,8 +1,11 @@
 package servletio;
 
+import java.io.BufferedInputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.PrintWriter;
 
+import javax.servlet.ServletOutputStream;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletResponse;
 
@@ -89,15 +92,39 @@ public class Response {
     }
 
     /**
-     * Adds/Sets a response header
+     * Adds a response header
      *
      * @param header
      *            the header
      * @param value
      *            the value
      */
-    public void header(String header, String value) {
+    public void addHeader(String header, String value) {
         raw.addHeader(header, value);
+    }
+    
+    /**
+     * Sets a response header
+     *
+     * @param header
+     *            the header
+     * @param value
+     *            the value
+     */
+    public void setHeader(String header, String value) {
+        raw.setHeader(header, value);
+    }
+    
+    /**
+     * Sets a response date header
+     *
+     * @param header
+     *            the header
+     * @param value
+     *            the value
+     */
+    public void setDateHeader(String name, long date){
+        raw.setDateHeader(name, date);
     }
 
     /**
@@ -152,7 +179,7 @@ public class Response {
      * than one cookie.
      *
      * @param path
-     *            path of the cookie
+     *            of the cookie
      * @param name
      *            name of the cookie
      * @param value
@@ -176,7 +203,7 @@ public class Response {
      * Removes the cookie.
      *
      * @param name
-     *            name of the cookie
+     *            of the cookie
      */
     public void removeCookie(String name) {
         Cookie cookie = new Cookie(name, "");
@@ -223,5 +250,26 @@ public class Response {
 
     public void printXml(String text) {
         print(text, "application/xml");
+    }
+    
+    public void sendFile(InputStream inputStream){
+        try {
+            int ch = 0;
+            ServletOutputStream stream = raw.getOutputStream(); 
+            BufferedInputStream buf = new BufferedInputStream(inputStream);
+            while ((ch = buf.read()) !=-1) {
+                stream.write((char)ch);
+            }
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        } finally {
+            if (inputStream != null){
+                try {
+                    inputStream.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
     }
 }
