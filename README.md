@@ -72,7 +72,7 @@ public class MyApp extends ServletIO {
     
     @Get
     public Result about(Request req){
-        return respond("<h1>mapped wiht the method</h1>").as("text/html");
+        return respond("<h1>mapped wiht the method name</h1>").as("text/html");
     }
 }
 ```
