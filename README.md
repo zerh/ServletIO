@@ -74,6 +74,24 @@ public class MyApp extends ServletIO {
 }
 ```
 
+Also the parameters could be mapped in the url:
+
+```java
+import javax.servlet.annotation.WebServlet;
+
+import servletio.*;
+import servletio.annotation.*;
+
+@WebServlet("/base-path/*")
+public class MyApp extends ServletIO {
+    
+    @Get("/admin/:a")
+    public Result admin(Request req){
+        return respond("<h1>the url has: " req.param(":a") + "</h1>").as("text/html");
+    }
+}
+```
+
 Of course, you also can use:
 - ```@Post```
 - ```@Put```
@@ -184,25 +202,7 @@ public class MyApp extends ServletIO {
 }
 ```
 
-Also the parameters could be mapped in the url:
-
-```java
-import javax.servlet.annotation.WebServlet;
-
-import servletio.*;
-import servletio.annotation.*;
-
-@WebServlet("/base-path/*")
-public class MyApp extends ServletIO {
-    
-    @Get("/admin/:a")
-    public Result admin(Request req){
-        return respond("<h1>the url has: " req.param(":a") + "</h1>").as("text/html");
-    }
-}
-```
-
-You can set execution priority of ```@Before``` or ```@After``` methods using ```priority``` param, example ```@Before(priority=1)```, by default priority is 0 (executed first)
+You can set execution priority of ```@Before``` or ```@After``` methods using ```priority``` param, example ```@Before(priority=1)```, by default priority is 0 (executed first):
 
 ```java
 import javax.servlet.annotation.WebServlet;
