@@ -412,28 +412,23 @@ public class ServletIO extends HttpServlet {
         callFilters(Before.class, request, response);
     }
 
-    protected void doGet(HttpServletRequest request,
-            HttpServletResponse response) throws ServletException, IOException {
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) {
         process(urlGetMap, request, response);
     }
 
-    protected void doPost(HttpServletRequest request,
-            HttpServletResponse response) throws ServletException, IOException {
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) {
         process(urlPostMap, request, response);
     }
 
-    protected void doPut(HttpServletRequest request,
-            HttpServletResponse response) throws ServletException, IOException {
+    protected void doPut(HttpServletRequest request, HttpServletResponse response) {
         process(urlPutMap, request, response);
     }
 
-    protected void doDelete(HttpServletRequest request,
-            HttpServletResponse response) throws ServletException, IOException {
+    protected void doDelete(HttpServletRequest request, HttpServletResponse response) {
         process(urlDeleteMap, request, response);
     }
 
-    protected void doOptions(HttpServletRequest request,
-            HttpServletResponse response) throws ServletException, IOException {
+    protected void doOptions(HttpServletRequest request, HttpServletResponse response) {
         process(urlOptionsMap, request, response);
     }
 }
