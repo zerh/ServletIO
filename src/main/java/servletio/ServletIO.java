@@ -1,6 +1,5 @@
 package servletio;
 
-import java.io.IOException;
 import java.io.InputStream;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
@@ -15,7 +14,6 @@ import java.util.Map;
 import java.util.Set;
 
 import javax.servlet.ServletConfig;
-import javax.servlet.ServletException;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -137,6 +135,10 @@ public class ServletIO extends HttpServlet {
         Result result = new Result(null);
         result.inputStream = inputStream;
         return result;
+    }
+    
+    protected Result sendFile(InputStream inputStream, String fileName) {
+        return sendFile(inputStream).withHeader("Content-Disposition","attachment; filename="+fileName);
     }
 
     protected Result badRequest(String content) {

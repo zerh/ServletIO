@@ -1,9 +1,11 @@
 package servletio;
 
+import java.io.BufferedInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.PrintWriter;
 
+import javax.servlet.ServletOutputStream;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletResponse;
 
@@ -252,11 +254,12 @@ public class Response {
     
     public void sendFile(InputStream inputStream){
         try {
-            int ch = -1;
-            byte[] buffer = new byte[4096];
-            while ((ch = inputStream.read(buffer)) !=-1) {
-                raw.setContentType("application/octet-stream");
-                raw.getWriter().print((char)ch);
+            int ch = 0;
+            ServletOutputStream stream = raw.getOutputStream(); 
+            BufferedInputStream buf = new BufferedInputStream(inputStream);
+            while ((ch = buf.read()) !=-1) {
+                //raw.setContentType("application/octet-stream");
+                stream.write((char)ch);
             }
         } catch (Exception ex) {
             ex.printStackTrace();
