@@ -1,5 +1,6 @@
 package servletio;
 
+import java.io.IOException;
 import java.io.InputStream;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
@@ -127,7 +128,7 @@ public class ServletIO extends HttpServlet {
 
     protected Result respond(String content) {
         Result result = new Result(content);
-        result.status = HttpServletResponse.SC_OK;
+        result.status = 200;
         return result;
     }
 
@@ -135,10 +136,6 @@ public class ServletIO extends HttpServlet {
         Result result = new Result(null);
         result.inputStream = inputStream;
         return result;
-    }
-    
-    protected Result sendFile(InputStream inputStream, String fileName) {
-        return sendFile(inputStream).withHeader("Content-Disposition","attachment; filename="+fileName);
     }
 
     protected Result badRequest(String content) {
@@ -189,63 +186,72 @@ public class ServletIO extends HttpServlet {
         return Collections.unmodifiableList(methods);
     }
 
+    private boolean isMappable(Method m){
+        return m.getReturnType().equals(Result.class) && m.getParameterTypes().length == 1 && m.getParameterTypes()[0].isAssignableFrom(Request.class)
+                || m.getParameterTypes().length == 2 && m.getParameterTypes()[0].isAssignableFrom(Request.class)
+                && m.getParameterTypes()[1].isAssignableFrom(Response.class);
+    }
+    
     private void map() {
 
         for (Method m : getPublicMethods(getClass())) {
-
-            if (m.isAnnotationPresent(After.class))
-                afterList.add(m);
-
-            if (m.isAnnotationPresent(Before.class))
-                beforeList.add(m);
-
-            if (m.isAnnotationPresent(Get.class)) {
-                String annotationValue = ((Get) m.getAnnotation(Get.class))
-                        .value();
-                if (annotationValue.equals("null")) {
-                    urlGetMap.put("/" + m.getName().toLowerCase(), m);
-                } else {
-                    urlGetMap.put(annotationValue, m);
+            
+            if (isMappable(m)) {
+                                    
+                if (m.isAnnotationPresent(After.class))
+                    afterList.add(m);
+    
+                if (m.isAnnotationPresent(Before.class))
+                    beforeList.add(m);
+    
+                if (m.isAnnotationPresent(Get.class)) {
+                    String annotationValue = ((Get) m.getAnnotation(Get.class))
+                            .value();
+                    if (annotationValue.equals("null")) {
+                        urlGetMap.put("/" + m.getName().toLowerCase(), m);
+                    } else {
+                        urlGetMap.put(annotationValue, m);
+                    }
                 }
-            }
-
-            if (m.isAnnotationPresent(Post.class)) {
-                String annotationValue = ((Post) m.getAnnotation(Post.class))
-                        .value();
-                if (annotationValue.equals("null")) {
-                    urlPostMap.put("/" + m.getName().toLowerCase(), m);
-                } else {
-                    urlPostMap.put(annotationValue, m);
+    
+                if (m.isAnnotationPresent(Post.class)) {
+                    String annotationValue = ((Post) m.getAnnotation(Post.class))
+                            .value();
+                    if (annotationValue.equals("null")) {
+                        urlPostMap.put("/" + m.getName().toLowerCase(), m);
+                    } else {
+                        urlPostMap.put(annotationValue, m);
+                    }
                 }
-            }
-
-            if (m.isAnnotationPresent(Put.class)) {
-                String annotationValue = ((Put) m.getAnnotation(Put.class))
-                        .value();
-                if (annotationValue.equals("null")) {
-                    urlPutMap.put("/" + m.getName().toLowerCase(), m);
-                } else {
-                    urlPutMap.put(annotationValue, m);
+    
+                if (m.isAnnotationPresent(Put.class)) {
+                    String annotationValue = ((Put) m.getAnnotation(Put.class))
+                            .value();
+                    if (annotationValue.equals("null")) {
+                        urlPutMap.put("/" + m.getName().toLowerCase(), m);
+                    } else {
+                        urlPutMap.put(annotationValue, m);
+                    }
                 }
-            }
-
-            if (m.isAnnotationPresent(Delete.class)) {
-                String annotationValue = ((Delete) m
-                        .getAnnotation(Delete.class)).value();
-                if (annotationValue.equals("null")) {
-                    urlDeleteMap.put("/" + m.getName().toLowerCase(), m);
-                } else {
-                    urlDeleteMap.put(annotationValue, m);
+    
+                if (m.isAnnotationPresent(Delete.class)) {
+                    String annotationValue = ((Delete) m
+                            .getAnnotation(Delete.class)).value();
+                    if (annotationValue.equals("null")) {
+                        urlDeleteMap.put("/" + m.getName().toLowerCase(), m);
+                    } else {
+                        urlDeleteMap.put(annotationValue, m);
+                    }
                 }
-            }
-
-            if (m.isAnnotationPresent(Options.class)) {
-                String annotationValue = ((Options) m
-                        .getAnnotation(Options.class)).value();
-                if (annotationValue.equals("null")) {
-                    urlOptionsMap.put("/" + m.getName().toLowerCase(), m);
-                } else {
-                    urlOptionsMap.put(annotationValue, m);
+    
+                if (m.isAnnotationPresent(Options.class)) {
+                    String annotationValue = ((Options) m
+                            .getAnnotation(Options.class)).value();
+                    if (annotationValue.equals("null")) {
+                        urlOptionsMap.put("/" + m.getName().toLowerCase(), m);
+                    } else {
+                        urlOptionsMap.put(annotationValue, m);
+                    }
                 }
             }
         }
@@ -345,9 +351,7 @@ public class ServletIO extends HttpServlet {
                 }
             }
         }
-
     }
-
     
     private void callMethod(Method m, HttpServletRequest req,
             HttpServletResponse res, Map<String, Integer> indexByTag) {
@@ -356,27 +360,18 @@ public class ServletIO extends HttpServlet {
 
         request.indexByTag = indexByTag;
 
+        int argLength = m.getParameterTypes().length;
+        
         try {
-
-            Class<?>[] types = m.getParameterTypes();
-
-            if (m.getReturnType().equals(Result.class) && types.length == 1
-                    && types[0].isAssignableFrom(Request.class)) {
-                try {
-                    Result result = (Result) m.invoke(this, request);
-                    resultLogic(result, response);
-                } catch (Exception ex) {
-                    response.badRequest();
-                }
+            if (argLength == 1) {  
+                Result result = (Result) m.invoke(this, request);
+                if(result!=null)
+                    resultLogic(result, response);   
             }
 
-            if (types.length == 2) {
-                if (types[0].isAssignableFrom(Request.class)
-                        && types[1].isAssignableFrom(Response.class)) {
-                    m.invoke(this, request, response);
-                }
+            if (argLength == 2) {
+                m.invoke(this, request, response);
             }
-
         } catch (IllegalAccessException e) {
             e.printStackTrace();
         } catch (IllegalArgumentException e) {
@@ -392,24 +387,25 @@ public class ServletIO extends HttpServlet {
         Method m = urlMethodMap.get(route);
         callFilters(After.class, request, response);
         if (m != null) {
-
             callMethod(m, request, response, null);
-
         } else {
-
             Pretty p = new Pretty();
+            boolean exist = false;
             for (String mappedRoute : urlMethodMap.keySet()) {
-                if (mappedRoute.contains(":")
-                        && p.match(mappedRoute).withRequest(route)) {
-                    Map<String, Integer> map = p.indexByTag;
-                    Method m2 = urlMethodMap.get(mappedRoute);
-                    if (m2 != null) {
-                        callMethod(urlMethodMap.get(mappedRoute), request, response, map);
-                        break;
-                    }
+                if (mappedRoute.contains(":") && p.match(mappedRoute).withRequest(route)) {
+                    exist = true;
+                    callMethod(urlMethodMap.get(mappedRoute), request, response, p.indexByTag);
+                    break;
                 }
             }
-
+            
+            if(!exist){
+                try {
+                    response.sendError(404);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
         }
         callFilters(Before.class, request, response);
     }

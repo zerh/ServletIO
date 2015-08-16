@@ -211,9 +211,17 @@ public class Response {
         raw.addCookie(cookie);
     }
 
-    public void badRequest() {
+    public void sendBadRequest() {
         try {
             raw.sendError(HttpServletResponse.SC_BAD_REQUEST);
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
+    }
+    
+    public void sendInternalServerError() {
+        try {
+            raw.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
         } catch (IOException ex) {
             ex.printStackTrace();
         }
