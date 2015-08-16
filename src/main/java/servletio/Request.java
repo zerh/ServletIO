@@ -12,6 +12,7 @@ import java.math.BigInteger;
 import java.util.Collection;
 import java.util.Enumeration;
 import java.util.HashSet;
+import java.util.Map;
 import java.util.Set;
 import java.util.TreeSet;
 
@@ -22,6 +23,7 @@ import javax.servlet.http.HttpSession;
 import javax.servlet.http.Part;
 
 import servletio.utils.IOUtils;
+import servletio.utils.RouteUtils;
 
 public class Request {
 
@@ -50,6 +52,8 @@ public class Request {
     public Collection<Part> parts;
 
     private Session session;
+    
+    Map<String, Integer> indexByTag = null;
 
     Request(HttpServletRequest request) {
         raw = request;
@@ -149,6 +153,11 @@ public class Request {
     }
 
     public String param(String param) {
+        if(param.startsWith(":"))
+            return indexByTag!=null? RouteUtils.segment(raw, indexByTag.get(param)) : null;
+            
+        System.out.println("dime klk: " + indexByTag.get(param));    
+            
         return raw.getParameter(param);
     }
 

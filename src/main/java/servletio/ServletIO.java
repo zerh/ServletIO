@@ -1,6 +1,7 @@
 package servletio;
 
 import java.io.IOException;
+import java.io.InputStream;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
@@ -8,22 +9,28 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import servletio.annotation.*;
+import servletio.utils.RouteUtils;
 
 public class ServletIO extends HttpServlet {
 
     private static final long serialVersionUID = -2453789677978887728L;
 
     private ServletConfig servletConfig;
+
+    private Set<String> allMappedUrl;
 
     private Map<String, Method> urlGetMap;
     private Map<String, Method> urlPostMap;
@@ -35,9 +42,7 @@ public class ServletIO extends HttpServlet {
     private List<Method> beforeList;
 
     public void init(ServletConfig servletConfig) {
-
         this.servletConfig = servletConfig;
-
         urlGetMap = new HashMap<String, Method>();
         urlPostMap = new HashMap<String, Method>();
         urlPutMap = new HashMap<String, Method>();
@@ -47,73 +52,139 @@ public class ServletIO extends HttpServlet {
         afterList = new ArrayList<Method>();
         beforeList = new ArrayList<Method>();
 
+        allMappedUrl = new HashSet<String>();
+
         map();
+
+        allMappedUrl.addAll(urlGetMap.keySet());
+        allMappedUrl.addAll(urlPostMap.keySet());
+        allMappedUrl.addAll(urlPutMap.keySet());
+        allMappedUrl.addAll(urlDeleteMap.keySet());
+        allMappedUrl.addAll(urlOptionsMap.keySet());
     }
+    
+    private void resultLogic(Result result, Response res) {
+
+        if (result.redirect != null)
+            res.redirect(result.redirect);
+
+        if (result.cookies != null)
+            for (Cookie cookie : result.cookies)
+                res.raw.addCookie(cookie);
+
+        if (result.discardingCookies != null) {
+            for (Cookie cookie : result.discardingCookies) {
+                cookie.setMaxAge(0);
+                res.raw.addCookie(cookie);
+            }
+        }
+
+        res.status(result.status);
+
+        for (String key : result.header.keySet()) {
+            res.addHeader(key, result.header.get(key));
+        }
+
+        for (String key : result.overwrittenHeader.keySet()) {
+            res.setHeader(key, result.overwrittenHeader.get(key));
+        }
+
+        for (String key : result.dateHeader.keySet()) {
+            res.setDateHeader(key, result.dateHeader.get(key));
+        }
+
+        if (result.inputStream != null) {
+            res.sendFile(result.inputStream);
+        }
+
+        if (result.content != null) {
+            if (result.contentType != null) {
+                res.print(result.content, result.contentType);
+            } else {
+                res.print(result.content);
+            }
+        }
+    }
+
 
     public ServletConfig getServletConfig() {
         return servletConfig;
     }
 
-    protected static Result ok(String content) {
+    protected boolean isMapped(Request req) {
+        boolean returnValue = false;
+        Pretty p = new Pretty();
+
+        if (allMappedUrl.contains(RouteUtils.routeOf(req))) {
+            return true;
+        }
+
+        for (Object url : allMappedUrl.toArray()) {
+            if (p.match(url.toString()).withRequest(RouteUtils.routeOf(req)))
+                returnValue = true;
+            break;
+        }
+        return returnValue;
+    }
+
+    protected Result respond(String content) {
         Result result = new Result(content);
         result.status = HttpServletResponse.SC_OK;
         return result;
     }
 
-    protected static Result internalServerError(String content) {
+    protected Result sendFile(InputStream inputStream) {
+        Result result = new Result(null);
+        result.inputStream = inputStream;
+        return result;
+    }
+
+    protected Result badRequest(String content) {
         Result result = new Result(content);
-        result.status = HttpServletResponse.SC_INTERNAL_SERVER_ERROR;
+        result.status = 400;
         return result;
     }
 
-    protected static Result status(int status, String content) {
+    protected Result badRequest() {
+        return badRequest(null);
+    }
+
+    protected Result notFound(String content) {
         Result result = new Result(content);
-        result.status = status;
+        result.status = 404;
         return result;
     }
 
-    protected static Result badRequest() {
-        Result result = new Result();
-        result.status = HttpServletResponse.SC_BAD_REQUEST;
-        return result;
+    protected Result notFound() {
+        return notFound(null);
     }
 
-    protected static Result badRequest(String content) {
-        Result result = new Result(content);
-        result.status = HttpServletResponse.SC_BAD_REQUEST;
-        return result;
-    }
-
-    protected static Result notFound(String content) {
-        Result result = new Result(content);
-        result.status = HttpServletResponse.SC_NOT_FOUND;
-        return result;
-    }
-
-    protected static Result notFound() {
-        Result result = new Result();
-        result.status = HttpServletResponse.SC_NOT_FOUND;
-        return result;
-    }
-
-    protected static Result redirect(int status, String target) {
-        Result result = new Result();
-        result.redirect = target;
-        result.status = status;
-        return result;
-    }
-
-    protected static Result redirect(String target) {
-        Result result = new Result();
+    protected Result redirect(String target) {
+        Result result = new Result(null);
         result.redirect = target;
         return result;
     }
 
-    protected static Result temporaryRedirect(String target) {
-        Result result = new Result();
-        result.redirect = target;
-        result.status = HttpServletResponse.SC_TEMPORARY_REDIRECT;
+    protected Result temporaryRedirect(String target) {
+        Result result = redirect(target);
+        result.status = 307;
         return result;
+    }
+
+    protected Result internalServerError(String content) {
+        Result result = new Result(content);
+        result.status = 500;
+        return result;
+    }
+
+    private final List<Method> getPublicMethods(Class<?> clazz) {
+        List<Method> methods = new ArrayList<Method>();
+        for (Method method : clazz.getMethods()) {
+            if (Modifier.isPublic(method.getModifiers())) {
+                methods.add(method);
+            }
+        }
+        return Collections.unmodifiableList(methods);
     }
 
     private void map() {
@@ -129,39 +200,59 @@ public class ServletIO extends HttpServlet {
             if (m.isAnnotationPresent(Get.class)) {
                 String annotationValue = ((Get) m.getAnnotation(Get.class))
                         .value();
-                urlGetMap.put(annotationValue, m);
+                if (annotationValue.equals("null")) {
+                    urlGetMap.put("/" + m.getName().toLowerCase(), m);
+                } else {
+                    urlGetMap.put(annotationValue, m);
+                }
             }
 
             if (m.isAnnotationPresent(Post.class)) {
                 String annotationValue = ((Post) m.getAnnotation(Post.class))
                         .value();
-                urlPostMap.put(annotationValue, m);
+                if (annotationValue.equals("null")) {
+                    urlPostMap.put("/" + m.getName().toLowerCase(), m);
+                } else {
+                    urlPostMap.put(annotationValue, m);
+                }
             }
 
             if (m.isAnnotationPresent(Put.class)) {
                 String annotationValue = ((Put) m.getAnnotation(Put.class))
                         .value();
-                urlPutMap.put(annotationValue, m);
+                if (annotationValue.equals("null")) {
+                    urlPutMap.put("/" + m.getName().toLowerCase(), m);
+                } else {
+                    urlPutMap.put(annotationValue, m);
+                }
             }
 
             if (m.isAnnotationPresent(Delete.class)) {
                 String annotationValue = ((Delete) m
                         .getAnnotation(Delete.class)).value();
-                urlDeleteMap.put(annotationValue, m);
+                if (annotationValue.equals("null")) {
+                    urlDeleteMap.put("/" + m.getName().toLowerCase(), m);
+                } else {
+                    urlDeleteMap.put(annotationValue, m);
+                }
             }
 
             if (m.isAnnotationPresent(Options.class)) {
                 String annotationValue = ((Options) m
                         .getAnnotation(Options.class)).value();
-                urlOptionsMap.put(annotationValue, m);
+                if (annotationValue.equals("null")) {
+                    urlOptionsMap.put("/" + m.getName().toLowerCase(), m);
+                } else {
+                    urlOptionsMap.put(annotationValue, m);
+                }
             }
         }
 
         Comparator<Method> comp = new Comparator<Method>() {
             @Override
             public int compare(Method o1, Method o2) {
-                Method m1 = (Method) o1;
-                Method m2 = (Method) o2;
+                Method m1 = o1;
+                Method m2 = o2;
 
                 if (m1.isAnnotationPresent(Before.class)
                         && m2.isAnnotationPresent(Before.class)) {
@@ -185,112 +276,105 @@ public class ServletIO extends HttpServlet {
         Collections.sort(afterList, comp);
     }
 
-    private String urlPath(HttpServletRequest request) {
-        String uri = request.getRequestURI();
-        String ctx = request.getContextPath();
-        String servletPath = request.getServletPath();
-        return uri.substring(ctx.length() + servletPath.length(), uri.length());
-    }
-    
-    private void callOnly(String[] only, Method method, HttpServletRequest request, HttpServletResponse response){
-        for (String path : only) {
-            if(path.endsWith("/*")){
-                
-                String path2 = path.substring(0, path.length()-2);
-                if(urlPath(request).startsWith(path2)){
-                    callMethod(method, request, response);
-                    break;
-                }
-                
-            }else if (path.equals(urlPath(request))) {
-                callMethod(method, request, response);
+    private void callOnly(String[] only, Method method,
+            HttpServletRequest request, HttpServletResponse response) {
+
+        Pretty p = new Pretty();
+
+        for (String mappedRoute : only) {
+            if (mappedRoute.equals(RouteUtils.routeOf(request))
+                    || p.match(mappedRoute).withRequest(
+                            RouteUtils.routeOf(request))) {
+                callMethod(method, request, response, p.indexByTag);
                 break;
             }
         }
     }
-    
-    private void callUnless(String[] unless, Method method, HttpServletRequest request, HttpServletResponse response){
+
+    private void callUnless(String[] unless, Method method,
+            HttpServletRequest request, HttpServletResponse response) {
+
+        Pretty p = new Pretty();
+
         if (unless.length > 0) {
             boolean call = true;
-            for (String path : unless) {
-                if(path.endsWith("/*")){
-                    
-                    String path2 = path.substring(0, path.length()-2);
-                    if(urlPath(request).startsWith(path2)){ 
-                        call = false;
-                        break;
-                    }
-                    
-                }else if (path.equals(urlPath(request))){
+            for (String mappedPath : unless) {
+                if (mappedPath.equals(RouteUtils.routeOf(request))
+                        || p.match(mappedPath).withRequest(
+                                RouteUtils.routeOf(request))) {
                     call = false;
                     break;
                 }
             }
-            if (call) callMethod(method, request, response);
-        } else callMethod(method, request, response);
+            if (call)
+                callMethod(method, request, response, p.indexByTag);
+        } else
+            callMethod(method, request, response, p.indexByTag);
     }
 
-    private void callFilter(Class<?> filterType, HttpServletRequest request, HttpServletResponse response){
+    private void callFilters(Class<?> filterType, HttpServletRequest request,
+            HttpServletResponse response) {
 
-        boolean after=false, before=false; 
-        if(filterType.isAssignableFrom(After.class))
+        boolean after = false, before = false;
+        if (filterType.isAssignableFrom(After.class))
             after = true;
-        else if(filterType.isAssignableFrom(Before.class))
+        else if (filterType.isAssignableFrom(Before.class))
             before = true;
-        
-        List<Method> list = after ? afterList : before ? beforeList : null;      
-                
-        if (list!=null) {
+
+        List<Method> list = after ? afterList : before ? beforeList : null;
+
+        if (list != null) {
             for (Method method : list) {
-                
                 String[] only = after ? ((After) method
                         .getAnnotation(After.class)).only() : ((Before) method
-                                .getAnnotation(Before.class)).only();
-              
-                if (only.length > 0) 
+                        .getAnnotation(Before.class)).only();
+
+                String[] unless = after ? ((After) method
+                        .getAnnotation(After.class)).unless()
+                        : ((Before) method.getAnnotation(Before.class))
+                                .unless();
+
+                if (only.length > 0) {
                     callOnly(only, method, request, response);
-                
-                else {
-                    String[] unless = after ? ((After) method
-                            .getAnnotation(After.class)).unless() : ((Before) method
-                                    .getAnnotation(Before.class)).unless();
-                    
+                } else if (unless.length > 0) {
                     callUnless(unless, method, request, response);
+                } else {
+                    callMethod(method, request, response, null);
                 }
             }
         }
 
     }
+
     
     private void callMethod(Method m, HttpServletRequest req,
-            HttpServletResponse res) {
+            HttpServletResponse res, Map<String, Integer> indexByTag) {
         Request request = new Request(req);
         Response response = new Response(res);
+
+        request.indexByTag = indexByTag;
+
         try {
-            if (m != null) {
-                Class<?>[] types = m.getParameterTypes();
 
-                if (m.getReturnType().equals(Result.class) && types.length == 1
-                        && types[0].isAssignableFrom(Request.class)) {
-                    try {
-                        Result result = (Result) m.invoke(this, request);
-                        result.resultLogic(response);
-                    } catch (Exception ex) {
-                        response.badRequest();
-                    }
-                }
+            Class<?>[] types = m.getParameterTypes();
 
-                if (types.length == 2) {
-                    if (types[0].isAssignableFrom(HttpServletRequest.class)
-                            && types[1]
-                                    .isAssignableFrom(HttpServletResponse.class)) {
-                        m.invoke(this, req, res);
-                    } else if (types[0].isAssignableFrom(Request.class)
-                            && types[1].isAssignableFrom(Response.class)) {
-                        m.invoke(this, request, response);
-                    }
+            if (m.getReturnType().equals(Result.class) && types.length == 1
+                    && types[0].isAssignableFrom(Request.class)) {
+                try {
+                    Result result = (Result) m.invoke(this, request);
+                    resultLogic(result, response);
+                } catch (Exception ex) {
+                    response.badRequest();
                 }
             }
+
+            if (types.length == 2) {
+                if (types[0].isAssignableFrom(Request.class)
+                        && types[1].isAssignableFrom(Response.class)) {
+                    m.invoke(this, request, response);
+                }
+            }
+
         } catch (IllegalAccessException e) {
             e.printStackTrace();
         } catch (IllegalArgumentException e) {
@@ -300,50 +384,56 @@ public class ServletIO extends HttpServlet {
         }
     }
 
-    public static final List<Method> getPublicMethods(Class<?> clazz) {
-        List<Method> methods = new ArrayList<Method>();
-        for (Method method : clazz.getMethods()) {
-            if (Modifier.isPublic(method.getModifiers())) {
-                methods.add(method);
-            }
-        }
-        return Collections.unmodifiableList(methods);
-    }
+    protected void process(Map<String, Method> urlMethodMap,
+            HttpServletRequest request, HttpServletResponse response) {
+        String route = RouteUtils.routeOf(request);
+        Method m = urlMethodMap.get(route);
+        callFilters(After.class, request, response);
+        if (m != null) {
 
-    protected void process(Method method, HttpServletRequest request,
-            HttpServletResponse response) {
-        callFilter(Before.class, request, response);
-        callMethod(method, request, response);
-        callFilter(After.class, request, response);
+            callMethod(m, request, response, null);
+
+        } else {
+
+            Pretty p = new Pretty();
+            for (String mappedRoute : urlMethodMap.keySet()) {
+                if (mappedRoute.contains(":")
+                        && p.match(mappedRoute).withRequest(route)) {
+                    Map<String, Integer> map = p.indexByTag;
+                    Method m2 = urlMethodMap.get(mappedRoute);
+                    if (m2 != null) {
+                        callMethod(urlMethodMap.get(mappedRoute), request, response, map);
+                        break;
+                    }
+                }
+            }
+
+        }
+        callFilters(Before.class, request, response);
     }
 
     protected void doGet(HttpServletRequest request,
             HttpServletResponse response) throws ServletException, IOException {
-        Method m = urlGetMap.get(urlPath(request));
-        process(m, request, response);
+        process(urlGetMap, request, response);
     }
 
     protected void doPost(HttpServletRequest request,
             HttpServletResponse response) throws ServletException, IOException {
-        Method m = urlPostMap.get(urlPath(request));
-        process(m, request, response);
+        process(urlPostMap, request, response);
     }
 
     protected void doPut(HttpServletRequest request,
             HttpServletResponse response) throws ServletException, IOException {
-        Method m = urlPutMap.get(urlPath(request));
-        process(m, request, response);
+        process(urlPutMap, request, response);
     }
 
     protected void doDelete(HttpServletRequest request,
             HttpServletResponse response) throws ServletException, IOException {
-        Method m = urlDeleteMap.get(urlPath(request));
-        process(m, request, response);
+        process(urlDeleteMap, request, response);
     }
 
     protected void doOptions(HttpServletRequest request,
             HttpServletResponse response) throws ServletException, IOException {
-        Method m = urlOptionsMap.get(urlPath(request));
-        process(m, request, response);
+        process(urlOptionsMap, request, response);
     }
 }
