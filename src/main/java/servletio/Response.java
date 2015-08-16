@@ -258,7 +258,6 @@ public class Response {
             ServletOutputStream stream = raw.getOutputStream(); 
             BufferedInputStream buf = new BufferedInputStream(inputStream);
             while ((ch = buf.read()) !=-1) {
-                //raw.setContentType("application/octet-stream");
                 stream.write((char)ch);
             }
         } catch (Exception ex) {
