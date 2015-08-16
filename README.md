@@ -16,7 +16,7 @@
 <dependency>
     <groupId>com.github.zerh</groupId>
     <artifactId>ServletIO</artifactId>
-    <version>8b0d775b18</version>
+    <version>79fcd9cc1b</version>
 </dependency>
 ```
 
