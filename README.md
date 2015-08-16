@@ -16,7 +16,7 @@
 <dependency>
     <groupId>com.github.zerh</groupId>
     <artifactId>ServletIO</artifactId>
-    <version>79fcd9cc1b</version>
+    <version>fd9d29a5b3</version>
 </dependency>
 ```
 
@@ -149,7 +149,7 @@ public class MyApp extends ServletIO {
         if(!isMapped(req))
             return notFound("<h1>404, not found</h1>").as("text/html");
         
-        return respond(null);
+        return null;
     }
 
 }
