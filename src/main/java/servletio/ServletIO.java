@@ -136,10 +136,6 @@ public class ServletIO extends HttpServlet {
         result.inputStream = inputStream;
         return result;
     }
-    
-    protected Result sendFile(InputStream inputStream, String fileName) {
-        return sendFile(inputStream).withHeader("Content-Disposition","attachment; filename="+fileName);
-    }
 
     protected Result badRequest(String content) {
         Result result = new Result(content);
