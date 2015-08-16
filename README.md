@@ -85,9 +85,9 @@ import servletio.annotation.*;
 @WebServlet("/base-path/*")
 public class MyApp extends ServletIO {
     
-    @Get("/admin/:a")
-    public Result admin(Request req){
-        return respond("<h1>the url has: " req.param(":a") + "</h1>").as("text/html");
+    @Get("/edit/:id")
+    public Result user(Request req){
+        return respond("<h1>the url has: " req.param(":id") + "</h1>").as("text/html");
     }
 }
 ```
