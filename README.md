@@ -89,7 +89,7 @@ import servletio.annotation.*;
 public class MyApp extends ServletIO {
     
     @Get("/edit/:id")
-    public Result user(Request req){
+    public Result edit(Request req){
         return respond("<h1>the url has: " req.param(":id") + "</h1>").as("text/html");
     }
 }
