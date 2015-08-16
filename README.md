@@ -66,6 +66,11 @@ public class MyApp extends ServletIO {
     public Result index(Request req){
         return ok("<h1>hello world</h1>").as("text/html");
     }
+    
+    @Get
+    public Result about(Request req){
+        return ok("<h1>mapped wiht the method</h1>").as("text/html");
+    }
 }
 ```
 
@@ -77,13 +82,13 @@ Of course, you also can use:
 
 ### Result
 
-Inspired by [Play Framework](https://www.playframework.com/), ```Result``` is just an elegant way to declare controllers methods. The ```Result``` object wraps with ```ServletIO``` the methods printers of the ```Response``` object, to produce standard HTTP results. The methods```as(String contentType)```, ```withCookies(Cookies... cookies)``` and ```discardingCookies(Cookies... cookies)```  returns the same instance of the ```Result``` object.
+```Result``` is just an elegant way to declare controllers methods. The ```Result``` object wraps with ```ServletIO``` the methods printers of the ```Response``` object, to produce standard HTTP results. The methods```as(String contentType)```, ```withCookies(Cookies... cookies)``` and ```discardingCookies(Cookies... cookies)```  returns the same instance of the ```Result``` object.
 
 ServletIO contains some helper methods that return objects Result:
 
-- ```ok(String content)``` returns HTTP results with the 200 code.
+- ```respond(String content)``` returns HTTP results with the 200 code.
 - ```internalServerError(String content)``` returns HTTP results with the 500 code.
-- ```status(int statusCode, String content)``` returns HTTP results with the specified status.
+- ```sendFile(InputStream inputStream)``` send file to client.
 - ```badRequest(String optionalContent)```returns HTTP results with the 400 code.
 - ```notFound(String optionalContent)``` returns HTTP results with the 404 code.
 - ```redirect(int optionalStatusCode, String target)``` redirect to the target.
@@ -147,6 +152,14 @@ public class MyApp extends ServletIO {
     public void log(Request req, Response res){
         System.out.prinln("/login or /logout executed")
     }
+    
+    @After
+    public Result onNotFound(Request req){
+        if(!isMapped(req))
+            return badRequest("<h1>not found</h1>").as("text/html");
+        
+        return respond(null);
+    }
     ...
 }
 ```
@@ -171,7 +184,7 @@ public class MyApp extends ServletIO {
 }
 ```
 
-The parameters unless or only could receive paths with "**/***" at the end, so ```@Before``` or ```@After``` could filter every request that begins with the specified paths:
+Also the parameters could be mapped in the url:
 
 ```java
 import javax.servlet.annotation.WebServlet;
@@ -182,12 +195,10 @@ import servletio.annotation.*;
 @WebServlet("/base-path/*")
 public class MyApp extends ServletIO {
     
-    @Before(only="/admin/*")
-    public void validateUser(Request req, Response res){
-        if(req.session().attribute("user")==null)
-            res.redirect("/context/base-path/login");
+    @Get("/admin/:a")
+    public Result admin(Request req){
+        return respond("<h1>the url has: " req.param(":a") + "</h1>").as("text/html");
     }
-    ...
 }
 ```
 
