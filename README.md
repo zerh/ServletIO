@@ -35,8 +35,8 @@ import servletio.annotation.Get;
 @WebServlet("/base-path/*")
 public class MyApp extends ServletIO {
     
-    protected void doGet(HttpServletRequest req, HttpServletResponse res) {
-        super.doGet(req, res);
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) {
+        super.doGet(request, response);
         //your old code
     }
     
@@ -59,6 +59,9 @@ public class MyApp extends ServletIO {
 
     @Get("/")
     public void oldCode(Request req, Response res){
+        HttpServletRequest request = req.raw;
+        HttpServletResponse response = res.raw;
+        
         //old code
     }
 
