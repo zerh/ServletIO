@@ -174,7 +174,7 @@ public class MyApp extends ServletIO {
     @Before(only="/admin")
     public void validateUser(Request req, Response res){
         if(req.session().attribute("user")==null)  
-            res.redirect("/context/base-path/login");
+            res.redirect("login");
     }
     
     @After(only={"/login", "/logout"})
