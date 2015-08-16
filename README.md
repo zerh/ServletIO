@@ -42,7 +42,7 @@ public class MyApp extends ServletIO {
     
     @Get("/hello")
     public Result index(Request req){
-        return ok("<h1>hello world</h1>").as("text/html");
+        return respond("<h1>hello world</h1>").as("text/html");
     }
 }
 
@@ -64,12 +64,12 @@ public class MyApp extends ServletIO {
 
     @Get("/index")
     public Result index(Request req){
-        return ok("<h1>hello world</h1>").as("text/html");
+        return respond("<h1>hello world</h1>").as("text/html");
     }
     
     @Get
     public Result about(Request req){
-        return ok("<h1>mapped wiht the method</h1>").as("text/html");
+        return respond("<h1>mapped wiht the method</h1>").as("text/html");
     }
 }
 ```
@@ -127,7 +127,7 @@ public class MyApp extends ServletIO {
 
     @Get("/index")
     public Result index(Request req){
-        return ok("<h1>hello world</h1>").as("text/html");
+        return respond("<h1>hello world</h1>").as("text/html");
     }
     
     @Before
@@ -139,6 +139,14 @@ public class MyApp extends ServletIO {
     @After
     public void log(Request req, Response res){
         System.out.println("Action executed...");
+    }
+    
+    @After
+    public Result onNotFound(Request req){
+        if(!isMapped(req))
+            return notFound("<h1>404, not found</h1>").as("text/html");
+        
+        return respond(null);
     }
 
 }
@@ -157,7 +165,7 @@ public class MyApp extends ServletIO {
     
     @Get("/login")
     public Result login(Request req){
-    	return ok("<h1>login</h1>").as("text/html");
+    	return respond("<h1>login</h1>").as("text/html");
     }
     
     @Before(only="/admin")
@@ -171,13 +179,6 @@ public class MyApp extends ServletIO {
         System.out.prinln("/login or /logout executed")
     }
     
-    @After
-    public Result onNotFound(Request req){
-        if(!isMapped(req))
-            return badRequest("<h1>not found</h1>").as("text/html");
-        
-        return respond(null);
-    }
     ...
 }
 ```
