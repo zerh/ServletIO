@@ -200,7 +200,7 @@ public class MyApp extends ServletIO {
     @Before(unless="/login")
     public void validateUser(Request req, Response res){
         if(req.session().attribute("user")==null)
-            req.dispatcher("/base-path/login").forward(req, res);
+            req.dispatcher("login").forward(req, res);
     }
     ...
 }
@@ -225,7 +225,7 @@ public class MyApp extends ServletIO {
     @Before(only="/admin/*", priority=1)
     public void validateUser(Request req, Response res){
         if(req.session().attribute("user")==null)
-            res.redirect("/context/base-path/login");
+            res.redirect("login");
     }
     ...
 }
