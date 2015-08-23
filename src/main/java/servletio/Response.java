@@ -211,22 +211,6 @@ public class Response {
         raw.addCookie(cookie);
     }
 
-    public void sendBadRequest() {
-        try {
-            raw.sendError(HttpServletResponse.SC_BAD_REQUEST);
-        } catch (IOException ex) {
-            ex.printStackTrace();
-        }
-    }
-    
-    public void sendInternalServerError() {
-        try {
-            raw.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
-        } catch (IOException ex) {
-            ex.printStackTrace();
-        }
-    }
-
     /**
      * Print from writer of request.
      *
@@ -258,6 +242,30 @@ public class Response {
 
     public void printXml(String text) {
         print(text, "application/xml");
+    }
+    
+    public void sendError(int error) {
+        try {
+            raw.sendError(error);
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
+    }
+    
+    public void sendBadRequest() {
+        try {
+            raw.sendError(HttpServletResponse.SC_BAD_REQUEST);
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
+    }
+    
+    public void sendInternalServerError() {
+        try {
+            raw.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
     }
     
     public void sendFile(InputStream inputStream){
