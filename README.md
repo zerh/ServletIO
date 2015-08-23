@@ -249,5 +249,7 @@ You can either use ```Request``` or ```Response``` only as method parameters. Th
 - ```response.printJson(String xmlString)``` print text with JSON content type.
 - ```response.redirect(String location)``` redirect to the specified location.
 - ```response.redirect(String location, int httpStatusCode)``` redirect to the specified location with status code.
-- ```response.badRequest()``` throws 404 to the browser.
+- ```response.sendError(int error)``` send custom error code to the browser.
+- ```response.sendBadRequest()``` sen 400 error code to the browser.
+- ```response.sendInternalServerError()``` send 500 error code to the browser.
 - ```response.raw``` final propierty with ```HttpServletResponse``` object reference of the current request
