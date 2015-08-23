@@ -128,7 +128,7 @@ import servletio.annotation.*;
 @WebServlet("/base-path/*")
 public class MyApp extends ServletIO {
 
-    @Get("/index")
+    @Get
     public Result index(Request req){
         return respond("<h1>hello world</h1>").as("text/html");
     }
@@ -166,7 +166,7 @@ import servletio.annotation.*;
 @WebServlet("/base-path/*")
 public class MyApp extends ServletIO {
     
-    @Get("/login")
+    @Get
     public Result login(Request req){
     	return respond("<h1>login</h1>").as("text/html");
     }
