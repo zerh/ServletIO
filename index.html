@@ -29,6 +29,11 @@
       </header>
       <section>
         <h2>
+<a id="note" class="anchor" href="#note" aria-hidden="true"><span class="octicon octicon-link"></span></a>Note</h2>
+
+<p><em>Supported since Servlet</em> <strong>3.0.1</strong> <em>or higher, and Java</em> <strong>6</strong> <em>or higher</em></p>
+
+<h2>
 <a id="quick-installation" class="anchor" href="#quick-installation" aria-hidden="true"><span class="octicon octicon-link"></span></a>Quick installation</h2>
 
 <h4>
@@ -69,17 +74,247 @@
         <span class="pl-c">//your old code</span>
     }
 
-    <span class="pl-k">@Get</span>
+    <span class="pl-k">@Get</span>(<span class="pl-s"><span class="pl-pds">"</span>/hello<span class="pl-pds">"</span></span>)
     <span class="pl-k">public</span> <span class="pl-smi">Result</span> <span class="pl-en">index</span>(<span class="pl-smi">Request</span> <span class="pl-v">req</span>){
-        <span class="pl-k">return</span> respond(<span class="pl-s"><span class="pl-pds">"</span>&lt;h1&gt;hello world&lt;/h1&gt;<span class="pl-pds">"</span></span>)<span class="pl-k">.</span>asHtml();
-    }
-
-    <span class="pl-k">@Post</span>(<span class="pl-s"><span class="pl-pds">"</span>/user/:id<span class="pl-pds">"</span></span>)
-    <span class="pl-k">public</span> <span class="pl-smi">Result</span> <span class="pl-en">userPage</span>(<span class="pl-smi">Request</span> <span class="pl-v">req</span>){
-        <span class="pl-k">return</span> respond(<span class="pl-smi">JsonString</span>)<span class="pl-k">.</span>asJson();
+        <span class="pl-k">return</span> respond(<span class="pl-s"><span class="pl-pds">"</span>&lt;h1&gt;hello world&lt;/h1&gt;<span class="pl-pds">"</span></span>)<span class="pl-k">.</span>as(<span class="pl-s"><span class="pl-pds">"</span>text/html<span class="pl-pds">"</span></span>);
     }
 }
 </pre></div>
+
+<p>Or put your old <code>doGet</code> code inside another method mapped with the base path:</p>
+
+<div class="highlight highlight-java"><pre><span class="pl-k">import</span> <span class="pl-smi">javax.servlet.annotation.WebServlet</span>;
+
+<span class="pl-k">import</span> <span class="pl-smi">servletio.*</span>;
+<span class="pl-k">import</span> <span class="pl-smi">servletio.annotation.Get</span>;
+
+@WebServlet(<span class="pl-s"><span class="pl-pds">"</span>/base-path/*<span class="pl-pds">"</span></span>)
+<span class="pl-k">public</span> <span class="pl-k">class</span> <span class="pl-en">MyApp</span> <span class="pl-k">extends</span> <span class="pl-e">ServletIO</span> {
+
+    <span class="pl-k">@Get</span>(<span class="pl-s"><span class="pl-pds">"</span>/<span class="pl-pds">"</span></span>)
+    <span class="pl-k">public</span> <span class="pl-k">void</span> <span class="pl-en">oldCode</span>(<span class="pl-smi">Request</span> <span class="pl-v">req</span>, <span class="pl-smi">Response</span> <span class="pl-v">res</span>){
+        <span class="pl-smi">HttpServletRequest</span> request <span class="pl-k">=</span> req<span class="pl-k">.</span>raw;
+        <span class="pl-smi">HttpServletResponse</span> response <span class="pl-k">=</span> res<span class="pl-k">.</span>raw;
+
+        <span class="pl-c">//old code</span>
+    }
+
+    <span class="pl-k">@Get</span>(<span class="pl-s"><span class="pl-pds">"</span>/index<span class="pl-pds">"</span></span>)
+    <span class="pl-k">public</span> <span class="pl-smi">Result</span> <span class="pl-en">index</span>(<span class="pl-smi">Request</span> <span class="pl-v">req</span>){
+        <span class="pl-k">return</span> respond(<span class="pl-s"><span class="pl-pds">"</span>&lt;h1&gt;hello world&lt;/h1&gt;<span class="pl-pds">"</span></span>)<span class="pl-k">.</span>as(<span class="pl-s"><span class="pl-pds">"</span>text/html<span class="pl-pds">"</span></span>);
+    }
+
+    <span class="pl-k">@Get</span>
+    <span class="pl-k">public</span> <span class="pl-smi">Result</span> <span class="pl-en">about</span>(<span class="pl-smi">Request</span> <span class="pl-v">req</span>){
+        <span class="pl-k">return</span> respond(<span class="pl-s"><span class="pl-pds">"</span>&lt;h1&gt;mapped wiht the method name&lt;/h1&gt;<span class="pl-pds">"</span></span>)<span class="pl-k">.</span>as(<span class="pl-s"><span class="pl-pds">"</span>text/html<span class="pl-pds">"</span></span>);
+    }
+}</pre></div>
+
+<p>Also the parameters could be mapped in the url:</p>
+
+<div class="highlight highlight-java"><pre><span class="pl-k">import</span> <span class="pl-smi">javax.servlet.annotation.WebServlet</span>;
+
+<span class="pl-k">import</span> <span class="pl-smi">servletio.*</span>;
+<span class="pl-k">import</span> <span class="pl-smi">servletio.annotation.*</span>;
+
+@WebServlet(<span class="pl-s"><span class="pl-pds">"</span>/base-path/*<span class="pl-pds">"</span></span>)
+<span class="pl-k">public</span> <span class="pl-k">class</span> <span class="pl-en">MyApp</span> <span class="pl-k">extends</span> <span class="pl-e">ServletIO</span> {
+
+    <span class="pl-k">@Get</span>(<span class="pl-s"><span class="pl-pds">"</span>/edit/:id<span class="pl-pds">"</span></span>)
+    <span class="pl-k">public</span> <span class="pl-smi">Result</span> <span class="pl-en">edit</span>(<span class="pl-smi">Request</span> <span class="pl-v">req</span>){
+        <span class="pl-k">return</span> respond(<span class="pl-s"><span class="pl-pds">"</span>&lt;h1&gt;the url has: <span class="pl-pds">"</span></span> <span class="pl-k">+</span> req<span class="pl-k">.</span>param(<span class="pl-s"><span class="pl-pds">"</span>:id<span class="pl-pds">"</span></span>) <span class="pl-k">+</span> <span class="pl-s"><span class="pl-pds">"</span>&lt;/h1&gt;<span class="pl-pds">"</span></span>)<span class="pl-k">.</span>as(<span class="pl-s"><span class="pl-pds">"</span>text/html<span class="pl-pds">"</span></span>);
+    }
+}</pre></div>
+
+<p>Of course, you also can use:</p>
+
+<ul>
+<li><code>@Post</code></li>
+<li><code>@Put</code></li>
+<li><code>@Delete</code></li>
+<li><code>@Options</code></li>
+</ul>
+
+<h3>
+<a id="result" class="anchor" href="#result" aria-hidden="true"><span class="octicon octicon-link"></span></a>Result</h3>
+
+<p><code>Result</code> is just an elegant way to declare controllers methods. The <code>Result</code> object wraps with <code>ServletIO</code> the methods printers of the <code>Response</code> object, to produce standard HTTP results. The methods<code>as(String contentType)</code>, <code>withCookies(Cookies... cookies)</code> and <code>withDiscardingCookies(Cookies... cookies)</code> and others returns the same instance of the <code>Result</code> object.</p>
+
+<p>ServletIO contains some helper methods that return objects Result:</p>
+
+<ul>
+<li>
+<code>respond(String content)</code> returns HTTP results with the 200 code.</li>
+<li>
+<code>internalServerError(String content)</code> returns HTTP results with the 500 code.</li>
+<li>
+<code>sendFile(InputStream inputStream)</code> send file to client.</li>
+<li>
+<code>badRequest(String optionalContent)</code>returns HTTP results with the 400 code.</li>
+<li>
+<code>notFound(String optionalContent)</code> returns HTTP results with the 404 code.</li>
+<li>
+<code>redirect(String target)</code> redirect to the target.</li>
+<li>
+<code>temporaryRedirect(String target)</code> redirect to the target with 303 code</li>
+</ul>
+
+<h3>
+<a id="before-and-after" class="anchor" href="#before-and-after" aria-hidden="true"><span class="octicon octicon-link"></span></a><a href="https://github.com/Before" class="user-mention">@Before</a> and <a href="https://github.com/After" class="user-mention">@After</a>
+</h3>
+
+<p>Methods annotated with the <code>@Before</code> annotation are executed before each action call for <code>ServletIO</code>, and methods annotated with the <code>@After</code> annotation are executed after each action call for the Servlet:</p>
+
+<div class="highlight highlight-java"><pre><span class="pl-k">import</span> <span class="pl-smi">javax.servlet.annotation.WebServlet</span>;
+
+<span class="pl-k">import</span> <span class="pl-smi">servletio.*</span>;
+<span class="pl-k">import</span> <span class="pl-smi">servletio.annotation.*</span>;
+
+@WebServlet(<span class="pl-s"><span class="pl-pds">"</span>/base-path/*<span class="pl-pds">"</span></span>)
+<span class="pl-k">public</span> <span class="pl-k">class</span> <span class="pl-en">MyApp</span> <span class="pl-k">extends</span> <span class="pl-e">ServletIO</span> {
+
+    <span class="pl-k">@Get</span>
+    <span class="pl-k">public</span> <span class="pl-smi">Result</span> <span class="pl-en">index</span>(<span class="pl-smi">Request</span> <span class="pl-v">req</span>){
+        <span class="pl-k">return</span> respond(<span class="pl-s"><span class="pl-pds">"</span>&lt;h1&gt;hello world&lt;/h1&gt;<span class="pl-pds">"</span></span>)<span class="pl-k">.</span>as(<span class="pl-s"><span class="pl-pds">"</span>text/html<span class="pl-pds">"</span></span>);
+    }
+
+    <span class="pl-k">@Before</span>
+    <span class="pl-k">public</span> <span class="pl-k">void</span> <span class="pl-en">validateUser</span>(<span class="pl-smi">Request</span> <span class="pl-v">req</span>, <span class="pl-smi">Response</span> <span class="pl-v">res</span>){
+        <span class="pl-k">if</span>(req<span class="pl-k">.</span>session()<span class="pl-k">.</span>attribute(<span class="pl-s"><span class="pl-pds">"</span>user<span class="pl-pds">"</span></span>)<span class="pl-k">==</span><span class="pl-c1">null</span>)
+            res<span class="pl-k">.</span>printHtml(<span class="pl-s"><span class="pl-pds">"</span>bye bye!!<span class="pl-pds">"</span></span>);
+    }
+
+    <span class="pl-k">@After</span>
+    <span class="pl-k">public</span> <span class="pl-k">void</span> <span class="pl-en">log</span>(<span class="pl-smi">Request</span> <span class="pl-v">req</span>, <span class="pl-smi">Response</span> <span class="pl-v">res</span>){
+        <span class="pl-smi">System</span><span class="pl-k">.</span>out<span class="pl-k">.</span>println(<span class="pl-s"><span class="pl-pds">"</span>Action executed...<span class="pl-pds">"</span></span>);
+    }
+
+    <span class="pl-k">@After</span>
+    <span class="pl-k">public</span> <span class="pl-smi">Result</span> <span class="pl-en">onNotFound</span>(<span class="pl-smi">Request</span> <span class="pl-v">req</span>){
+        <span class="pl-k">if</span>(<span class="pl-k">!</span>isMapped(req))
+            <span class="pl-k">return</span> notFound(<span class="pl-s"><span class="pl-pds">"</span>&lt;h1&gt;404, not found&lt;/h1&gt;<span class="pl-pds">"</span></span>)<span class="pl-k">.</span>as(<span class="pl-s"><span class="pl-pds">"</span>text/html<span class="pl-pds">"</span></span>);
+
+        <span class="pl-k">return</span> <span class="pl-c1">null</span>;
+    }
+
+}</pre></div>
+
+<p>If you don’t want the <code>@Before</code> or <code>@After</code> methods to intercept all request, you can specify a list of actions using <code>only</code> param:</p>
+
+<div class="highlight highlight-java"><pre><span class="pl-k">import</span> <span class="pl-smi">javax.servlet.annotation.WebServlet</span>;
+
+<span class="pl-k">import</span> <span class="pl-smi">servletio.*</span>;
+<span class="pl-k">import</span> <span class="pl-smi">servletio.annotation.*</span>;
+
+@WebServlet(<span class="pl-s"><span class="pl-pds">"</span>/base-path/*<span class="pl-pds">"</span></span>)
+<span class="pl-k">public</span> <span class="pl-k">class</span> <span class="pl-en">MyApp</span> <span class="pl-k">extends</span> <span class="pl-e">ServletIO</span> {
+
+    <span class="pl-k">@Get</span>
+    <span class="pl-k">public</span> <span class="pl-smi">Result</span> <span class="pl-en">login</span>(<span class="pl-smi">Request</span> <span class="pl-v">req</span>){
+        <span class="pl-k">return</span> respond(<span class="pl-s"><span class="pl-pds">"</span>&lt;h1&gt;login&lt;/h1&gt;<span class="pl-pds">"</span></span>)<span class="pl-k">.</span>as(<span class="pl-s"><span class="pl-pds">"</span>text/html<span class="pl-pds">"</span></span>);
+    }
+
+    <span class="pl-k">@Before</span>(<span class="pl-c1">only</span><span class="pl-k">=</span><span class="pl-s"><span class="pl-pds">"</span>/admin<span class="pl-pds">"</span></span>)
+    <span class="pl-k">public</span> <span class="pl-k">void</span> <span class="pl-en">validateUser</span>(<span class="pl-smi">Request</span> <span class="pl-v">req</span>, <span class="pl-smi">Response</span> <span class="pl-v">res</span>){
+        <span class="pl-k">if</span>(req<span class="pl-k">.</span>session()<span class="pl-k">.</span>attribute(<span class="pl-s"><span class="pl-pds">"</span>user<span class="pl-pds">"</span></span>)<span class="pl-k">==</span><span class="pl-c1">null</span>)  
+            res<span class="pl-k">.</span>redirect(<span class="pl-s"><span class="pl-pds">"</span>login<span class="pl-pds">"</span></span>);
+    }
+
+    <span class="pl-k">@After</span>(<span class="pl-c1">only</span><span class="pl-k">=</span>{<span class="pl-s"><span class="pl-pds">"</span>/login<span class="pl-pds">"</span></span>, <span class="pl-s"><span class="pl-pds">"</span>/logout<span class="pl-pds">"</span></span>})
+    <span class="pl-k">public</span> <span class="pl-k">void</span> <span class="pl-en">log</span>(<span class="pl-smi">Request</span> <span class="pl-v">req</span>, <span class="pl-smi">Response</span> <span class="pl-v">res</span>){
+        <span class="pl-smi">System</span><span class="pl-k">.</span>out<span class="pl-k">.</span>prinln(<span class="pl-s"><span class="pl-pds">"</span>/login or /logout executed<span class="pl-pds">"</span></span>)
+    }
+
+    <span class="pl-c1">...</span>
+}</pre></div>
+
+<p>Or you can specify a list of actions to exclude for <code>@After</code> or <code>@Before</code> using the <code>unless</code> param:</p>
+
+<div class="highlight highlight-java"><pre><span class="pl-k">import</span> <span class="pl-smi">javax.servlet.annotation.WebServlet</span>;
+
+<span class="pl-k">import</span> <span class="pl-smi">servletio.*</span>;
+<span class="pl-k">import</span> <span class="pl-smi">servletio.annotation.*</span>;
+
+@WebServlet(<span class="pl-s"><span class="pl-pds">"</span>/base-path/*<span class="pl-pds">"</span></span>)
+<span class="pl-k">public</span> <span class="pl-k">class</span> <span class="pl-en">MyApp</span> <span class="pl-k">extends</span> <span class="pl-e">ServletIO</span> {
+
+    <span class="pl-k">@Before</span>(<span class="pl-c1">unless</span><span class="pl-k">=</span><span class="pl-s"><span class="pl-pds">"</span>/login<span class="pl-pds">"</span></span>)
+    <span class="pl-k">public</span> <span class="pl-k">void</span> <span class="pl-en">validateUser</span>(<span class="pl-smi">Request</span> <span class="pl-v">req</span>, <span class="pl-smi">Response</span> <span class="pl-v">res</span>){
+        <span class="pl-k">if</span>(req<span class="pl-k">.</span>session()<span class="pl-k">.</span>attribute(<span class="pl-s"><span class="pl-pds">"</span>user<span class="pl-pds">"</span></span>)<span class="pl-k">==</span><span class="pl-c1">null</span>)
+            req<span class="pl-k">.</span>dispatcher(<span class="pl-s"><span class="pl-pds">"</span>login<span class="pl-pds">"</span></span>)<span class="pl-k">.</span>forward(req, res);
+    }
+    <span class="pl-c1">...</span>
+}</pre></div>
+
+<p>You can set execution priority of <code>@Before</code> or <code>@After</code> methods using <code>priority</code> param, example <code>@Before(priority=1)</code>, by default priority is 0 (executed first):</p>
+
+<div class="highlight highlight-java"><pre><span class="pl-k">import</span> <span class="pl-smi">javax.servlet.annotation.WebServlet</span>;
+
+<span class="pl-k">import</span> <span class="pl-smi">servletio.*</span>;
+<span class="pl-k">import</span> <span class="pl-smi">servletio.annotation.*</span>;
+
+@WebServlet(<span class="pl-s"><span class="pl-pds">"</span>/base-path/*<span class="pl-pds">"</span></span>)
+<span class="pl-k">public</span> <span class="pl-k">class</span> <span class="pl-en">MyApp</span> <span class="pl-k">extends</span> <span class="pl-e">ServletIO</span> {
+
+    <span class="pl-k">@Before</span>(<span class="pl-c1">only</span><span class="pl-k">=</span><span class="pl-s"><span class="pl-pds">"</span>/admin/something<span class="pl-pds">"</span></span>, <span class="pl-c1">priority</span><span class="pl-k">=</span><span class="pl-c1">2</span>)
+    <span class="pl-k">public</span> <span class="pl-k">void</span> <span class="pl-en">adminSomething</span>(<span class="pl-smi">Request</span> <span class="pl-v">req</span>, <span class="pl-smi">Response</span> <span class="pl-v">res</span>){
+        <span class="pl-c">//some filter for this action</span>
+    }
+
+    <span class="pl-k">@Before</span>(<span class="pl-c1">only</span><span class="pl-k">=</span><span class="pl-s"><span class="pl-pds">"</span>/admin/*<span class="pl-pds">"</span></span>, <span class="pl-c1">priority</span><span class="pl-k">=</span><span class="pl-c1">1</span>)
+    <span class="pl-k">public</span> <span class="pl-k">void</span> <span class="pl-en">validateUser</span>(<span class="pl-smi">Request</span> <span class="pl-v">req</span>, <span class="pl-smi">Response</span> <span class="pl-v">res</span>){
+        <span class="pl-k">if</span>(req<span class="pl-k">.</span>session()<span class="pl-k">.</span>attribute(<span class="pl-s"><span class="pl-pds">"</span>user<span class="pl-pds">"</span></span>)<span class="pl-k">==</span><span class="pl-c1">null</span>)
+            res<span class="pl-k">.</span>redirect(<span class="pl-s"><span class="pl-pds">"</span>login<span class="pl-pds">"</span></span>);
+    }
+    <span class="pl-c1">...</span>
+}</pre></div>
+
+<h3>
+<a id="request-and-response" class="anchor" href="#request-and-response" aria-hidden="true"><span class="octicon octicon-link"></span></a>Request and Response</h3>
+
+<p>You can either use <code>Request</code> or <code>Response</code> only as method parameters. This classes wrap HttpServletRequest and HttpServletResponse and offer some facilities. The most prominents are:</p>
+
+<h6>
+<a id="request" class="anchor" href="#request" aria-hidden="true"><span class="octicon octicon-link"></span></a>Request</h6>
+
+<ul>
+<li>
+<code>request.bindParam(MyBean.class)</code> return a instance of <code>MyBean</code> with all values of HTML form, mapping by bean properties names.</li>
+<li>
+<code>request.getFile(String paramName)</code> return a File with the uploaded file reference.</li>
+<li>
+<code>request.dispatcher(String dispatcherName)</code> return an instance of <code>servletio.Dispatcher</code>, wrap of <code>RequestDispatcher</code>.</li>
+<li>
+<code>request.raw</code> final propierty with <code>HttpServletRequest</code> object reference of the current request.</li>
+</ul>
+
+<h6>
+<a id="response" class="anchor" href="#response" aria-hidden="true"><span class="octicon octicon-link"></span></a>Response</h6>
+
+<ul>
+<li>
+<code>response.print(String htmlString, String contentType)</code>.</li>
+<li>
+<code>response.print(String text)</code> print text plain.</li>
+<li>
+<code>response.printHtml(String htmlString)</code> print text with HTML content type.</li>
+<li>
+<code>response.printXml(String xmlString)</code> print text with XML content type.</li>
+<li>
+<code>response.printJson(String xmlString)</code> print text with JSON content type.</li>
+<li>
+<code>response.redirect(String location)</code> redirect to the specified location.</li>
+<li>
+<code>response.redirect(String location, int httpStatusCode)</code> redirect to the specified location with status code.</li>
+<li>
+<code>response.sendError(int error)</code> send custom error code to the browser.</li>
+<li>
+<code>response.sendBadRequest()</code> sen 400 error code to the browser.</li>
+<li>
+<code>response.sendInternalServerError()</code> send 500 error code to the browser.</li>
+<li>
+<code>response.raw</code> final propierty with <code>HttpServletResponse</code> object reference of the current request</li>
+</ul>
       </section>
       <footer>
         <p>This project is maintained by <a href="https://github.com/zerh">zerh</a></p>
