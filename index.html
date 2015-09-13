@@ -28,7 +28,9 @@
         </ul>
       </header>
       <section>
-        <h2>
+        <p><a href="#add-dependency">test</a></p>
+
+<h2>
 <a id="note" class="anchor" href="#note" aria-hidden="true"><span class="octicon octicon-link"></span></a>Note</h2>
 
 <p><em>Supported since Servlet</em> <strong>3.0.1</strong> <em>or higher, and Java</em> <strong>6</strong> <em>or higher</em></p>
@@ -74,8 +76,8 @@
         <span class="pl-c">//your old code</span>
     }
 
-    <span class="pl-k">@Get</span>(<span class="pl-s"><span class="pl-pds">"</span>/hello<span class="pl-pds">"</span></span>)
-    <span class="pl-k">public</span> <span class="pl-smi">Result</span> <span class="pl-en">index</span>(<span class="pl-smi">Request</span> <span class="pl-v">req</span>){
+    <span class="pl-k">@Get</span>
+    <span class="pl-k">public</span> <span class="pl-smi">Result</span> <span class="pl-en">hello</span>(<span class="pl-smi">Request</span> <span class="pl-v">req</span>){
         <span class="pl-k">return</span> respond(<span class="pl-s"><span class="pl-pds">"</span>&lt;h1&gt;hello world&lt;/h1&gt;<span class="pl-pds">"</span></span>)<span class="pl-k">.</span>as(<span class="pl-s"><span class="pl-pds">"</span>text/html<span class="pl-pds">"</span></span>);
     }
 }
@@ -99,18 +101,16 @@
         <span class="pl-c">//old code</span>
     }
 
-    <span class="pl-k">@Get</span>(<span class="pl-s"><span class="pl-pds">"</span>/index<span class="pl-pds">"</span></span>)
-    <span class="pl-k">public</span> <span class="pl-smi">Result</span> <span class="pl-en">index</span>(<span class="pl-smi">Request</span> <span class="pl-v">req</span>){
-        <span class="pl-k">return</span> respond(<span class="pl-s"><span class="pl-pds">"</span>&lt;h1&gt;hello world&lt;/h1&gt;<span class="pl-pds">"</span></span>)<span class="pl-k">.</span>as(<span class="pl-s"><span class="pl-pds">"</span>text/html<span class="pl-pds">"</span></span>);
-    }
-
     <span class="pl-k">@Get</span>
-    <span class="pl-k">public</span> <span class="pl-smi">Result</span> <span class="pl-en">about</span>(<span class="pl-smi">Request</span> <span class="pl-v">req</span>){
-        <span class="pl-k">return</span> respond(<span class="pl-s"><span class="pl-pds">"</span>&lt;h1&gt;mapped wiht the method name&lt;/h1&gt;<span class="pl-pds">"</span></span>)<span class="pl-k">.</span>as(<span class="pl-s"><span class="pl-pds">"</span>text/html<span class="pl-pds">"</span></span>);
+    <span class="pl-k">public</span> <span class="pl-smi">Result</span> <span class="pl-en">hello</span>(<span class="pl-smi">Request</span> <span class="pl-v">req</span>){
+        <span class="pl-k">return</span> respond(<span class="pl-s"><span class="pl-pds">"</span>&lt;h1&gt;hello world&lt;/h1&gt;<span class="pl-pds">"</span></span>)<span class="pl-k">.</span>as(<span class="pl-s"><span class="pl-pds">"</span>text/html<span class="pl-pds">"</span></span>);
     }
 }</pre></div>
 
-<p>Also the parameters could be mapped in the url:</p>
+<h3>
+<a id="http-routing" class="anchor" href="#http-routing" aria-hidden="true"><span class="octicon octicon-link"></span></a>HTTP routing</h3>
+
+<p>The parameters could be mapped in the url using <strong>":"</strong> before the parameter name:</p>
 
 <div class="highlight highlight-java"><pre><span class="pl-k">import</span> <span class="pl-smi">javax.servlet.annotation.WebServlet</span>;
 
@@ -126,14 +126,7 @@
     }
 }</pre></div>
 
-<p>Of course, you also can use:</p>
-
-<ul>
-<li><code>@Post</code></li>
-<li><code>@Put</code></li>
-<li><code>@Delete</code></li>
-<li><code>@Options</code></li>
-</ul>
+<p>Of course, you also can use <code>@Post</code>, <code>@Put</code>, <code>@Delete</code> and <code>@Options</code></p>
 
 <h3>
 <a id="result" class="anchor" href="#result" aria-hidden="true"><span class="octicon octicon-link"></span></a>Result</h3>
