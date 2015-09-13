@@ -1,30 +1,54 @@
-<!DOCTYPE html>
-<html lang="en-us">
+<!doctype html>
+<html>
   <head>
-    <meta charset="UTF-8">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
     <title>Servlet IO by zerh</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" type="text/css" href="stylesheets/normalize.css" media="screen">
-    <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'>
-    <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen">
-    <link rel="stylesheet" type="text/css" href="stylesheets/github-light.css" media="screen">
+
+    <link rel="stylesheet" href="stylesheets/styles.css">
+    <link rel="stylesheet" href="stylesheets/github-light.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
   </head>
   <body>
-    <section class="page-header">
-      <h1 class="project-name">Servlet IO</h1>
-      <h2 class="project-tagline">Servlet IO - convert your servlets to MVC controllers</h2>
-      <a href="https://github.com/zerh/ServletIO" class="btn">View on GitHub</a>
-      <a href="https://github.com/zerh/ServletIO/zipball/master" class="btn">Download .zip</a>
-      <a href="https://github.com/zerh/ServletIO/tarball/master" class="btn">Download .tar.gz</a>
-    </section>
+    <div class="wrapper">
+      <header>
+        <h1>Servlet IO</h1>
+        <p>Servlet IO - convert your servlets to MVC controllers</p>
 
-    <section class="main-content">
-      <p><a href="#add-dependency">Notes</a>
-<a href="#add-dependency">Getting Started</a>
-<a href="#add-dependency">Quick Installation</a>
-<a href="#licencia">Lincense</a>
-<a href="#add-dependency">Documentation</a>
-*<a href="#add-dependency">Servlet style methods</a>
+        <p class="view"><a href="https://github.com/zerh/ServletIO">View the Project on GitHub <small>zerh/ServletIO</small></a></p>
+
+
+        <ul>
+          <li><a href="https://github.com/zerh/ServletIO/zipball/master">Download <strong>ZIP File</strong></a></li>
+          <li><a href="https://github.com/zerh/ServletIO/tarball/master">Download <strong>TAR Ball</strong></a></li>
+          <li><a href="https://github.com/zerh/ServletIO">View On <strong>GitHub</strong></a></li>
+        </ul>
+      </header>
+      <section>
+        <h3>
+<a id="notes" class="anchor" href="#notes" aria-hidden="true"><span class="octicon octicon-link"></span></a><a href="#add-dependency">Notes</a>
+</h3>
+
+<h3>
+<a id="getting-started" class="anchor" href="#getting-started" aria-hidden="true"><span class="octicon octicon-link"></span></a><a href="#add-dependency">Getting Started</a>
+</h3>
+
+<h3>
+<a id="quick-installation" class="anchor" href="#quick-installation" aria-hidden="true"><span class="octicon octicon-link"></span></a><a href="#add-dependency">Quick Installation</a>
+</h3>
+
+<h3>
+<a id="lincense" class="anchor" href="#lincense" aria-hidden="true"><span class="octicon octicon-link"></span></a><a href="#licencia">Lincense</a>
+</h3>
+
+<h3>
+<a id="documentation" class="anchor" href="#documentation" aria-hidden="true"><span class="octicon octicon-link"></span></a><a href="#add-dependency">Documentation</a>
+</h3>
+
+<p>*<a href="#add-dependency">Servlet style methods</a>
 *<a href="#add-dependency">Result methods</a>
 *<a href="#add-dependency">HTTP Routing</a>
 *<a href="#add-dependency">@Before and @After</a></p>
@@ -35,7 +59,7 @@
 <p><em>Supported since Servlet</em> <strong>3.0.1</strong> <em>or higher, and Java</em> <strong>6</strong> <em>or higher</em></p>
 
 <h2>
-<a id="quick-installation" class="anchor" href="#quick-installation" aria-hidden="true"><span class="octicon octicon-link"></span></a>Quick installation</h2>
+<a id="quick-installation-1" class="anchor" href="#quick-installation-1" aria-hidden="true"><span class="octicon octicon-link"></span></a>Quick installation</h2>
 
 <h4>
 <a id="add-repository" class="anchor" href="#add-repository" aria-hidden="true"><span class="octicon octicon-link"></span></a>Add repository:</h4>
@@ -55,7 +79,7 @@
 &lt;/<span class="pl-ent">dependency</span>&gt;</pre></div>
 
 <h2>
-<a id="getting-started" class="anchor" href="#getting-started" aria-hidden="true"><span class="octicon octicon-link"></span></a>Getting Started</h2>
+<a id="getting-started-1" class="anchor" href="#getting-started-1" aria-hidden="true"><span class="octicon octicon-link"></span></a>Getting Started</h2>
 
 <p>Add <strong>"/*"</strong> to your mapped url, example: <code>@WebServlet("/your-path/*")</code>, and replace the super class <code>HttpServlet</code> by <code>ServletIO</code>.</p>
 
@@ -307,15 +331,13 @@
 <li>
 <code>response.raw</code> final propierty with <code>HttpServletResponse</code> object reference of the current request</li>
 </ul>
-
-      <footer class="site-footer">
-        <span class="site-footer-owner"><a href="https://github.com/zerh/ServletIO">Servlet IO</a> is maintained by <a href="https://github.com/zerh">zerh</a>.</span>
-
-        <span class="site-footer-credits">This page was generated by <a href="https://pages.github.com">GitHub Pages</a> using the <a href="https://github.com/jasonlong/cayman-theme">Cayman theme</a> by <a href="https://twitter.com/jasonlong">Jason Long</a>.</span>
+      </section>
+      <footer>
+        <p>This project is maintained by <a href="https://github.com/zerh">zerh</a></p>
+        <p><small>Hosted on GitHub Pages &mdash; Theme by <a href="https://github.com/orderedlist">orderedlist</a></small></p>
       </footer>
-
-    </section>
-
-  
+    </div>
+    <script src="javascripts/scale.fix.js"></script>
+    
   </body>
 </html>
