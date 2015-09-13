@@ -1,47 +1,34 @@
-<!DOCTYPE html>
-<html lang="en-us">
+<!doctype html>
+<html>
   <head>
-    <meta charset="UTF-8">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
     <title>Servlet IO by zerh</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" type="text/css" href="stylesheets/normalize.css" media="screen">
-    <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'>
-    <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen">
-    <link rel="stylesheet" type="text/css" href="stylesheets/github-light.css" media="screen">
+
+    <link rel="stylesheet" href="stylesheets/styles.css">
+    <link rel="stylesheet" href="stylesheets/github-light.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
   </head>
   <body>
-    <section class="page-header">
-      <h1 class="project-name">Servlet IO</h1>
-      <h2 class="project-tagline">Servlet IO - convert your servlets to MVC controllers</h2>
-      <a href="https://github.com/zerh/ServletIO" class="btn">View on GitHub</a>
-      <a href="https://github.com/zerh/ServletIO/zipball/master" class="btn">Download .zip</a>
-      <a href="https://github.com/zerh/ServletIO/tarball/master" class="btn">Download .tar.gz</a>
-    </section>
+    <div class="wrapper">
+      <header>
+        <h1>Servlet IO</h1>
+        <p>Servlet IO - convert your servlets to MVC controllers</p>
 
-    <section class="main-content">
-      <p><a href="#getting-started">Getting Started</a> | <a href="#quick-installation">Quick Installation</a> | <a href="#license">Lincense</a> | <a href="#add-dependency">Notes</a> | <a href="#documentation">Documentation</a></p>
+        <p class="view"><a href="https://github.com/zerh/ServletIO">View the Project on GitHub <small>zerh/ServletIO</small></a></p>
 
-<hr>
 
-<h2>
-<a id="quick-installation" class="anchor" href="#quick-installation" aria-hidden="true"><span class="octicon octicon-link"></span></a>Quick installation</h2>
-
-<h4>
-<a id="add-repository" class="anchor" href="#add-repository" aria-hidden="true"><span class="octicon octicon-link"></span></a>Add repository:</h4>
-
-<div class="highlight highlight-xml"><pre>&lt;<span class="pl-ent">repository</span>&gt;
-    &lt;<span class="pl-ent">id</span>&gt;jitpack.io&lt;/<span class="pl-ent">id</span>&gt;
-    &lt;<span class="pl-ent">url</span>&gt;https://jitpack.io&lt;/<span class="pl-ent">url</span>&gt;
-&lt;/<span class="pl-ent">repository</span>&gt;</pre></div>
-
-<h4>
-<a id="add-dependency" class="anchor" href="#add-dependency" aria-hidden="true"><span class="octicon octicon-link"></span></a>Add dependency:</h4>
-
-<div class="highlight highlight-xml"><pre>&lt;<span class="pl-ent">dependency</span>&gt;
-    &lt;<span class="pl-ent">groupId</span>&gt;com.github.zerh&lt;/<span class="pl-ent">groupId</span>&gt;
-    &lt;<span class="pl-ent">artifactId</span>&gt;ServletIO&lt;/<span class="pl-ent">artifactId</span>&gt;
-    &lt;<span class="pl-ent">version</span>&gt;eb986730b6&lt;/<span class="pl-ent">version</span>&gt;
-&lt;/<span class="pl-ent">dependency</span>&gt;</pre></div>
+        <ul>
+          <li><a href="https://github.com/zerh/ServletIO/zipball/master">Download <strong>ZIP File</strong></a></li>
+          <li><a href="https://github.com/zerh/ServletIO/tarball/master">Download <strong>TAR Ball</strong></a></li>
+          <li><a href="https://github.com/zerh/ServletIO">View On <strong>GitHub</strong></a></li>
+        </ul>
+      </header>
+      <section>
+        <p><a href="#getting-started">Getting Started</a> | <a href="#quick-installation">Quick Installation</a> | <a href="#notes">Notes</a> | <a href="#documentation">Documentation</a> | <a href="#license">Lincense</a></p>
 
 <hr>
 
@@ -96,6 +83,28 @@
         <span class="pl-k">return</span> respond(<span class="pl-s"><span class="pl-pds">"</span>&lt;h1&gt;hello world&lt;/h1&gt;<span class="pl-pds">"</span></span>)<span class="pl-k">.</span>as(<span class="pl-s"><span class="pl-pds">"</span>text/html<span class="pl-pds">"</span></span>);
     }
 }</pre></div>
+
+<hr>
+
+<h2>
+<a id="quick-installation" class="anchor" href="#quick-installation" aria-hidden="true"><span class="octicon octicon-link"></span></a>Quick installation</h2>
+
+<h4>
+<a id="add-repository" class="anchor" href="#add-repository" aria-hidden="true"><span class="octicon octicon-link"></span></a>Add repository:</h4>
+
+<div class="highlight highlight-xml"><pre>&lt;<span class="pl-ent">repository</span>&gt;
+    &lt;<span class="pl-ent">id</span>&gt;jitpack.io&lt;/<span class="pl-ent">id</span>&gt;
+    &lt;<span class="pl-ent">url</span>&gt;https://jitpack.io&lt;/<span class="pl-ent">url</span>&gt;
+&lt;/<span class="pl-ent">repository</span>&gt;</pre></div>
+
+<h4>
+<a id="add-dependency" class="anchor" href="#add-dependency" aria-hidden="true"><span class="octicon octicon-link"></span></a>Add dependency:</h4>
+
+<div class="highlight highlight-xml"><pre>&lt;<span class="pl-ent">dependency</span>&gt;
+    &lt;<span class="pl-ent">groupId</span>&gt;com.github.zerh&lt;/<span class="pl-ent">groupId</span>&gt;
+    &lt;<span class="pl-ent">artifactId</span>&gt;ServletIO&lt;/<span class="pl-ent">artifactId</span>&gt;
+    &lt;<span class="pl-ent">version</span>&gt;eb986730b6&lt;/<span class="pl-ent">version</span>&gt;
+&lt;/<span class="pl-ent">dependency</span>&gt;</pre></div>
 
 <hr>
 
@@ -313,14 +322,17 @@
 <code>response.raw</code> final propierty with <code>HttpServletResponse</code> object reference of the current request</li>
 </ul>
 
-      <footer class="site-footer">
-        <span class="site-footer-owner"><a href="https://github.com/zerh/ServletIO">Servlet IO</a> is maintained by <a href="https://github.com/zerh">zerh</a>.</span>
+<h2>
+<a id="license" class="anchor" href="#license" aria-hidden="true"><span class="octicon octicon-link"></span></a>License</h2>
 
-        <span class="site-footer-credits">This page was generated by <a href="https://pages.github.com">GitHub Pages</a> using the <a href="https://github.com/jasonlong/cayman-theme">Cayman theme</a> by <a href="https://twitter.com/jasonlong">Jason Long</a>.</span>
+<p>Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License. You may obtain a copy of the License at <a href="http://www.apache.org/licenses/LICENSE-2.0">http://www.apache.org/licenses/LICENSE-2.0</a></p>
+      </section>
+      <footer>
+        <p>This project is maintained by <a href="https://github.com/zerh">zerh</a></p>
+        <p><small>Hosted on GitHub Pages &mdash; Theme by <a href="https://github.com/orderedlist">orderedlist</a></small></p>
       </footer>
-
-    </section>
-
-  
+    </div>
+    <script src="javascripts/scale.fix.js"></script>
+    
   </body>
 </html>
