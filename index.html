@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="chrome=1">
-    <title>Servlet IO by zerh</title>
+    <title>ServletIO by zerh</title>
 
     <link rel="stylesheet" href="stylesheets/styles.css">
     <link rel="stylesheet" href="stylesheets/github-light.css">
@@ -15,8 +15,8 @@
   <body>
     <div class="wrapper">
       <header>
-        <h1>Servlet IO</h1>
-        <p>Servlet IO - convert your servlets to MVC controllers</p>
+        <h1>ServletIO</h1>
+        <p>ServletIO - convert your servlets to MVC controllers</p>
 
         <p class="view"><a href="https://github.com/zerh/ServletIO">View the Project on GitHub <small>zerh/ServletIO</small></a></p>
 
@@ -122,12 +122,14 @@
 <h2>
 <a id="documentation" class="anchor" href="#documentation" aria-hidden="true"><span class="octicon octicon-link"></span></a>Documentation</h2>
 
-<p><a href="#add-dependency">Servlet style methods</a> | <a href="#add-dependency">Result methods</a> | <a href="#add-dependency">HTTP Routing</a> | <a href="#add-dependency">@Before and @After</a></p>
+<p><a href="#http-routing">HTTP Routing</a> | <a href="#servlet-style-methods">Servlet style methods</a> | <a href="#result-methods">Result methods</a> | <a href="#Before-and-after">@Before and @After</a></p>
 
 <h3>
 <a id="http-routing" class="anchor" href="#http-routing" aria-hidden="true"><span class="octicon octicon-link"></span></a>HTTP routing</h3>
 
-<p>The parameters could be mapped in the url using <strong>":"</strong> before the parameter name:</p>
+<p>The path reference to a method is the method name, but also could be a specified path in the annotation params <code>@Get</code>, <code>@Post</code>, <code>@Put</code>, <code>@Delete</code>, <code>@Options</code></p>
+
+<p>The parameters could be mapped as pretty url using <strong>":"</strong> before the url parameter as below:</p>
 
 <div class="highlight highlight-java"><pre><span class="pl-k">import</span> <span class="pl-smi">javax.servlet.annotation.WebServlet</span>;
 
@@ -143,18 +145,107 @@
     }
 }</pre></div>
 
-<p>Of course, you also can use <code>@Post</code>, <code>@Put</code>, <code>@Delete</code> and <code>@Options</code></p>
-
 <h3>
-<a id="result" class="anchor" href="#result" aria-hidden="true"><span class="octicon octicon-link"></span></a>Result</h3>
+<a id="servlet-style-methods" class="anchor" href="#servlet-style-methods" aria-hidden="true"><span class="octicon octicon-link"></span></a>Servlet Style Methods</h3>
 
-<p><code>Result</code> is just an elegant way to declare controllers methods. The <code>Result</code> object wraps with <code>ServletIO</code> the methods printers of the <code>Response</code> object, to produce standard HTTP results. The methods<code>as(String contentType)</code>, <code>withCookies(Cookies... cookies)</code> and <code>withDiscardingCookies(Cookies... cookies)</code> and others returns the same instance of the <code>Result</code> object.</p>
+<p>A Servlet style method is a Java method that receive a <code>servletio.Request</code> and a <code>servletio.Response</code> parameters as bellow:</p>
 
-<p>ServletIO contains some helper methods that return objects Result:</p>
+<div class="highlight highlight-java"><pre><span class="pl-k">import</span> <span class="pl-smi">javax.servlet.annotation.WebServlet</span>;
+
+<span class="pl-k">import</span> <span class="pl-smi">servletio.*</span>;
+<span class="pl-k">import</span> <span class="pl-smi">servletio.annotation.*</span>;
+
+@WebServlet(<span class="pl-s"><span class="pl-pds">"</span>/base-path/*<span class="pl-pds">"</span></span>)
+<span class="pl-k">public</span> <span class="pl-k">class</span> <span class="pl-en">MyApp</span> <span class="pl-k">extends</span> <span class="pl-e">ServletIO</span> {
+
+    <span class="pl-k">@Get</span>
+    <span class="pl-k">public</span> <span class="pl-k">void</span> <span class="pl-en">hello</span>(<span class="pl-smi">Request</span> <span class="pl-v">req</span>, <span class="pl-smi">Response</span> <span class="pl-v">res</span>){
+        res<span class="pl-k">.</span>printHtml(<span class="pl-s"><span class="pl-pds">"</span>&lt;h1&gt;hellow world&lt;/h1&gt;<span class="pl-pds">"</span></span>);
+    }
+}</pre></div>
+
+<p>You can either use <code>Request</code> or <code>Response</code> only as method parameters. This classes wrap HttpServletRequest and HttpServletResponse and offer some facilities. The most prominents are:</p>
+
+<h5>
+<a id="request" class="anchor" href="#request" aria-hidden="true"><span class="octicon octicon-link"></span></a>Request</h5>
 
 <ul>
 <li>
-<code>respond(String content)</code> returns HTTP results with the 200 code.</li>
+<code>request.bindParam(MyBean.class)</code> return a instance of <code>MyBean</code> with all values of HTML form, mapping by bean properties names.</li>
+<li>
+<code>request.getFile(String paramName)</code> return a File with the uploaded file reference.</li>
+<li>
+<code>request.dispatcher(String dispatcherName)</code> return an instance of <code>servletio.Dispatcher</code>, wrap of <code>RequestDispatcher</code>.</li>
+<li>
+<code>request.raw</code> final propierty with <code>HttpServletRequest</code> object reference of the current request.</li>
+</ul>
+
+<h5>
+<a id="response" class="anchor" href="#response" aria-hidden="true"><span class="octicon octicon-link"></span></a>Response</h5>
+
+<ul>
+<li>
+<code>response.print(String htmlString, String contentType)</code>.</li>
+<li>
+<code>response.print(String text)</code> print text plain.</li>
+<li>
+<code>response.printHtml(String htmlString)</code> print text with HTML content type.</li>
+<li>
+<code>response.printXml(String xmlString)</code> print text with XML content type.</li>
+<li>
+<code>response.printJson(String xmlString)</code> print text with JSON content type.</li>
+<li>
+<code>response.redirect(String location)</code> redirect to the specified location.</li>
+<li>
+<code>response.redirect(String location, int httpStatusCode)</code> redirect to the specified location with status code.</li>
+<li>
+<code>response.sendError(int error)</code> send custom error code to the browser.</li>
+<li>
+<code>response.sendBadRequest()</code> sen 400 error code to the browser.</li>
+<li>
+<code>response.sendInternalServerError()</code> send 500 error code to the browser.</li>
+<li>
+<code>response.raw</code> final propierty with <code>HttpServletResponse</code> object reference of the current request</li>
+</ul>
+
+<h3>
+<a id="result-method" class="anchor" href="#result-method" aria-hidden="true"><span class="octicon octicon-link"></span></a>Result method</h3>
+
+<p><code>Result</code> is just an elegant way to declare controllers methods. The <code>Result</code> object wraps with <code>ServletIO</code> the methods printers of the <code>Response</code> object, to produce standard HTTP results. </p>
+
+<div class="highlight highlight-java"><pre><span class="pl-k">import</span> <span class="pl-smi">javax.servlet.annotation.WebServlet</span>;
+
+<span class="pl-k">import</span> <span class="pl-smi">servletio.*</span>;
+<span class="pl-k">import</span> <span class="pl-smi">servletio.annotation.*</span>;
+
+@WebServlet(<span class="pl-s"><span class="pl-pds">"</span>/base-path/*<span class="pl-pds">"</span></span>)
+<span class="pl-k">public</span> <span class="pl-k">class</span> <span class="pl-en">MyApp</span> <span class="pl-k">extends</span> <span class="pl-e">ServletIO</span> {
+
+    <span class="pl-k">@Get</span>
+    <span class="pl-k">public</span> <span class="pl-smi">Result</span> <span class="pl-en">hello</span>(<span class="pl-smi">Request</span> <span class="pl-v">req</span>){
+        <span class="pl-k">return</span> respond(<span class="pl-s"><span class="pl-pds">"</span>content<span class="pl-pds">"</span></span>);
+    }
+}</pre></div>
+
+<p>The object Result has methods <code>asHtml()</code>, <code>asJson()</code>, <code>as(String contentType)</code>, <code>withCookies(Cookies... cookies)</code>, <code>withDiscardingCookies(Cookies... cookies)</code> and others helpers methods that returns the same instance of the <code>Result</code> object like the next example:</p>
+
+<div class="highlight highlight-java"><pre><span class="pl-k">import</span> <span class="pl-smi">javax.servlet.annotation.WebServlet</span>;
+
+<span class="pl-k">import</span> <span class="pl-smi">servletio.*</span>;
+<span class="pl-k">import</span> <span class="pl-smi">servletio.annotation.*</span>;
+
+@WebServlet(<span class="pl-s"><span class="pl-pds">"</span>/base-path/*<span class="pl-pds">"</span></span>)
+<span class="pl-k">public</span> <span class="pl-k">class</span> <span class="pl-en">MyApp</span> <span class="pl-k">extends</span> <span class="pl-e">ServletIO</span> {
+
+    <span class="pl-k">@Get</span>
+    <span class="pl-k">public</span> <span class="pl-smi">Result</span> <span class="pl-en">hello</span>(<span class="pl-smi">Request</span> <span class="pl-v">req</span>){
+        <span class="pl-k">return</span> respond(<span class="pl-s"><span class="pl-pds">"</span>&lt;h1&gt;content&lt;/h1&gt;<span class="pl-pds">"</span></span>)<span class="pl-k">.</span>asHtml();
+    }
+}</pre></div>
+
+<p>ServletIO contains some helper in addition to <code>respond(String content)</code> method, that return objects Result:</p>
+
+<ul>
 <li>
 <code>internalServerError(String content)</code> returns HTTP results with the 500 code.</li>
 <li>
@@ -278,53 +369,6 @@
     }
     <span class="pl-c1">...</span>
 }</pre></div>
-
-<h3>
-<a id="request-and-response" class="anchor" href="#request-and-response" aria-hidden="true"><span class="octicon octicon-link"></span></a>Request and Response</h3>
-
-<p>You can either use <code>Request</code> or <code>Response</code> only as method parameters. This classes wrap HttpServletRequest and HttpServletResponse and offer some facilities. The most prominents are:</p>
-
-<h6>
-<a id="request" class="anchor" href="#request" aria-hidden="true"><span class="octicon octicon-link"></span></a>Request</h6>
-
-<ul>
-<li>
-<code>request.bindParam(MyBean.class)</code> return a instance of <code>MyBean</code> with all values of HTML form, mapping by bean properties names.</li>
-<li>
-<code>request.getFile(String paramName)</code> return a File with the uploaded file reference.</li>
-<li>
-<code>request.dispatcher(String dispatcherName)</code> return an instance of <code>servletio.Dispatcher</code>, wrap of <code>RequestDispatcher</code>.</li>
-<li>
-<code>request.raw</code> final propierty with <code>HttpServletRequest</code> object reference of the current request.</li>
-</ul>
-
-<h6>
-<a id="response" class="anchor" href="#response" aria-hidden="true"><span class="octicon octicon-link"></span></a>Response</h6>
-
-<ul>
-<li>
-<code>response.print(String htmlString, String contentType)</code>.</li>
-<li>
-<code>response.print(String text)</code> print text plain.</li>
-<li>
-<code>response.printHtml(String htmlString)</code> print text with HTML content type.</li>
-<li>
-<code>response.printXml(String xmlString)</code> print text with XML content type.</li>
-<li>
-<code>response.printJson(String xmlString)</code> print text with JSON content type.</li>
-<li>
-<code>response.redirect(String location)</code> redirect to the specified location.</li>
-<li>
-<code>response.redirect(String location, int httpStatusCode)</code> redirect to the specified location with status code.</li>
-<li>
-<code>response.sendError(int error)</code> send custom error code to the browser.</li>
-<li>
-<code>response.sendBadRequest()</code> sen 400 error code to the browser.</li>
-<li>
-<code>response.sendInternalServerError()</code> send 500 error code to the browser.</li>
-<li>
-<code>response.raw</code> final propierty with <code>HttpServletResponse</code> object reference of the current request</li>
-</ul>
 
 <hr>
 
