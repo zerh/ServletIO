@@ -11,6 +11,20 @@
     <!--[if lt IE 9]>
     <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
     <![endif]-->
+    
+    <script>
+      function showMenu(id, selft){
+        if(document.getElementById(id).style.display === 'block'){
+          selft.innerHtml("+");
+          document.getElementById(id).style.display = 'none';
+        } else {
+          selft.innerHtml("-");
+          document.getElementById(id).style.display = 'block';
+        }
+      }
+      
+    </script>
+    
   </head>
   <body>
     <div class="wrapper">
@@ -23,8 +37,8 @@
             <a href="#getting-started">Getting Started</a><br/>
             <a href="#quick-installation">Quick Installation</a><br/>
             <a href="#notes">Notes</a><br/>
-            <a href="#documentation">Documentation</a>
-            <div style="padding-left:20px; margin-top:-18px;">
+            <a href="#documentation">Documentation</a><a href="javascript:showSubMenu('documentation-submenu', this)">[+]</a>
+            <div id="documentation-submenu" style="padding-left:20px; margin-top:-18px;">
               <a href="#http-routing">HTTP Routing</a><br /> 
               <a href="#servlet-style-methods">Servlet style methods</a><br />
               <a href="#result-methods">Result methods</a><br />
