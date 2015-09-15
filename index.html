@@ -15,10 +15,10 @@
     <script>
       function showSubMenu(id, selft){
         if(document.getElementById(id).style.display === 'block'){
-          selft.innerHtml("+");
+          selft.innerText("+");
           document.getElementById(id).style.display = 'none';
         } else {
-          selft.innerHtml("-");
+          selft.innerText("-");
           document.getElementById(id).style.display = 'block';
         }
       }
