@@ -12,6 +12,12 @@
     <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
     <![endif]-->
     
+    <style>
+      #menu a{
+        madding-bottom:0px
+      }
+    </style>
+    
     <script>
       function showSubMenu(id, target){
         if(document.getElementById(id).style.display === 'block'){
@@ -32,7 +38,7 @@
         <h1>ServletIO</h1>
         <h2>Convert your servlets to MVC controllers</h2>
 
-        <p class="view">
+        <p class="view" id="menu">
           
             <a href="#getting-started">Getting Started</a><br/>
             <a href="#quick-installation">Quick Installation</a><br/>
