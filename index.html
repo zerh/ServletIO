@@ -14,11 +14,14 @@
     
     <script>
       function showSubMenu(id, selft){
+        console.log(selft);
         if(document.getElementById(id).style.display === 'block'){
-          selft[0].innerText("+");
+          //selft[0].innerText("+");
+          
           document.getElementById(id).style.display = 'none';
         } else {
-          selft[0].innerText("-");
+          //selft[0].innerText("-");
+          
           document.getElementById(id).style.display = 'block';
         }
       }
