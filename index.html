@@ -15,10 +15,10 @@
     <script>
       function showSubMenu(id, target){
         if(document.getElementById(id).style.display === 'block'){
-          document.getElementById(target).innerText = '+';
+          document.getElementById(target).innerText = '[+]';
           document.getElementById(id).style.display = 'none';
         } else {
-          document.getElementById(target).innerText = '-';
+          document.getElementById(target).innerText = '[-]';
           document.getElementById(id).style.display = 'block';
         }
       }
@@ -38,7 +38,7 @@
             <a href="#quick-installation">Quick Installation</a><br/>
             <a href="#notes">Notes</a><br/>
             <a href="#documentation">Documentation</a><a id="documentation_link" href="javascript:showSubMenu('documentation-submenu', 'documentation_link')">[+]</a>
-            <div id="documentation-submenu" style="padding-left:20px; margin-top:-18px;">
+            <div id="documentation-submenu" style="padding-left:20px; padding-top:-18px; display:none">
               <a href="#http-routing">HTTP Routing</a><br /> 
               <a href="#servlet-style-methods">Servlet style methods</a><br />
               <a href="#result-methods">Result methods</a><br />
