@@ -21,10 +21,10 @@
     <script>
       function showSubMenu(id, target){
         if(document.getElementById(id).style.display === 'block'){
-          document.getElementById(target).innerText = '[+]';
+          document.getElementById(target).innerHTML = '<b>[+]</b>';
           document.getElementById(id).style.display = 'none';
         } else {
-          document.getElementById(target).innerText = '[―]';
+          document.getElementById(target).innerHTML = '<b>[&horbar;]</b>';
           document.getElementById(id).style.display = 'block';
         }
       }
