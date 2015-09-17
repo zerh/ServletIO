@@ -21,7 +21,7 @@
     <script>
       function showSubMenu(id, target){
         if(document.getElementById(id).style.display === 'block'){
-          document.getElementById(target).innerTHTML = '[+]';
+          document.getElementById(target).innerHTML = '[+]';
           document.getElementById(id).style.display = 'none';
         } else if(document.getElementById(id).style.display === 'none') {
           document.getElementById(target).innerHTML = '[&ndash;]';
