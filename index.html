@@ -23,7 +23,7 @@
         if(document.getElementById(id).style.display === 'block'){
           document.getElementById(target).innerTezt = '[+]';
           document.getElementById(id).style.display = 'none';
-        } else {
+        } else if(document.getElementById(id).style.display === 'none') {
           document.getElementById(target).innerHTML = '[&ndash;]';
           document.getElementById(id).style.display = 'block';
         }
