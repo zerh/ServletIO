@@ -9,15 +9,16 @@
     <url>https://jitpack.io</url>
 </repository>
 ```
+
 #### Add dependency:
 ```xml
-
-
 <dependency>
     <groupId>com.github.zerh</groupId>
-    <artifactId>ServletIO</artifactId>
-    <version>258ba0f6af</version>
+    <artifactId>Servlet-IO</artifactId>
+    <version>bf0cafe3c2</version>
+    <scope>compile</scope>
 </dependency>
+
 ```
 
 ## Getting Started
