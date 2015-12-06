@@ -9,6 +9,7 @@
 		<groupId>javax.servlet</groupId>
 		<artifactId>javax.servlet-api</artifactId>
 		<version>3.1.0</version>
+		<scope>provided</scope>
 	</dependency>
   </dependencies>
   
@@ -23,6 +24,7 @@
           <target>1.8</target>
         </configuration>
       </plugin>
+     
       <plugin>
         <artifactId>maven-war-plugin</artifactId>
         <version>2.4</version>
