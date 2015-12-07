@@ -2,6 +2,8 @@
 
 *Supported since Servlet* **3.0.1** *or higher, and Java* **6** *or higher*
 
+##Quick Installation
+
 #### Add repository:
 ```xml
 <repository>
@@ -20,6 +22,9 @@
 </dependency>
 
 ```
+
+#### Or download the Jar file
+[ServletIO 2.0](https://mega.nz/#!BgVy0CQS!uy52i8gGneds-3G5GcZAbSb1fAVIhQayA3ZohYvRz9o)
 
 ## Getting Started
 Add **"/*"** to your mapped url, example: ```@WebServlet("/your-path/*")```, and replace the super class ```HttpServlet``` by ```ServletIO```.
