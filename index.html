@@ -47,7 +47,7 @@
 <h3>
 <a id="http-routing" class="anchor" href="#http-routing" aria-hidden="true"><span class="octicon octicon-link"></span></a>HTTP Routing</h3>
 
-<p>The path reference to a method is the method name, but also could be a specified path in the annotation params <code>@Get</code>, <code>@Post</code>, <code>@Put</code>, <code>@Delete</code>, <code>@Options</code>:</p>
+<p>The path reference to a method is the method name, but also could be a specified path in the annotation params of <code>@Get</code>, <code>@Post</code>, <code>@Put</code>, <code>@Delete</code> or <code>@Options</code>:</p>
 
 <div class="highlight highlight-source-java"><pre><span class="pl-k">import</span> <span class="pl-smi">javax.servlet.annotation.WebServlet</span>;
 
@@ -62,7 +62,7 @@
         <span class="pl-k">return</span> respond(<span class="pl-s"><span class="pl-pds">"</span>Hello World<span class="pl-pds">"</span></span>)<span class="pl-k">.</span>asHtml();
     }
     
-    <span class="pl-k">@Get</span>()
+    <span class="pl-k">@Get</span>
     <span class="pl-k">public</span> <span class="pl-smi">Result</span> <span class="pl-en">mypath2</span>(<span class="pl-smi">Request</span> <span class="pl-v">req</span>){
         <span class="pl-k">return</span> respond(<span class="pl-s"><span class="pl-pds">"</span>Hello World<span class="pl-pds">"</span></span>)<span class="pl-k">.</span>asHtml();
     }
