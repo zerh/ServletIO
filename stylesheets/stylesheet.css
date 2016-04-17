@@ -153,7 +153,7 @@ a.button span {
 }
 
 #download-jar span {
-  background: transparent url(../images/jar-icon.png) 12px 50% no-repeat;
+  background: transparent url(../images/jar-icon.png) 32px 32px no-repeat;
 }
 
 #download-zip span {
