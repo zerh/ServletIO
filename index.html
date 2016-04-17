@@ -74,13 +74,20 @@
 <p>A Servlet style method is a Java method that receive a <code>servletio.Request</code> and a <code>servletio.Response</code> parameters as below:</p>
 
 
-<pre class="brush: java">
-<pre class="brush: js;">
-function helloSyntaxHighlighter()
-{
-	return "hi!";
+<pre class="brush: java;">
+import javax.servlet.annotation.WebServlet;
+
+import servletio.*;
+import servletio.annotation.*;
+
+@WebServlet("/base-path/*")
+public class MyApp extends ServletIO {
+
+    @Get("/edit/:id")
+    public Result edit(Request req){
+        return respond("<h1>the url has: " + req.param(":id") + "</h1>").as("text/html");
+    }
 }
-</pre>
 </pre>
 
 <div class="highlight highlight-source-java"><pre><span class="pl-k">import</span> <span class="pl-smi">javax.servlet.annotation.WebServlet</span>;
