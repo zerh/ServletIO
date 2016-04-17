@@ -172,6 +172,7 @@ a.button span {
 pre{
   font-size: 14px;
   font-weight: bold;
+  font-family: 'Courier New', Courier, 'Lucida Sans Typewriter', 'Lucida Typewriter', monospace;
 }
 /*
 code, pre {
