@@ -170,8 +170,7 @@ a.button span {
 }
 
 pre{
-  padding: 3px;
-  background: #cfcfcf;
+  font-size: 14px;
 }
 /*
 code, pre {
