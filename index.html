@@ -8,6 +8,12 @@
     <link rel="stylesheet" type="text/css" href="stylesheets/github-dark.css" media="screen">
     <link rel="stylesheet" type="text/css" href="stylesheets/print.css" media="print">
     
+    
+    <script type="text/javascript" src="javascripts/shCore.js"></script>
+  	<script type="text/javascript" src="javascripts/shBrushJScript.js"></script>
+	  <link type="text/css" rel="stylesheet" href="stylesheets/shCoreDefault.css"/>
+	  <script type="text/javascript">SyntaxHighlighter.all();</script>
+    
     <!--[if lt IE 9]>
     <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
     <![endif]-->
@@ -66,6 +72,14 @@
 <a id="servlet-style-methods" class="anchor" href="#servlet-style-methods" aria-hidden="true"><span class="octicon octicon-link"></span></a>Servlet Style Methods</h3>
 
 <p>A Servlet style method is a Java method that receive a <code>servletio.Request</code> and a <code>servletio.Response</code> parameters as below:</p>
+
+
+<pre class="brush: js;">
+function helloSyntaxHighlighter()
+{
+	return "hi!";
+}
+</pre>
 
 <div class="highlight highlight-source-java"><pre><span class="pl-k">import</span> <span class="pl-smi">javax.servlet.annotation.WebServlet</span>;
 
