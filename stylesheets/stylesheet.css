@@ -168,6 +168,10 @@ a.button span {
 #view-on-github {
   margin-right: 0;
 }
+
+pre{
+  background: #FFF;
+}
 /*
 code, pre {
   margin-bottom: 30px;
