@@ -32,8 +32,8 @@
         <hr>
 
         <section id="main_content">
-          <p><a href="#getting-started">Getting Started</a> | <a href="#quick-installation">Quick Installation</a> | <a href="#notes">Notes</a> | <a href="#documentation">Documentation</a> | <a href="#license">Lincense</a></p>
-
+          <p><a href="#getting-started">Getting Started</a> | <a href="#license">Lincense</a></p>
+<p><em>Supported since Servlet</em> <strong>3.0.1</strong> <em>or higher, and Java</em> <strong>6</strong> <em>or higher</em></p>
 <hr>
 
 <hr>
@@ -42,65 +42,6 @@
 <a id="getting-started" class="anchor" href="#getting-started" aria-hidden="true"><span class="octicon octicon-link"></span></a>Getting Started</h2>
 
 <p>Add <strong>"/*"</strong> to your mapped url, example: <code>@WebServlet("/your-path/*")</code>, and replace the super class <code>HttpServlet</code> by <code>ServletIO</code>.</p>
-
-<div class="highlight highlight-source-java"><pre><span class="pl-k">import</span> <span class="pl-smi">javax.servlet.ServletException</span>;
-<span class="pl-k">import</span> <span class="pl-smi">javax.servlet.annotation.WebServlet</span>;
-<span class="pl-k">import</span> <span class="pl-smi">javax.servlet.http.HttpServletRequest</span>;
-<span class="pl-k">import</span> <span class="pl-smi">javax.servlet.http.HttpServletResponse</span>;
-
-<span class="pl-k">import</span> <span class="pl-smi">servletio.*</span>;
-<span class="pl-k">import</span> <span class="pl-smi">servletio.annotation.Get</span>;
-
-@WebServlet(<span class="pl-s"><span class="pl-pds">"</span>/base-path/*<span class="pl-pds">"</span></span>)
-<span class="pl-k">public</span> <span class="pl-k">class</span> <span class="pl-en">MyApp</span> <span class="pl-k">extends</span> <span class="pl-e">ServletIO</span> {
-
-    <span class="pl-k">protected</span> <span class="pl-k">void</span> <span class="pl-en">doGet</span>(<span class="pl-smi">HttpServletRequest</span> <span class="pl-v">request</span>, <span class="pl-smi">HttpServletResponse</span> <span class="pl-v">response</span>) {
-        <span class="pl-v">super</span><span class="pl-k">.</span>doGet(request, response);
-        <span class="pl-c">//your old code</span>
-    }
-
-    <span class="pl-k">@Get</span>
-    <span class="pl-k">public</span> <span class="pl-smi">Result</span> <span class="pl-en">hello</span>(<span class="pl-smi">Request</span> <span class="pl-v">req</span>){
-        <span class="pl-k">return</span> respond(<span class="pl-s"><span class="pl-pds">"</span>&lt;h1&gt;hello world&lt;/h1&gt;<span class="pl-pds">"</span></span>)<span class="pl-k">.</span>as(<span class="pl-s"><span class="pl-pds">"</span>text/html<span class="pl-pds">"</span></span>);
-    }
-}
-</pre></div>
-
-<p>Or put your old <code>doGet</code> code inside another method mapped with the base path:</p>
-
-<div class="highlight highlight-source-java"><pre><span class="pl-k">import</span> <span class="pl-smi">javax.servlet.annotation.WebServlet</span>;
-
-<span class="pl-k">import</span> <span class="pl-smi">servletio.*</span>;
-<span class="pl-k">import</span> <span class="pl-smi">servletio.annotation.Get</span>;
-
-@WebServlet(<span class="pl-s"><span class="pl-pds">"</span>/base-path/*<span class="pl-pds">"</span></span>)
-<span class="pl-k">public</span> <span class="pl-k">class</span> <span class="pl-en">MyApp</span> <span class="pl-k">extends</span> <span class="pl-e">ServletIO</span> {
-
-    <span class="pl-k">@Get</span>(<span class="pl-s"><span class="pl-pds">"</span>/<span class="pl-pds">"</span></span>)
-    <span class="pl-k">public</span> <span class="pl-k">void</span> <span class="pl-en">oldCode</span>(<span class="pl-smi">Request</span> <span class="pl-v">req</span>, <span class="pl-smi">Response</span> <span class="pl-v">res</span>){
-        <span class="pl-smi">HttpServletRequest</span> request <span class="pl-k">=</span> req<span class="pl-k">.</span>raw;
-        <span class="pl-smi">HttpServletResponse</span> response <span class="pl-k">=</span> res<span class="pl-k">.</span>raw;
-
-        <span class="pl-c">//old code</span>
-    }
-
-    <span class="pl-k">@Get</span>
-    <span class="pl-k">public</span> <span class="pl-smi">Result</span> <span class="pl-en">hello</span>(<span class="pl-smi">Request</span> <span class="pl-v">req</span>){
-        <span class="pl-k">return</span> respond(<span class="pl-s"><span class="pl-pds">"</span>&lt;h1&gt;hello world&lt;/h1&gt;<span class="pl-pds">"</span></span>)<span class="pl-k">.</span>as(<span class="pl-s"><span class="pl-pds">"</span>text/html<span class="pl-pds">"</span></span>);
-    }
-}</pre></div>
-
-<hr>
-
-<h2>
-<a id="notes" class="anchor" href="#notes" aria-hidden="true"><span class="octicon octicon-link"></span></a>Notes</h2>
-
-<p><em>Supported since Servlet</em> <strong>3.0.1</strong> <em>or higher, and Java</em> <strong>6</strong> <em>or higher</em></p>
-
-<hr>
-
-<h2>
-<a id="documentation" class="anchor" href="#documentation" aria-hidden="true"><span class="octicon octicon-link"></span></a>Documentation</h2>
 
 <p><a href="#http-routing">HTTP Routing</a> | <a href="#servlet-style-methods">Servlet style methods</a> | <a href="#result-methods">Result methods</a> | <a href="#Before-and-after">@Before and @After</a></p>
 
