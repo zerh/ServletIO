@@ -173,7 +173,9 @@ pre{
   font-size: 14px;
   font-weight: bold;
   padding: 2px;
-  background-color:#D8D8D8;
+  background-color:#D0D0D0;
+  border:#C8C8C8 dotted;
+  overflow-y:visible;
   /*font-family: 'Courier New', Courier, 'Lucida Sans Typewriter', 'Lucida Typewriter', monospace;*/
 }
 /*
