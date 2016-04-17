@@ -54,7 +54,12 @@
 <span class="pl-k">public</span> <span class="pl-k">class</span> <span class="pl-en">MyApp</span> <span class="pl-k">extends</span> <span class="pl-e">ServletIO</span> {
 
     <span class="pl-k">@Get</span>(<span class="pl-s"><span class="pl-pds">"</span>/mypath/<span class="pl-pds">"</span></span>)
-    <span class="pl-k">public</span> <span class="pl-smi">Result</span> <span class="pl-en">mypath</span>(<span class="pl-smi">Request</span> <span class="pl-v">req</span>){
+    <span class="pl-k">public</span> <span class="pl-smi">Result</span> <span class="pl-en">methodName</span>(<span class="pl-smi">Request</span> <span class="pl-v">req</span>){
+        <span class="pl-k">return</span> respond(<span class="pl-s"><span class="pl-pds">"</span>Hello World<span class="pl-pds">"</span></span>)<span class="pl-k">.</span>asHtml();
+    }
+    
+    <span class="pl-k">@Get</span>()
+    <span class="pl-k">public</span> <span class="pl-smi">Result</span> <span class="pl-en">mypath2</span>(<span class="pl-smi">Request</span> <span class="pl-v">req</span>){
         <span class="pl-k">return</span> respond(<span class="pl-s"><span class="pl-pds">"</span>Hello World<span class="pl-pds">"</span></span>)<span class="pl-k">.</span>asHtml();
     }
 }</pre></div>
