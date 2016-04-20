@@ -2,29 +2,8 @@
 
 *Supported since Servlet* **3.0.1** *or higher, and Java* **6** *or higher*
 
-##Quick Installation
-
-#### Add repository:
-```xml
-<repository>
-    <id>jitpack.io</id>
-    <url>https://jitpack.io</url>
-</repository>
-```
-
-#### Add dependency:
-```xml
-<dependency>
-    <groupId>com.github.zerh</groupId>
-    <artifactId>Servlet-IO</artifactId>
-    <version>bf0cafe3c2</version>
-    <scope>compile</scope>
-</dependency>
-
-```
-
-#### Or download the Jar file
-[ServletIO 2.0](https://mega.nz/#!BgVy0CQS!uy52i8gGneds-3G5GcZAbSb1fAVIhQayA3ZohYvRz9o)
+## Download the Jar file
+[ServletIO 2.0](http://zerh.github.io/ServletIO/servletio-2.0.jar)
 
 ## Getting Started
 Add **"/*"** to your mapped url, example: ```@WebServlet("/your-path/*")```, and replace the super class ```HttpServlet``` by ```ServletIO```.
@@ -242,10 +221,10 @@ public class MyApp extends ServletIO {
 You can either use ```Request``` or ```Response``` only as method parameters. This classes wrap HttpServletRequest and HttpServletResponse and offer some facilities. The most prominents are:
 
 ###### Request
-- ```request.bindParam(MyBean.class)``` return a instance of ```MyBean``` with all values of HTML form, mapping by bean properties names.
-- ```request.getFile(String paramName)``` return a File with the uploaded file reference.
-- ```request.dispatcher(String dispatcherName)``` return an instance of ```servletio.Dispatcher```, wrap of ```RequestDispatcher```.
-- ```request.raw``` final propierty with ```HttpServletRequest``` object reference of the current request.
+- ```request.bindParam(MyBean.class)``` returns an instance of ```MyBean``` with all values of HTML form, by mapping bean properties names.
+- ```request.getFile(String paramName)``` returns a File object of the uploaded file.
+- ```request.dispatcher(String dispatcherName)``` returns an instance of ```servletio.Dispatcher```, wrap of ```RequestDispatcher```.
+- ```request.raw``` final property with ```HttpServletRequest``` object reference of the current request.
 
 ###### Response
 - ```response.print(String htmlString, String contentType)```.
