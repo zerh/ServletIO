@@ -123,7 +123,7 @@ public class MyApp extends ServletIO {
 
     @Get
     public void hello(Request req, Response res){
-        res.printHtml("<h1>hellow world</h1>");
+        res.printHtml("&#060;h1&#062;hellow world&#060;/h1&#062;");
     }
 }
 </code></pre>
@@ -208,7 +208,7 @@ public class MyApp extends ServletIO {
 
     @Get
     public Result hello(Request req){
-        return respond("<h1>content</h1>").asHtml();
+        return respond("&#060;h1&#062;content&#060;/h1&#062;").asHtml();
     }
 }
 </code></pre>
@@ -248,7 +248,7 @@ public class MyApp extends ServletIO {
 
     @Get
     public Result index(Request req){
-        return respond("<h1>hello world</h1>").as("text/html");
+        return respond("&#060;h1&#062;hello world&#060;/h1&#062;").as("text/html");
     }
 
     @Before
@@ -265,7 +265,7 @@ public class MyApp extends ServletIO {
     @After
     public Result onNotFound(Request req){
         if(!isMapped(req))
-            return notFound("<h1>404, not found</h1>").as("text/html");
+            return notFound("&#060;h1&#062;404, not found&#060;/h1&#062;").as("text/html");
 
         return null;
     }
@@ -284,7 +284,7 @@ public class MyApp extends ServletIO {
 
     @Get
     public Result login(Request req){
-        return respond("<h1>login</h1>").as("text/html");
+        return respond("&#060;h1&#062;login&#060;/h1&#062;").as("text/html");
     }
 
     @Before(only="/admin")
