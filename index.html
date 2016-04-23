@@ -46,18 +46,12 @@
 
 <p>Add <strong>"/*"</strong> to your mapped url, and replace the super class <code class="java">HttpServlet</code> by <code class="java">ServletIO</code>:</p>
 
-<pre>
-  <code class="java">
-
+<pre><code class="java">
 @WebServlet("/base-path/*")
 public class MyApp extends ServletIO {
-
     ...
-    
 }
-
-  </code>
-</pre>
+</code></pre>
 
 <h3>
 <a id="http-routing" class="anchor" href="#http-routing" aria-hidden="true"><span class="octicon octicon-link"></span></a>HTTP Routing</h3>
