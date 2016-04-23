@@ -397,22 +397,24 @@ footer a:hover {
 
 /* --------------------------- */
 	
-pre > code {
+pre > code{ padding: 2em 1.5em; }
+
+pre{
   position: relative;
   text-shadow: none !important;
   /*border: 1px solid #bbb;*/
    
-  background: #ddd !important;
+  /*background: #ddd !important;*/
   -moz-border-radius: 4px;
   border-radius: 4px;
-  padding: 2em 1.5em;
+  /*padding: 2em 1.5em;*/
   color: rgba(0,0,0, .8);
   text-shadow: 0 1px 0 #fff;
   line-height: 1.5;
   margin: 20px auto;
 }
 
-pre > code:before, pre > code:after {
+pre:before, pre:after {
   z-index: -1; 
   position: absolute; 
   content: "";
@@ -432,7 +434,7 @@ pre > code:before, pre > code:after {
   transform: rotate(-3deg);
 }
 
-pre > code:after {
+pre:after {
   -webkit-transform: rotate(3deg);
   -moz-transform: rotate(3deg);
   -o-transform: rotate(3deg);
