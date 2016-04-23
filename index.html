@@ -46,7 +46,8 @@
 <a id="getting-started" class="anchor" href="#getting-started" aria-hidden="true"><span class="octicon octicon-link"></span></a>Getting Started</h2>
 
 <p>Add <strong>"/*"</strong> to your mapped url, and replace the super class <code class="java">HttpServlet</code> by <code class="java">ServletIO</code>:</p>
-<pre><code>
+
+<pre><code class="java">
 @WebServlet("/base-path/*")
 public class MyApp extends ServletIO {
     ...
