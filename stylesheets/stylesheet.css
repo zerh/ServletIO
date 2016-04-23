@@ -56,6 +56,19 @@ body {
   background: #e7e7e7 url(../images/body-bg.png) 0 0 repeat;
 }
 
+body:before {
+  content: "";
+  position: fixed;
+  top: -10px;
+  left: 0;
+  width: 100%;
+  height: 10px;
+  z-index: 100;
+  -webkit-box-shadow: 0px 0px 10px rgba(0,0,0,.8);
+  -moz-box-shadow: 0px 0px 10px rgba(0,0,0,.8);
+  box-shadow: 0px 0px 10px rgba(0,0,0,.8);			  
+}
+
 a {
   color: #d5000d;
 }
