@@ -388,6 +388,7 @@ footer a:hover {
 	{
 	  position: relative;
 	  /*text-shadow: none;*/
+	  border: 1px solid #bbb;
           
 	  background: #ddd;
 	  -moz-border-radius: 4px;
@@ -396,7 +397,7 @@ footer a:hover {
 	  color: rgba(0,0,0, .8);
 	  text-shadow: 0 1px 0 #fff;
 	  line-height: 1.5;
-	  margin: 60px auto;
+	  margin: 40px auto;
 	}
 
 
