@@ -5,7 +5,10 @@
     <meta http-equiv="X-UA-Compatible" content="chrome=1">
     <link href='https://fonts.googleapis.com/css?family=Chivo:900' rel='stylesheet' type='text/css'>
     <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen">
-
+    
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.3.0/styles/default.min.css">
+    <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.3.0/highlight.min.js"></script>
+    
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/github-fork-ribbon-css/0.2.0/gh-fork-ribbon.min.css" />
 
     <!--link rel="stylesheet" type="text/css" href="stylesheets/github-dark.css" media="screen"-->
@@ -71,6 +74,30 @@
     }
 }
 </pre-->
+
+
+<pre><code class="java">
+
+import javax.servlet.annotation.WebServlet;
+
+import servletio.*;
+import servletio.annotation.*;
+
+@WebServlet("/base-path/*")
+public class MyApp extends ServletIO {
+
+    @Get("/mypath/")
+    public Result methodName(Request req){
+        return respond("Hello World").asHtml();
+    }
+    
+    @Get
+    public Result mypath2(Request req){
+        return respond("Hello World").asHtml();
+    }
+}
+  
+</code></pre>
 
 
 <div class="highlight highlight-source-java"><pre><span class="pl-k">import</span> <span class="pl-smi">javax.servlet.annotation.WebServlet</span>;
@@ -366,6 +393,6 @@ What you'll get:
         
       </div>
     </div>
-    <script type="text/javascript">SyntaxHighlighter.all();</script>
+    <script>hljs.initHighlightingOnLoad();</script>
   </body>
 </html>
