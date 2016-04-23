@@ -400,7 +400,7 @@ footer a:hover {
 	}
 
 
-	pre:before, #box:after 
+	pre:before, pre:after 
 	{
 	  z-index: -1; 
 	  position: absolute; 
