@@ -169,6 +169,10 @@ a.button span {
   margin-right: 0;
 }
 
+pre{
+  text-shadow: none;
+}
+
 /*pre{
   font-size: 14px;
   font-weight: bold;
