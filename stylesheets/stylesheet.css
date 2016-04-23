@@ -285,7 +285,8 @@ h3 {
   margin-bottom: 8px;
   font-size: 18px;
   font-weight: bold;
-  color: #d5000d;
+  /*color: #d5000d;*/
+  color: #9A0000;
 }
 
 h4 {
