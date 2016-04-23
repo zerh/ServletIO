@@ -47,10 +47,12 @@
 <p>Add <strong>"/*"</strong> to your mapped url, and replace the super class <code>HttpServlet</code> by <code>ServletIO</code>:</p>
 
 
-<pre><code class="java">
+<pre><code class="java" style="height:140px">
 @WebServlet("/base-path/*")
 public class MyApp extends ServletIO {
+    
     ...
+    
 }
 </code></pre>
 
