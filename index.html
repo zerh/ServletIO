@@ -49,24 +49,32 @@
 
 <p>The path reference to a method is the method name, but also could be a specified path in the annotation params of <code>@Get</code>, <code>@Post</code>, <code>@Put</code>, <code>@Delete</code> or <code>@Options</code>:</p>
 
-<div class="highlight highlight-source-java"><pre><span class="pl-k">import</span> <span class="pl-smi">javax.servlet.annotation.WebServlet</span>;
 
-<span class="pl-k">import</span> <span class="pl-smi">servletio.*</span>;
-<span class="pl-k">import</span> <span class="pl-smi">servletio.annotation.*</span>;
 
-@WebServlet(<span class="pl-s"><span class="pl-pds">"</span>/base-path/*<span class="pl-pds">"</span></span>)
-<span class="pl-k">public</span> <span class="pl-k">class</span> <span class="pl-en">MyApp</span> <span class="pl-k">extends</span> <span class="pl-e">ServletIO</span> {
 
-    <span class="pl-k">@Get</span>(<span class="pl-s"><span class="pl-pds">"</span>/mypath/<span class="pl-pds">"</span></span>)
-    <span class="pl-k">public</span> <span class="pl-smi">Result</span> <span class="pl-en">methodName</span>(<span class="pl-smi">Request</span> <span class="pl-v">req</span>){
-        <span class="pl-k">return</span> respond(<span class="pl-s"><span class="pl-pds">"</span>Hello World<span class="pl-pds">"</span></span>)<span class="pl-k">.</span>asHtml();
+<pre style="background:#181818;color:#f8f8f8"><span style="color:#cda869">import</span> <span style="color:#f9ee98">javax.servlet.annotation.WebServlet</span>;
+
+<span style="color:#cda869">import</span> <span style="color:#f9ee98">servletio.*</span>;
+<span style="color:#cda869">import</span> <span style="color:#f9ee98">servletio.annotation.*</span>;
+
+@WebServlet(<span style="color:#8f9d6a">"/base-path/*"</span>)
+<span style="color:#f9ee98">public</span> <span style="color:#f9ee98">class</span> <span style="color:#9b703f">MyApp</span> <span style="color:#f9ee98">extends</span> <span style="color:#9b5c2e;font-style:italic">ServletIO</span> {
+
+    <span style="color:#f9ee98">@Get</span>(<span style="color:#8f9d6a">"/mypath/"</span>)
+    <span style="color:#f9ee98">public</span> <span style="color:#f9ee98">Result</span> <span style="color:#9b703f">methodName</span>(<span style="color:#f9ee98">Request</span> <span style="color:#7587a6">req</span>){
+        <span style="color:#cda869">return</span> respond(<span style="color:#8f9d6a">"Hello World"</span>)<span style="color:#cda869">.</span>asHtml();
     }
     
-    <span class="pl-k">@Get</span>
-    <span class="pl-k">public</span> <span class="pl-smi">Result</span> <span class="pl-en">mypath2</span>(<span class="pl-smi">Request</span> <span class="pl-v">req</span>){
-        <span class="pl-k">return</span> respond(<span class="pl-s"><span class="pl-pds">"</span>Hello World<span class="pl-pds">"</span></span>)<span class="pl-k">.</span>asHtml();
+    <span style="color:#f9ee98">@Get</span>
+    <span style="color:#f9ee98">public</span> <span style="color:#f9ee98">Result</span> <span style="color:#9b703f">mypath2</span>(<span style="color:#f9ee98">Request</span> <span style="color:#7587a6">req</span>){
+        <span style="color:#cda869">return</span> respond(<span style="color:#8f9d6a">"Hello World"</span>)<span style="color:#cda869">.</span>asHtml();
     }
-}</pre></div>
+}
+</pre>
+
+
+
+
 
 <p>
 What you'll get:
