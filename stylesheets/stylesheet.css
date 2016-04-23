@@ -387,8 +387,8 @@ footer a:hover {
 	pre 
 	{
 	  position: relative;
-	  /*text-shadow: none;*/
-	  border: 1px solid #bbb;
+	  text-shadow: none;
+	  /*border: 1px solid #bbb;*/
           
 	  background: #ddd;
 	  -moz-border-radius: 4px;
