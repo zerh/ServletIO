@@ -169,11 +169,6 @@ a.button span {
   margin-right: 0;
 }
 
-pre{
-  text-shadow: none;
-  padding 4px;
-}
-
 /*pre{
   font-size: 14px;
   font-weight: bold;
@@ -389,10 +384,11 @@ footer a:hover {
 
 	/* --------------------------- */
 	
-	#box 
+	pre 
 	{
 	  position: relative;
-	  width: 60%;
+	  text-shadow: none;
+          
 	  background: #ddd;
 	  -moz-border-radius: 4px;
 	  border-radius: 4px;
@@ -404,7 +400,7 @@ footer a:hover {
 	}
 
 
-	#box:before, #box:after 
+	pre:before, #box:after 
 	{
 	  z-index: -1; 
 	  position: absolute; 
@@ -425,7 +421,7 @@ footer a:hover {
 	  transform: rotate(-3deg);
 	}
 
-	#box:after 
+	pre:after 
 	{
 	  -webkit-transform: rotate(3deg);
 	  -moz-transform: rotate(3deg);
@@ -435,6 +431,7 @@ footer a:hover {
 	  right: 10px;
 	  left: auto;
 	}
+	
 /* Mobile Landscape Size to Tablet Portrait (devices and browsers) */
 @media only screen and (min-width: 480px) and (max-width: 767px) { }
 
