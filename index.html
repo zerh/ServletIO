@@ -157,7 +157,7 @@ public class MyApp extends ServletIO {
     @Get
     public void admin(Request req, Response res){
         if(req.session().attribute("user")==null){
-            //call method login
+            //call method login as dispatcher
             req.dispatcher("login").forward(req, res);
         }
     }
@@ -402,8 +402,8 @@ public class MyApp extends ServletIO {
 
 <p>You may write a manual filter overriding "do" methods of the servlet as below:</p>
 
-<code>
-  <pre>
+<pre>
+  <code class="java">
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -417,15 +417,16 @@ public class MyApp extends ServletIO {
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) {
         if(request.getSession(false).getAttribute("user")==null){
-            getServletContext().getRequestDispatcher( "/WEB-INF/sample.jsp" ).forward( request, response );
+            //call method login as dispatcher
+            getServletContext().getRequestDispatcher( "login" ).forward( request, response );
         }
         
         super.doGet(request, response);
     }
 
     @Get
-    public Result login(Request req){
-        return respond("<h1>hello world</h1>").as("text/html");
+    public void login(Request req, Response res){
+        req.dispatcher("/WEB-INF/login.jsp").forward(req, res);
     }
 }
   </pre>
