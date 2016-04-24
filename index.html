@@ -415,6 +415,7 @@ import servletio.annotation.Get;
 public class MyApp extends ServletIO {
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) {
+        //filtering
         if(request.getSession(false).getAttribute("user")==null){
             //call method login as dispatcher
             getServletContext().getRequestDispatcher( "login" ).forward( request, response );
