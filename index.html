@@ -142,6 +142,32 @@ public class MyApp extends ServletIO {
 }
 </code></pre>
 
+<p>Also, you can use another mapped method as dispatcher</p>
+
+<pre><code>
+import javax.servlet.annotation.WebServlet;
+
+import servletio.*;
+import servletio.annotation.*;
+
+@WebServlet("/base-path/*")
+public class MyApp extends ServletIO {
+    
+    @Get
+    public void admin(Request req, Response res){
+        if(req.session().attribute("user")==null){
+            //call method login
+            req.dispatcher("login").forward(req, res);
+        }
+    }
+
+    @Get
+    public void login(Request req, Response res){
+        req.dispatcher("/WEB-INF/login.jsp").forward(req, res);
+    }
+}
+</code></pre>
+
 <p>You can either use <code class="java">Request</code> or <code class="java">Response</code> only as method parameters. This classes wrap HttpServletRequest and HttpServletResponse and offer some facilities. The most prominents are:</p>
 
 <h5>
@@ -312,7 +338,10 @@ public class MyApp extends ServletIO {
         System.out.prinln("/login or /logout executed")
     }
 
-    ...
+    @Get
+    public void login(Request req, Response res){
+        req.dispatcher("/WEB-INF/login.jsp").forward(req, res);
+    }
 }
 </code></pre>
 
@@ -333,7 +362,11 @@ public class MyApp extends ServletIO {
         if(req.session().attribute("user")==null)
             req.dispatcher("login").forward(req, res);
     }
-    ...
+    
+    @Get
+    public void login(Request req, Response res){
+        req.dispatcher("/WEB-INF/login.jsp").forward(req, res);
+    }
 }
 </code></pre>
 
@@ -358,7 +391,11 @@ public class MyApp extends ServletIO {
         if(req.session().attribute("user")==null)
             res.redirect("login");
     }
-    ...
+    
+    @Get
+    public void login(Request req, Response res){
+        req.dispatcher("/WEB-INF/login.jsp").forward(req, res);
+    }
 }
 </code></pre>
 
