@@ -115,7 +115,7 @@ public class MyApp extends ServletIO {
 
     @Get("/edit/:id")
     public Result edit(Request req){
-        return respond("The url has: " + req.param(":id") + "").as("text/html");
+        return respond("The url has: " + req.param(":id")).as("text/html");
     }
 }
 </code></pre>
