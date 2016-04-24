@@ -414,11 +414,11 @@ import servletio.annotation.Get;
 @WebServlet("/base-path/*")
 public class MyApp extends ServletIO {
 
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) {
+    protected void doGet(HttpServletRequest req, HttpServletResponse res) {
         //filtering
-        if(request.getSession(false).getAttribute("user")==null){
+        if(req.getSession(false).getAttribute("user")==null){
             //call method login as dispatcher
-            getServletContext().getRequestDispatcher( "login" ).forward( request, response );
+            getServletContext().getRequestDispatcher("login").forward(req, res);
         }
         
         super.doGet(request, response);
