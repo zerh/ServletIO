@@ -63,6 +63,7 @@ public class MyApp extends ServletIO {
 }
 </code></pre>
 
+<hr/>
 
 <h3>
 <a id="http-routing" class="anchor" href="#http-routing" aria-hidden="true"><span class="octicon octicon-link"></span></a>HTTP Routing</h3>
@@ -398,6 +399,37 @@ public class MyApp extends ServletIO {
     }
 }
 </code></pre>
+
+<p>You may write a manual filter overriding "do" methods of the servlet as below:</p>
+
+<code>
+  <pre>
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import servletio.*;
+import servletio.annotation.Get;
+
+@WebServlet("/base-path/*")
+public class MyApp extends ServletIO {
+
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) {
+        if(request.getSession(false).getAttribute("user")==null){
+            getServletContext().getRequestDispatcher( "/WEB-INF/sample.jsp" ).forward( request, response );
+        }
+        
+        super.doGet(request, response);
+    }
+
+    @Get
+    public Result login(Request req){
+        return respond("<h1>hello world</h1>").as("text/html");
+    }
+}
+  </pre>
+</code>
 
 <hr>
 
