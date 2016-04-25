@@ -1,3 +1,5 @@
+[![Stories in Ready](https://badge.waffle.io/fbencosme/ServletIO.png?label=ready&title=Ready)](https://waffle.io/fbencosme/ServletIO)
+[![Stories in Ready](https://badge.waffle.io/zerh/ServletIO.png?label=ready&title=Ready)](https://waffle.io/zerh/ServletIO)
 # Servlet IO - Convert your servlets to MVC controllers
 
 *Supported since Servlet* **3.0.1** *or higher, and Java* **6** *or higher*
