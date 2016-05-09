@@ -138,6 +138,69 @@ public class MyApp extends ServletIO {
     }
 }
 </code></pre>
+
+
+<h5>
+<a id="result-methods" class="anchor" href="#result-methods" aria-hidden="true"><span class="octicon octicon-link"></span></a>Result Object</h5>
+
+<p>Returning a <code class="java">Result</code> object, is just an elegant way to declare controllers methods. The <code class="java">Result</code> object wraps with <code class="java">ServletIO</code> the methods printers of the <code class="java">Response</code> object, to produce standard HTTP results. </p>
+
+<pre><code class="java">
+import javax.servlet.annotation.WebServlet;
+
+import servletio.*;
+import servletio.annotation.*;
+
+@WebServlet("/base-path/*")
+public class MyApp extends ServletIO {
+
+    @Get
+    public Result hello(Request req){
+        return respond("content");
+    }
+}
+</code></pre>
+
+<p>The object Result has methods <code class="java">asHtml()</code>, <code class="java">asJson()</code>, <code class="java">as(String contentType)</code>, <code class="java">withCookies(Cookies... cookies)</code>, <code class="java">withDiscardingCookies(Cookies... cookies)</code> and others helpers methods that returns the same instance of the <code class="java">Result</code> object like the next example:</p>
+
+<pre><code class="java">
+import javax.servlet.annotation.WebServlet;
+
+import servletio.*;
+import servletio.annotation.*;
+
+@WebServlet("/base-path/*")
+public class MyApp extends ServletIO {
+
+    @Get
+    public Result hello(Request req){
+        return respond("&#060;h1&#062;content&#060;/h1&#062;").asHtml();
+    }
+}
+</code></pre>
+<p>ServletIO contains some helper in addition to <code class="java">respond(String content)</code> method, that return objects Result:</p>
+
+<ul>
+<li>
+<code class="java">internalServerError(String content)</code> returns HTTP results with the 500 code.</li>
+<li>
+<code class="java">sendFile(InputStream inputStream)</code> send file to client.</li>
+<li>
+<code class="java">badRequest(String optionalContent)</code>returns HTTP results with the 400 code.</li>
+<li>
+<code class="java">notFound(String optionalContent)</code> returns HTTP results with the 404 code.</li>
+<li>
+<code class="java">redirect(String target)</code> redirect to the target.</li>
+<li>
+<code class="java">temporaryRedirect(String target)</code> redirect to the target with 303 code</li>
+</ul>
+
+
+
+
+
+
+
 <hr>
 
 
@@ -296,63 +359,6 @@ public class MyApp extends ServletIO {
 <code class="java">response.sendInternalServerError()</code> send 500 error code to the browser.</li>
 <li>
 <code class="java">response.raw</code> final propierty with <code class="java">HttpServletResponse</code> object reference of the current request</li>
-</ul>
-
-<hr>
-
-<h3>
-<a id="result-methods" class="anchor" href="#result-methods" aria-hidden="true"><span class="octicon octicon-link"></span></a>Result Object</h3>
-
-<p>Returning a <code class="java">Result</code> object, is just an elegant way to declare controllers methods. The <code class="java">Result</code> object wraps with <code class="java">ServletIO</code> the methods printers of the <code class="java">Response</code> object, to produce standard HTTP results. </p>
-
-<pre><code class="java">
-import javax.servlet.annotation.WebServlet;
-
-import servletio.*;
-import servletio.annotation.*;
-
-@WebServlet("/base-path/*")
-public class MyApp extends ServletIO {
-
-    @Get
-    public Result hello(Request req){
-        return respond("content");
-    }
-}
-</code></pre>
-
-<p>The object Result has methods <code class="java">asHtml()</code>, <code class="java">asJson()</code>, <code class="java">as(String contentType)</code>, <code class="java">withCookies(Cookies... cookies)</code>, <code class="java">withDiscardingCookies(Cookies... cookies)</code> and others helpers methods that returns the same instance of the <code class="java">Result</code> object like the next example:</p>
-
-<pre><code class="java">
-import javax.servlet.annotation.WebServlet;
-
-import servletio.*;
-import servletio.annotation.*;
-
-@WebServlet("/base-path/*")
-public class MyApp extends ServletIO {
-
-    @Get
-    public Result hello(Request req){
-        return respond("&#060;h1&#062;content&#060;/h1&#062;").asHtml();
-    }
-}
-</code></pre>
-<p>ServletIO contains some helper in addition to <code class="java">respond(String content)</code> method, that return objects Result:</p>
-
-<ul>
-<li>
-<code class="java">internalServerError(String content)</code> returns HTTP results with the 500 code.</li>
-<li>
-<code class="java">sendFile(InputStream inputStream)</code> send file to client.</li>
-<li>
-<code class="java">badRequest(String optionalContent)</code>returns HTTP results with the 400 code.</li>
-<li>
-<code class="java">notFound(String optionalContent)</code> returns HTTP results with the 404 code.</li>
-<li>
-<code class="java">redirect(String target)</code> redirect to the target.</li>
-<li>
-<code class="java">temporaryRedirect(String target)</code> redirect to the target with 303 code</li>
 </ul>
 
 <hr>
