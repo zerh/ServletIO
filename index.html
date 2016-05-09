@@ -329,7 +329,9 @@ public class MyApp extends ServletIO {
 <p>A Render interface implementation just need override the method <strong>void render(Request request, Response response)</strong> as below:</p>
 
 <pre><code class="java">
+
 import servletio.*;
+import com.google.gson.Gson;
 
 public class JsonView implements Render{
     
