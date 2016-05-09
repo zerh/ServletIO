@@ -359,8 +359,8 @@ import servletio.annotation.*;
 @WebServlet("/base-path/*")
 public class MyApp extends ServletIO {
   
-    @Get
-    public JsonView login(Request req, Response res){
+    @Get("/items/list")
+    public JsonView itemList(){
         List<String> obj = Arrays.asList("item1", "item2", "item3");
         return new JsonView(obj);
     }
