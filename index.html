@@ -288,6 +288,8 @@ public class MyApp extends ServletIO {
   <code class="java">
 import javax.servlet.annotation.WebServlet;
 
+java.util.HashMap;
+
 import servletio.*;
 import servletio.annotation.*;
 
@@ -300,6 +302,13 @@ public class MyApp extends ServletIO {
         return new JspView("viewName", "myModelList", Arrays.asList("a","b","c"));
     }
     
+    @Get("/myview2")
+    public JspView myView(){ 
+        Map<String, Object> modelMap = new HashMap<String, Object>();
+        modelMap.put("myModelList", Arrays.asList("d","e","f"))
+        return new JspView("viewName", modelMap);
+    }
+    
 }    
   </code>
 </pre>
@@ -310,7 +319,8 @@ public class MyApp extends ServletIO {
 <pre>
   <code class="html">
 
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+    pageEncoding="ISO-8859-1"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 &lt;!DOCTYPE html&gt;
 &lt;html&gt;
