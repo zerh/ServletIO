@@ -81,12 +81,12 @@ import servletio.annotation.*;
 public class MyApp extends ServletIO {
 
     @Get("/mypath/")
-    public Result methodName(Request req){
+    public Result methodName(){
         return respond("Hello World").asHtml();
     }
     
     @Get
-    public Result mypath2(Request req){
+    public Result mypath2(){
         return respond("Hello World").asHtml();
     }
 }
@@ -114,9 +114,27 @@ import servletio.annotation.*;
 @WebServlet("/base-path/*")
 public class MyApp extends ServletIO {
 
-    @Get("/edit/:id")
+    @Get("/read/:id")
     public Result edit(Request req){
         return respond("The url has: " + req.param(":id")).as("text/html");
+    }
+}
+</code></pre>
+
+<p>Also you may map the request parameters or path parameters (using <strong>":"</strong> before) using @Param annotation as below:</p>
+
+<pre><code class="java">
+import javax.servlet.annotation.WebServlet;
+
+import servletio.*;
+import servletio.annotation.*;
+
+@WebServlet("/base-path/*")
+public class MyApp extends ServletIO {
+
+    @Get("/edit/:id")
+    public Result edit(@Param(":id") int id){
+        return respond("The url has: " + id ).asHtml();
     }
 }
 </code></pre>
