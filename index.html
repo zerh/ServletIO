@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html>
-  <head>
+  <head>v
     <meta charset='utf-8'>
     <meta http-equiv="X-UA-Compatible" content="chrome=1">
     <link href='https://fonts.googleapis.com/css?family=Chivo:900' rel='stylesheet' type='text/css'>
@@ -123,9 +123,9 @@ public class MyApp extends ServletIO {
 <hr>
 
 <h3>
-<a id="servlet-style-methods" class="anchor" href="#servlet-style-methods" aria-hidden="true"><span class="octicon octicon-link"></span></a>Servlet Style Methods</h3>
+<a id="servlet-style-methods" class="anchor" href="#servlet-style-methods" aria-hidden="true"><span class="octicon octicon-link"></span></a>Request and Response</h3>
 
-<p>A Servlet style method is a Java method that receive a <code class="java">servletio.Request</code> and a <code class="java">servletio.Response</code> parameters as below:</p>
+<p>You may receive a <code class="java">servletio.Request</code> and a <code class="java">servletio.Response</code> parameters as below:</p>
 
 <pre><code class="java">
 import javax.servlet.annotation.WebServlet;
@@ -137,8 +137,10 @@ import servletio.annotation.*;
 public class MyApp extends ServletIO {
 
     @Get
-    public void hello(Request req, Response res){
+    public Result hello(Request req, Response res){
         res.printHtml("&#060;h1&#062;hellow world&#060;/h1&#062;");
+        
+        return null;
     }
 }
 </code></pre>
@@ -155,15 +157,17 @@ import servletio.annotation.*;
 public class MyApp extends ServletIO {
     
     @Get
-    public void admin(Request req, Response res){
+    public Result admin(Request req, Response res){
         if(req.session().attribute("user")==null){
             //call method login as dispatcher
             req.dispatcher("login").forward(req, res);
         }
+        
+        return null;
     }
 
     @Get
-    public void login(Request req, Response res){
+    public Result login(Request req, Response res){
         req.dispatcher("/WEB-INF/login.jsp").forward(req, res);
     }
 }
@@ -273,6 +277,56 @@ public class MyApp extends ServletIO {
 <hr>
 
 <h3>
+  <a id="JspView" class="anchor" href="#JspView" aria-hidden="true"><span class="octicon octicon-link"></span></a>JspView
+</h3>
+<p>
+  JspView class manages jsp views and models. The default path for all views is <em>/WEB-INF/views</em>. You may use JspView as below:
+</p>
+<pre>
+  <code class="java">
+import javax.servlet.annotation.WebServlet;
+
+import servletio.*;
+import servletio.annotation.*;
+
+@WebServlet("/base-path/*")
+public class MyApp extends ServletIO {
+    @Get("/myview")
+    public JspView myView(){ 
+        //is not necesary the ".jsp" in the viewName
+        return new JspView("viewName", "myModelList", Arrays.asList("a","b","c"));
+    }
+}    
+  </code>
+</pre>
+
+<p>
+    A jsp could by something like this:
+</p>
+<pre>
+  <code class="html">
+
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+        <title>Insert title here</title>
+    </head>
+
+    <body>
+        <c:forEach items="${myModelList}" var="item">
+            ${item}<br>
+        </c:forEach>
+    </body>
+</html>
+
+
+  </code>
+</pre>
+
+<h3>
 <a id="filters" class="anchor" href="#filters" aria-hidden="true"><span class="octicon octicon-link"></span></a>Filters
 </h3>
 
@@ -293,14 +347,18 @@ public class MyApp extends ServletIO {
     }
 
     @Before
-    public void validateUser(Request req, Response res){
+    public Result validateUser(Request req, Response res){
         if(req.session().attribute("user")==null)
-            res.printHtml("bye bye!!");
+            respond("bye bye!!").asHtml();
+            
+        return null;
     }
 
     @After
-    public void log(Request req, Response res){
+    public Result log(Request req, Response res){
         System.out.println("Action executed...");
+        
+        return null;
     }
 
     @After
@@ -329,19 +387,23 @@ public class MyApp extends ServletIO {
     }
 
     @Before(only="/admin")
-    public void validateUser(Request req, Response res){
+    public Result validateUser(Request req, Response res){
         if(req.session().attribute("user")==null)  
             res.redirect("login");
+        
+        return null;
     }
 
     @After(only={"/login", "/logout"})
-    public void log(Request req, Response res){
-        System.out.prinln("/login or /logout executed")
+    public Result log(Request req, Response res){
+        System.out.prinln("/login or /logout executed");
+        
+        return null;
     }
 
     @Get
-    public void login(Request req, Response res){
-        req.dispatcher("/WEB-INF/login.jsp").forward(req, res);
+    public JspView login(Request req, Response res){
+        return new JspView("login.jsp");
     }
 }
 </code></pre>
@@ -359,14 +421,16 @@ import servletio.annotation.*;
 public class MyApp extends ServletIO {
 
     @Before(unless="/login")
-    public void validateUser(Request req, Response res){
+    public JspView validateUser(Request req, Response res){
         if(req.session().attribute("user")==null)
-            req.dispatcher("login").forward(req, res);
+            return JspView("login");
+            
+        return null;
     }
     
     @Get
-    public void login(Request req, Response res){
-        req.dispatcher("/WEB-INF/login.jsp").forward(req, res);
+    public JspView login(Request req, Response res){
+        return new JspView("login.jsp")
     }
 }
 </code></pre>
@@ -383,19 +447,23 @@ import servletio.annotation.*;
 public class MyApp extends ServletIO {
 
     @Before(only="/admin/something", priority=2)
-    public void adminSomething(Request req, Response res){
+    public Result adminSomething(Request req, Response res){
         //some filter for this action
+        
+        return null;
     }
 
     @Before(only="/admin/*", priority=1)
-    public void validateUser(Request req, Response res){
+    public Result validateUser(Request req, Response res){
         if(req.session().attribute("user")==null)
             res.redirect("login");
+            
+        return null;
     }
     
     @Get
-    public void login(Request req, Response res){
-        req.dispatcher("/WEB-INF/login.jsp").forward(req, res);
+    public JspView login(Request req, Response res){
+        return new JspView("login");
     }
 }
 </code></pre>
@@ -425,8 +493,8 @@ public class MyApp extends ServletIO {
     }
 
     @Get
-    public void login(Request req, Response res){
-        req.dispatcher("/WEB-INF/login.jsp").forward(req, res);
+    public JspView login(Request req, Response res){
+        new JspView("login");
     }
 }
   </pre>
