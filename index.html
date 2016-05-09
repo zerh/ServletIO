@@ -293,11 +293,13 @@ import servletio.annotation.*;
 
 @WebServlet("/base-path/*")
 public class MyApp extends ServletIO {
+    
     @Get("/myview")
     public JspView myView(){ 
         //is not necesary the ".jsp" in the viewName
         return new JspView("viewName", "myModelList", Arrays.asList("a","b","c"));
     }
+    
 }    
   </code>
 </pre>
