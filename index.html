@@ -320,7 +320,53 @@ public class MyApp extends ServletIO {
 <code class="java">response.raw</code> final propierty with <code class="java">HttpServletResponse</code> object reference of the current request</li>
 </ul>
 
-<hr>
+
+<hr />
+<h3>
+<a id="render" class="anchor" href="#render" aria-hidden="true"><span class="octicon octicon-link"></span></a>Render Interface
+</h3>
+<p>If you want to create your own views, you only need to implement the interface Render. The Result and JspView classes implements the interface Render.</p>
+<p>A Render interface implementation just need override the method <strong>void render(Request request, Response response)</strong> as below:</p>
+
+<pre><code class="java">
+import servletio.*;
+
+public class JsonView implements Render{
+    
+    private Object obj;
+    
+    public JsonView(Object obj){
+        this.obj = obj;
+    }
+
+    void render(Request request, Response response){
+        //print text with JSON content type
+        response.printJson(new Gson.toJson(this.obj));
+    }
+}
+</code></pre>
+
+<p>You could use this class in your ServletIO controllers just returning a instance of <strong>JsonView</strong> as you can see in the following example</p>
+
+<pre><code>
+import javax.servlet.annotation.WebServlet;
+
+import servletio.*;
+import servletio.annotation.*;
+
+@WebServlet("/base-path/*")
+public class MyApp extends ServletIO {
+  
+    @Get
+    public JsonView login(Request req, Response res){
+        List<String> obj = Arrays.asList("item1", "item2", "item3");
+        return new JsonView(obj);
+    }
+}
+</code></pre>
+
+
+<hr/>
 
 <h3>
 <a id="filters" class="anchor" href="#filters" aria-hidden="true"><span class="octicon octicon-link"></span></a>Filters
