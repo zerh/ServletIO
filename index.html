@@ -139,45 +139,10 @@ public class MyApp extends ServletIO {
 }
 </code></pre>
 
+<p>The <code class="java">Result</code> object in this methods is just an elegant way to declare controllers methods. The <code class="java">Result</code> object wraps with <code class="java">ServletIO</code> the methods printers of the <code class="java">Response</code> object, to produce standard HTTP results. </p>
 
-<h4>
-<a id="result-methods" class="anchor" href="#result-methods" aria-hidden="true"><span class="octicon octicon-link"></span></a>Result Object</h4>
+<p>The object Result has methods <code class="java">asHtml()</code>, <code class="java">asJson()</code>, <code class="java">as(String contentType)</code>, <code class="java">withCookies(Cookies... cookies)</code>, <code class="java">withDiscardingCookies(Cookies... cookies)</code> and others helpers methods that returns the same instance of the <code class="java">Result</code></p>
 
-<p>Returning a <code class="java">Result</code> object, is just an elegant way to declare controllers methods. The <code class="java">Result</code> object wraps with <code class="java">ServletIO</code> the methods printers of the <code class="java">Response</code> object, to produce standard HTTP results. </p>
-
-<pre><code class="java">
-import javax.servlet.annotation.WebServlet;
-
-import servletio.*;
-import servletio.annotation.*;
-
-@WebServlet("/base-path/*")
-public class MyApp extends ServletIO {
-
-    @Get
-    public Result hello(Request req){
-        return respond("content");
-    }
-}
-</code></pre>
-
-<p>The object Result has methods <code class="java">asHtml()</code>, <code class="java">asJson()</code>, <code class="java">as(String contentType)</code>, <code class="java">withCookies(Cookies... cookies)</code>, <code class="java">withDiscardingCookies(Cookies... cookies)</code> and others helpers methods that returns the same instance of the <code class="java">Result</code> object like the next example:</p>
-
-<pre><code class="java">
-import javax.servlet.annotation.WebServlet;
-
-import servletio.*;
-import servletio.annotation.*;
-
-@WebServlet("/base-path/*")
-public class MyApp extends ServletIO {
-
-    @Get
-    public Result hello(Request req){
-        return respond("&#060;h1&#062;content&#060;/h1&#062;").asHtml();
-    }
-}
-</code></pre>
 <p>ServletIO contains some helper in addition to <code class="java">respond(String content)</code> method, that return objects Result:</p>
 
 <ul>
@@ -194,12 +159,6 @@ public class MyApp extends ServletIO {
 <li>
 <code class="java">temporaryRedirect(String target)</code> redirect to the target with 303 code</li>
 </ul>
-
-
-
-
-
-
 
 <hr>
 
