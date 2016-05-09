@@ -121,7 +121,7 @@ public class MyApp extends ServletIO {
 }
 </code></pre>
 
-<p>Also you may map the request parameters or path parameters (using <strong>":"</strong> before) using @Param annotation as below:</p>
+<p>Also you may map the request parameters or path parameters (using <strong>":"</strong> before) with @Param annotation as below:</p>
 
 <pre><code class="java">
 import javax.servlet.annotation.WebServlet;
@@ -139,6 +139,67 @@ public class MyApp extends ServletIO {
 }
 </code></pre>
 <hr>
+
+
+<h3>
+  <a id="JspView" class="anchor" href="#JspView" aria-hidden="true"><span class="octicon octicon-link"></span></a>JspView
+</h3>
+<p>
+  JspView class manages jsp views and models. The default folder for all jsp views is <strong>/WEB-INF/views</strong>. You may use JspView as below:
+</p>
+<pre><code class="java">
+import javax.servlet.annotation.WebServlet;
+
+java.util.HashMap;
+
+import servletio.*;
+import servletio.annotation.*;
+
+@WebServlet("/base-path/*")
+public class MyApp extends ServletIO {
+    
+    @Get("/myview")
+    public JspView myView(){ 
+        //is not necesary the ".jsp" in the viewName
+        return new JspView("viewName", "myList", Arrays.asList("a","b","c"));
+    }
+    
+    @Get("/myview2")
+    public JspView myView(){ 
+        Map<String, Object> modelMap = new HashMap<String, Object>();
+        modelMap.put("myList", Arrays.asList("d","e","f"))
+        return new JspView("viewName", modelMap);
+    }
+    
+}    
+</code></pre>
+
+<p>
+    The file <strong>/WEB-INF/views/viewName.jsp</strong>, could by something like this:
+</p>
+
+<pre><code class="html">
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+    pageEncoding="ISO-8859-1"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+    &lt;head&gt;
+        &lt;meta http-equiv=&quot;Content-Type&quot; content=&quot;text/html; charset=ISO-8859-1&quot;&gt;
+        &lt;title&gt;Insert title here&lt;/title&gt;
+    &lt;/head&gt;
+
+    &lt;body&gt;
+        &lt;c:forEach items=&quot;${myList}&quot; var=&quot;item&quot;&gt;
+            ${item}&lt;br&gt;
+        &lt;/c:forEach&gt;
+    &lt;/body&gt;
+&lt;/html&gt;
+</code></pre>
+
+
+
+<hr />
 
 <h3>
 <a id="servlet-style-methods" class="anchor" href="#servlet-style-methods" aria-hidden="true"><span class="octicon octicon-link"></span></a>Request and Response</h3>
@@ -295,62 +356,6 @@ public class MyApp extends ServletIO {
 </ul>
 
 <hr>
-
-<h3>
-  <a id="JspView" class="anchor" href="#JspView" aria-hidden="true"><span class="octicon octicon-link"></span></a>JspView
-</h3>
-<p>
-  JspView class manages jsp views and models. The default folder for all jsp views is <strong>/WEB-INF/views</strong>. You may use JspView as below:
-</p>
-<pre><code class="java">
-import javax.servlet.annotation.WebServlet;
-
-java.util.HashMap;
-
-import servletio.*;
-import servletio.annotation.*;
-
-@WebServlet("/base-path/*")
-public class MyApp extends ServletIO {
-    
-    @Get("/myview")
-    public JspView myView(){ 
-        //is not necesary the ".jsp" in the viewName
-        return new JspView("viewName", "myList", Arrays.asList("a","b","c"));
-    }
-    
-    @Get("/myview2")
-    public JspView myView(){ 
-        Map<String, Object> modelMap = new HashMap<String, Object>();
-        modelMap.put("myList", Arrays.asList("d","e","f"))
-        return new JspView("viewName", modelMap);
-    }
-    
-}    
-</code></pre>
-
-<p>
-    The file <strong>/WEB-INF/views/viewName.jsp</strong>, could by something like this:
-</p>
-
-<pre><code class="html">
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-&lt;!DOCTYPE html&gt;
-&lt;html&gt;
-    &lt;head&gt;
-        &lt;meta http-equiv=&quot;Content-Type&quot; content=&quot;text/html; charset=ISO-8859-1&quot;&gt;
-        &lt;title&gt;Insert title here&lt;/title&gt;
-    &lt;/head&gt;
-
-    &lt;body&gt;
-        &lt;c:forEach items=&quot;${myList}&quot; var=&quot;item&quot;&gt;
-            ${item}&lt;br&gt;
-        &lt;/c:forEach&gt;
-    &lt;/body&gt;
-&lt;/html&gt;
-</code></pre>
 
 <h3>
 <a id="filters" class="anchor" href="#filters" aria-hidden="true"><span class="octicon octicon-link"></span></a>Filters
