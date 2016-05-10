@@ -1,4 +1,4 @@
 # ServletIO
 ServletIO - convert your servlets to MVC controllers
 
-https://github.com/zerh/ServletIO.git
+http://zerh.github.io/ServletIO/
