@@ -326,7 +326,7 @@ public class MyApp extends ServletIO {
 <a id="render" class="anchor" href="#render" aria-hidden="true"><span class="octicon octicon-link"></span></a>Render Interface
 </h3>
 <p>If you want to create your own views, you only need to implement the interface Render. The Result and JspView classes implements the Render interface.</p>
-<p>A Render interface implementation just need override the method <strong>void render(Request request, Response response)</strong> as below:</p>
+<p>A Render interface implementation just need override the method <code class="java">void render(Request request, Response response)</code> as below:</p>
 
 <pre><code class="java">
 
@@ -348,7 +348,7 @@ public class JsonView implements Render{
 }
 </code></pre>
 
-<p>You could use this class in your ServletIO controllers just returning a instance of <strong>JsonView</strong> as you can see in the following example</p>
+<p>You could use this class in your ServletIO controllers just returning a instance of <code class="java">JsonView</code> as you can see in the following example</p>
 
 <pre><code>
 import javax.servlet.annotation.WebServlet;
