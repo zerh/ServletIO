@@ -401,7 +401,7 @@ footer a:hover {
 
 /* --------------------------- */
 	
-code {border-radius:4px; background:#fff !important;}
+code {border-radius:4px; background:#FDFDFD !important;}
 
 pre > code{ padding: 2em 1.5em; box-shadow: 0px 0px 1pc #ddd;}
 
@@ -418,6 +418,8 @@ pre{
   text-shadow: 0 1px 0 #fff;
   line-height: 1.5;
   margin: 20px auto;
+  
+  background:#FDFDFD !important;
 }
 
 pre:before, pre:after {
