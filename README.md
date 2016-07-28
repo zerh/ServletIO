@@ -238,7 +238,6 @@ You can either use ```Request``` or ```Response``` only as method parameters. Th
 
 ###### Request
 - ```request.bindParam(MyBean.class)``` returns an instance of ```MyBean``` with all values of HTML form, by mapping bean properties names.
-- ```request.getFile(String paramName)``` returns a File object of the uploaded file.
 - ```request.dispatcher(String dispatcherName)``` returns an instance of ```servletio.Dispatcher```, wrap of ```RequestDispatcher```.
 - ```request.raw``` final property with ```HttpServletRequest``` object reference of the current request.
 
