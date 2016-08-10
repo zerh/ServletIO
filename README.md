@@ -3,7 +3,7 @@
 *Supported since Servlet* **3.0.1** *or higher, and Java* **6** *or higher*
 
 ## Download the Jar file
-[ServletIO 2.0](http://zerh.github.io/ServletIO/servletio-2.0.jar)
+[ServletIO 2.1](http://zerh.github.io/ServletIO/servletio-2.1.jar)
 
 ## Getting Started
 Add **"/*"** to your mapped url, example: ```@WebServlet("/your-path/*")```, and replace the super class ```HttpServlet``` by ```ServletIO```.
