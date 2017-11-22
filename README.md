@@ -4,6 +4,14 @@
 
 ## Getting Started
 
+Add the **jitpack.io** repository
+```xml
+<repository>
+	<id>jitpack.io</id>
+	<url>https://jitpack.io</url>
+</repository>
+```
+
 Add as a maven dependency
 ```xml
 <dependency>
