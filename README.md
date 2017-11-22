@@ -3,6 +3,24 @@
 *Supported since Servlet* **3.0.1** *or higher, and Java* **6** *or higher*
 
 ## Getting Started
+
+Add the **jitpack.io** repository
+```xml
+<repository>
+    <id>jitpack.io</id>
+    <url>https://jitpack.io</url>
+</repository>
+```
+
+Add as a maven dependency
+```xml
+<dependency>
+    <groupId>com.github.zerh</groupId>
+    <artifactId>servlet-io</artifactId>
+    <version>2.1-SNAPSHOT</version>
+</dependency>
+```
+
 Add **"/*"** to your mapped url, example: ```@WebServlet("/your-path/*")```, and replace the super class ```HttpServlet``` by ```ServletIO```.
 
 ```java
