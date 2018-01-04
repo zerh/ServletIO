@@ -2,15 +2,10 @@ package servletio;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.lang.reflect.Array;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
-import java.lang.reflect.Parameter;
-import java.lang.reflect.ParameterizedType;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collection;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
@@ -18,18 +13,11 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.swing.text.html.HTMLDocument.HTMLReader.IsindexAction;
-
 import servletio.annotation.*;
 import servletio.utils.RouteUtils;
 
@@ -51,8 +39,8 @@ public class ServletIO extends HttpServlet {
     public void init() {
         try {
             super.init();
-        } catch (ServletException ex) {
-            Logger.getLogger(ServletIO.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ServletException e) {
+            e.printStackTrace();
         }
         
         servletIOInit();
@@ -90,8 +78,6 @@ public class ServletIO extends HttpServlet {
         allMappedUrl.addAll(urlDeleteMap.keySet());
         allMappedUrl.addAll(urlOptionsMap.keySet());
         allMappedUrl.addAll(urlHeadMap.keySet());
-        
-        System.out.print("------>> " + allMappedUrl);
     }
 
     protected boolean isMapped(Request req) {
@@ -192,10 +178,7 @@ public class ServletIO extends HttpServlet {
     private void map() {
 
         for (Method m : getPublicMethods(getClass())) {
-            System.out.println("YESS >:(");
             if (isMappable(m)) {
-                
-                System.out.println("YESSSSSSSSSSSSSSSSSSSSSSSSSSSSS >:(");
                 
                 if (m.isAnnotationPresent(After.class)) {
                     afterList.add(m);
