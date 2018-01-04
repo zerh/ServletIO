@@ -302,7 +302,6 @@ public class ServletIO extends HttpServlet {
         }
     }
 
-    @SuppressWarnings("unchecked")
     private Object[] getMethosParamsValues(Method m, Request request, Response response, Map<String, Integer> indexByTag) throws InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, NoSuchMethodException, SecurityException {
         Object[] params = new Object[m.getParameterCount()];
 
