@@ -1,10 +1,10 @@
-package servletio.utils;
+package com.github.zerh.servletio.utils;
 
 import java.util.Arrays;
 
 import javax.servlet.http.HttpServletRequest;
 
-import servletio.Request;
+import com.github.zerh.servletio.Request;
 
 public class RouteUtils {
     

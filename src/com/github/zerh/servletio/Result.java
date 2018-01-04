@@ -1,4 +1,4 @@
-package servletio;
+package com.github.zerh.servletio;
 
 import java.io.InputStream;
 import java.util.HashMap;

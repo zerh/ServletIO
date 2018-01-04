@@ -1,9 +1,9 @@
-package servletio;
+package com.github.zerh.servletio;
 
 import java.util.HashMap;
 import java.util.Map;
 
-import servletio.utils.RouteUtils;
+import com.github.zerh.servletio.utils.RouteUtils;
 
 public class Pretty {
 
