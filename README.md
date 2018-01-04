@@ -40,8 +40,8 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import servletio.*;
-import servletio.annotation.Get;
+import com.github.zerh.servletio.*;
+import com.github.zerh.servletio.annotation.Get;
 
 @WebServlet("/base-path/*")
 public class MyApp extends ServletIO {
@@ -64,8 +64,8 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import servletio.*;
-import servletio.annotation.Get;
+import com.github.zerh.servletio.*;
+import com.github.zerh.servletio.annotation.Get;
 
 @WebServlet("/base-path/*")
 public class MyApp extends ServletIO {
@@ -97,8 +97,8 @@ Also the parameters could be mapped in the url:
 ```java
 import javax.servlet.annotation.WebServlet;
 
-import servletio.*;
-import servletio.annotation.*;
+import com.github.zerh.servletio.*;
+import com.github.zerh.servletio.annotation.Get;
 
 @WebServlet("/base-path/*")
 public class MyApp extends ServletIO {
@@ -137,8 +137,8 @@ Methods annotated with the ```@Before``` annotation are executed before each act
 ```java
 import javax.servlet.annotation.WebServlet;
 
-import servletio.*;
-import servletio.annotation.*;
+import com.github.zerh.servletio.*;
+import com.github.zerh.servletio.annotation.Get;
 
 @WebServlet("/base-path/*")
 public class MyApp extends ServletIO {
@@ -179,8 +179,8 @@ If you don’t want the ```@Before``` or ```@After``` methods to intercept all r
 ```java
 import javax.servlet.annotation.WebServlet;
 
-import servletio.*;
-import servletio.annotation.*;
+import com.github.zerh.servletio.*;
+import com.github.zerh.servletio.annotation.Get;
 
 @WebServlet("/base-path/*")
 public class MyApp extends ServletIO {
@@ -214,8 +214,8 @@ Or you can specify a list of actions to exclude for ```@After``` or ```@Before``
 ```java
 import javax.servlet.annotation.WebServlet;
 
-import servletio.*;
-import servletio.annotation.*;
+import com.github.zerh.servletio.*;
+import com.github.zerh.servletio.annotation.Get;
 
 @WebServlet("/base-path/*")
 public class MyApp extends ServletIO {
@@ -236,8 +236,8 @@ You can set execution priority of ```@Before``` or ```@After``` methods using ``
 ```java
 import javax.servlet.annotation.WebServlet;
 
-import servletio.*;
-import servletio.annotation.*;
+import com.github.zerh.servletio.*;
+import com.github.zerh.servletio.annotation.Get;
 
 @WebServlet("/base-path/*")
 public class MyApp extends ServletIO {
@@ -265,8 +265,8 @@ public class MyApp extends ServletIO {
 You can either use ```Request``` or ```Response``` only as method parameters. This classes wrap HttpServletRequest and HttpServletResponse and offer some facilities. The most prominents are:
 
 ###### Request
-- ```request.bindParam(MyBean.class)``` returns an instance of ```MyBean``` with all values of HTML form, by mapping bean properties names.
-- ```request.dispatcher(String dispatcherName)``` returns an instance of ```servletio.Dispatcher```, wrap of ```RequestDispatcher```.
+- ```com.github.zerh.servletio.bindParam(MyBean.class)``` returns an instance of ```MyBean``` with all values of HTML form, by mapping bean properties names.
+- ```request.dispatcher(String dispatcherName)``` returns an instance of ```com.github.zerh.servletio.Dispatcher```, wrap of ```RequestDispatcher```.
 - ```request.raw``` final property with ```HttpServletRequest``` object reference of the current request.
 
 ###### Response
