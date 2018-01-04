@@ -30,7 +30,6 @@ public class ServletIO extends HttpServlet {
     private Map<String, Method> urlPutMap;
     private Map<String, Method> urlDeleteMap;
     private Map<String, Method> urlOptionsMap;
-    private Map<String, Method> urlHeadMap;
 
     private List<Method> afterList;
     private List<Method> beforeList;
@@ -64,7 +63,6 @@ public class ServletIO extends HttpServlet {
         urlPutMap = new HashMap<String, Method>();
         urlDeleteMap = new HashMap<String, Method>();
         urlOptionsMap = new HashMap<String, Method>();
-        urlHeadMap = new HashMap<String, Method>();
 
         afterList = new ArrayList<Method>();
         beforeList = new ArrayList<Method>();
@@ -77,7 +75,6 @@ public class ServletIO extends HttpServlet {
         allMappedUrl.addAll(urlPutMap.keySet());
         allMappedUrl.addAll(urlDeleteMap.keySet());
         allMappedUrl.addAll(urlOptionsMap.keySet());
-        allMappedUrl.addAll(urlHeadMap.keySet());
     }
 
     protected boolean isMapped(Request req) {
@@ -305,7 +302,6 @@ public class ServletIO extends HttpServlet {
         }
     }
 
-    @SuppressWarnings("unchecked")
     private Object[] getMethosParamsValues(Method m, Request request, Response response, Map<String, Integer> indexByTag) throws InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, NoSuchMethodException, SecurityException {
         Object[] params = new Object[m.getParameterCount()];
 
@@ -439,9 +435,5 @@ public class ServletIO extends HttpServlet {
 
     protected void doOptions(HttpServletRequest request, HttpServletResponse response) {
         process(urlOptionsMap, request, response);
-    }
-    
-    protected void doHead(HttpServletRequest request, HttpServletResponse response){
-        process(urlHeadMap, request, response);
     }
 }

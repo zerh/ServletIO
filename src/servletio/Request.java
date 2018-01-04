@@ -8,13 +8,9 @@ import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
-import java.math.BigDecimal;
-import java.math.BigInteger;
-import java.util.Arrays;
 import java.util.Collection;
 import java.util.Enumeration;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.TreeSet;
@@ -30,7 +26,7 @@ import servletio.utils.RouteUtils;
 
 public class Request {
 
-	private static final String USER_AGENT = "user-agent";
+	private static final String USER_AGENT = "User-Agent";
 
 	public final HttpServletRequest raw;
 
@@ -353,7 +349,7 @@ public class Request {
 					return null;
 				}
 			} else {
-				returnObject = (T) clazz.newInstance();
+				returnObject = (T) clazz.getConstructor().newInstance();
 			}
 
 			for (Method m : methods) {
@@ -374,22 +370,10 @@ public class Request {
 					}
 				}
 			}
-		} catch (InstantiationException ex) {
+		} catch (Exception ex) {
 			ex.printStackTrace();
-		} catch (IllegalAccessException ex) {
-			ex.printStackTrace();
-		} catch (IllegalArgumentException ex) {
-			ex.printStackTrace();
-		} catch (InvocationTargetException ex) {
-			ex.printStackTrace();
-		} catch (NoSuchMethodException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (SecurityException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-
+		} 
+		
 		return returnObject;
 	}
 }
