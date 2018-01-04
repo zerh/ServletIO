@@ -1,6 +1,17 @@
 # Servlet IO - Convert your servlets to MVC controllers
 
-*Supported since Servlet* **3.0.1** *or higher, and Java* **6** *or higher*
+*Supported since Servlet* **3.0.1**
+
+
+```
+  _________                  .__          __            .___________   
+ /   _____/ ______________  _|  |   _____/  |_          |   \_____  \  
+ \_____  \_/ __ \_  __ \  \/ /  | _/ __ \   __\  ______ |   |/   |   \ 
+ /        \  ___/|  | \/\   /|  |_\  ___/|  |   /_____/ |   /    |    \
+/_______  /\___  >__|    \_/ |____/\___  >__|           |___\_______  /
+        \/     \/                      \/                           \/ 
+```
+
 
 ## Getting Started
 

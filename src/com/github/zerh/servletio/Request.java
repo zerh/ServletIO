@@ -1,4 +1,4 @@
-package servletio;
+package com.github.zerh.servletio;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -21,8 +21,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import javax.servlet.http.Part;
 
-import servletio.utils.IOUtils;
-import servletio.utils.RouteUtils;
+import com.github.zerh.servletio.utils.IOUtils;
+import com.github.zerh.servletio.utils.RouteUtils;
 
 public class Request {
 

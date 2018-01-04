@@ -1,4 +1,4 @@
-package servletio;
+package com.github.zerh.servletio;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -18,8 +18,9 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import servletio.annotation.*;
-import servletio.utils.RouteUtils;
+
+import com.github.zerh.servletio.annotation.*;
+import com.github.zerh.servletio.utils.RouteUtils;
 
 public class ServletIO extends HttpServlet {
 

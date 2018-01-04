@@ -1,4 +1,4 @@
-package servletio;
+package com.github.zerh.servletio;
 
 import java.io.BufferedInputStream;
 import java.io.IOException;
