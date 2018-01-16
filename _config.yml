@@ -1,0 +1,8 @@
+title: ServletIO
+description: Convert your servlets to MVC controllers
+google_analytics: 
+show_downloads: true
+theme: jekyll-theme-architect
+
+gems:
+  - jekyll-mentions
