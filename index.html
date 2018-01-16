@@ -50,6 +50,29 @@
 
 <h3><a id="getting-started" class="anchor" href="#getting-started" aria-hidden="true"><span class="octicon octicon-link"></span></a>Getting Started</h3>
 
+<p>Add the jitpack.io repository</p>
+
+<pre>
+    <code class="xml" style="height:140px">
+        <repository>
+            <id>jitpack.io</id>
+            <url>https://jitpack.io</url>
+        </repository>
+    </code>
+</pre>
+        
+        
+<p>Add as a maven dependency</p>
+<pre>
+    <code class="xml" style="height:140px">
+        <dependency>
+            <groupId>com.github.zerh</groupId>
+            <artifactId>servlet-io</artifactId>
+            <version>3.0-SNAPSHOT</version>
+        </dependency>
+    </code>
+</pre>  
+
 <p>Add <strong>"/*"</strong> to your mapped url, and replace the super class <code>HttpServlet</code> by <code>ServletIO</code>:</p>
 
 
