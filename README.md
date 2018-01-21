@@ -35,48 +35,9 @@ import com.github.zerh.servletio.annotation.Get;
 @WebServlet("/base-path/*")
 public class MyApp extends ServletIO {
     
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) {
-        super.doGet(request, response);
-        //your old code
-    }
-    
     @Get("/hello")
     public Result index(Request req){
         return respond("<h1>hello world</h1>").as("text/html");
-    }
-}
-
-```
-Or put your old ```doGet``` code inside another method mapped with the base path:
-```java
-import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
-import com.github.zerh.servletio.*;
-import com.github.zerh.servletio.annotation.Get;
-
-@WebServlet("/base-path/*")
-public class MyApp extends ServletIO {
-
-    @Get("/")
-    public Result oldCode(Request req, Response res){
-        HttpServletRequest request = req.raw;
-        HttpServletResponse response = res.raw;
-        
-        //old code
-        
-        return null;
-    }
-
-    @Get("/index")
-    public Result index(Request req){
-        return respond("<h1>hello world</h1>").as("text/html");
-    }
-    
-    @Get
-    public Result about(Request req){
-        return respond("<h1>mapped wiht the method name</h1>").as("text/html");
     }
 }
 ```
