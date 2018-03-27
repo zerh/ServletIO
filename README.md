@@ -75,6 +75,24 @@ ServletIO contains some helper methods that return objects Result:
 - ```redirect(String target)``` redirect to the target.
 - ```temporaryRedirect(String target)``` redirect to the target with 303 code
 
+### JspView
+Returning ```JspView``` you can render a jsp file from the controller
+```java
+import javax.servlet.annotation.WebServlet;
+
+import com.github.zerh.servletio.*;
+import com.github.zerh.servletio.annotation.Get;
+
+@WebServlet("/base-path/*")
+public class MyApp extends ServletIO {
+    
+    @Get("/myview")
+    public Result myJspView(Request req){
+        return new JspView("/my-view.jsp");
+    }
+}
+```
+
 ### @Before and @After
 
 Methods annotated with the ```@Before``` annotation are executed before each action call for ```ServletIO```, and methods annotated with the ```@After``` annotation are executed after each action call for the Servlet:
