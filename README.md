@@ -88,7 +88,7 @@ public class MyApp extends ServletIO {
     
     @Get("/myview")
     public JspView myJspView(Request req){
-        return new JspView("/my-view.jsp");
+        return new JspView("/WEB-INF/my-view.jsp");
     }
 }
 ```
