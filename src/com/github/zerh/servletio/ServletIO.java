@@ -149,9 +149,6 @@ public class ServletIO extends HttpServlet {
         List<Method> methods = new ArrayList<Method>();
         for (Method method : clazz.getDeclaredMethods()) {
             if (Modifier.isPublic(method.getModifiers())) {
-                
-                System.out.println("-----------> method " + method.getName());
-                
                 methods.add(method);
             }
         }
@@ -356,8 +353,10 @@ public class ServletIO extends HttpServlet {
         try {
             Object[] params = getMethosParamsValues(m, request, response, indexByTag);
             Render view = (Render) m.invoke(this, params);
-            view.render(request, response);
-            //view = null;
+
+            if(view!=null)
+                view.render(request, response);
+
         } catch (IllegalAccessException e) {
             e.printStackTrace();
         } catch (IllegalArgumentException e) {
@@ -370,16 +369,7 @@ public class ServletIO extends HttpServlet {
             e.printStackTrace();
         } catch (SecurityException e) {
             e.printStackTrace();
-        } finally {
-            try {
-                res.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
-            } catch (IOException e) {
-                // TODO Auto-generated catch block
-                e.printStackTrace();
-            }
         }
-        //request = null;
-        //response = null;
     }
 
     protected void process(Map<String, Method> urlMethodMap, HttpServletRequest request, HttpServletResponse response) {
@@ -390,9 +380,6 @@ public class ServletIO extends HttpServlet {
         Method m = urlMethodMap.get(route);
         callFilters(After.class, request, response);
         if (m != null) {
-            
-            System.out.println("TOY AQUIIII");
-            
             callRender(m, request, response, null);
         } else {
             Pretty p = new Pretty();

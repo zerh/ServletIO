@@ -7,6 +7,7 @@ public class JspView implements Render{
 	
 	private String viewName;
 	private Map<String, Object> modelMap;
+	private ViewResolver viewResolver;
 	
 	public JspView(String viewName) {
 		this.viewName = viewName;
@@ -23,22 +24,36 @@ public class JspView implements Render{
 		modelMap.put(modelName, model);
 		this.modelMap = modelMap;
 	}
-	
+
+	public ViewResolver getViewResolver() {
+		return viewResolver;
+	}
+
+	public void setViewResolver(ViewResolver viewResolver) {
+		this.viewResolver =  viewResolver;
+	}
+
 	private String completeViewName(String viewName) {
-		if (!viewName.startsWith("/")) {
-			viewName = "/WEB-INF/views/" + viewName;
+
+		if(viewResolver!=null) {
+
+			if (viewResolver.prefix() != null) viewName = viewResolver.prefix() + viewName;
+
+			if (viewResolver.suffix() != null) viewName = viewName + viewResolver.suffix();
+
 		}
-		if (!viewName.endsWith(".jsp")) {
-			viewName = viewName + ".jsp";
-		}
+
 		return viewName;
 	}
 
 	@Override
 	public void render(Request request, Response response) {
-		for (String key : modelMap.keySet()) {
-			request.attribute(key, modelMap.get(key));
+		if(modelMap!=null) {
+			for (String key : modelMap.keySet()) {
+				request.attribute(key, modelMap.get(key));
+			}
 		}
+
 		request.dispatcher(completeViewName(viewName)).forward(request, response);
 	}
 }
