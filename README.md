@@ -87,7 +87,7 @@ import com.github.zerh.servletio.annotation.Get;
 public class MyApp extends ServletIO {
     
     @Get("/myview")
-    public Result myJspView(Request req){
+    public JspView myJspView(Request req){
         return new JspView("/my-view.jsp");
     }
 }
