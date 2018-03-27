@@ -3,22 +3,22 @@ package com.github.zerh.servletio;
 import java.util.HashMap;
 import java.util.Map;
 
-public class JspView implements Render{
+public class Jsp implements Render{
 	
 	private String viewName;
 	private Map<String, Object> modelMap;
 	private ViewResolver viewResolver;
 	
-	JspView(String viewName) {
+	Jsp(String viewName) {
 		this.viewName = viewName;
 	}
 	
-	JspView(String viewName, Map<String, Object> modelMap){
+	Jsp(String viewName, Map<String, Object> modelMap){
 		this.viewName = viewName;
 		this.modelMap = modelMap;
 	}
 	
-	JspView(String viewName, String modelName, Object model){
+	Jsp(String viewName, String modelName, Object model){
 		this.viewName = viewName;
 		Map<String, Object> modelMap = new HashMap<String, Object>();
 		modelMap.put(modelName, model);

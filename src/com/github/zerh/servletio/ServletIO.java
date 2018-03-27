@@ -1,7 +1,6 @@
 package com.github.zerh.servletio;
 
 import java.io.IOException;
-import java.io.InputStream;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
@@ -101,12 +100,6 @@ public class ServletIO extends HttpServlet {
         return result;
     }
 
-    protected Result sendFile(InputStream inputStream) {
-        Result result = new Result(null);
-        result.inputStream = inputStream;
-        return result;
-    }
-
     protected Result badRequest(String content) {
         Result result = new Result(content);
         result.status = 400;
@@ -145,16 +138,16 @@ public class ServletIO extends HttpServlet {
         return result;
     }
 
-    protected Render view(String viewName){
-        return new JspView(viewName);
+    protected Jsp jsp(String viewName){
+        return new Jsp(viewName);
     }
 
-    protected Render view(String viewName, String modelName, Object object){
-        return new JspView(viewName, viewName, object);
+    protected Jsp jsp(String viewName, String modelName, Object object){
+        return new Jsp(viewName, viewName, object);
     }
 
-    protected Render view(String viewName, Map<String, Object> modelMap){
-        return new JspView(viewName, modelMap);
+    protected Jsp jsp(String viewName, Map<String, Object> modelMap){
+        return new Jsp(viewName, modelMap);
     }
 
     private final List<Method> getPublicMethods(Class<?> clazz) {
