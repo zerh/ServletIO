@@ -183,6 +183,11 @@ import com.github.zerh.servletio.annotation.Get;
 @WebServlet("/base-path/*")
 public class MyApp extends ServletIO {
     
+    @Get
+    public JspView login(Request req){
+    	return new JspView("/WEB-INF/login.jsp");
+    }
+    
     @Before(unless="/login")
     public Result validateUser(Request req, Response res){
         if(req.session().attribute("user")==null)
