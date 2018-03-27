@@ -185,7 +185,7 @@ public class MyApp extends ServletIO {
     
     @Get
     public JspView login(Request req){
-    	return new JspView("/WEB-INF/login.jsp");
+    	return view("/WEB-INF/login.jsp");
     }
     
     @Before(unless="/login")
