@@ -145,6 +145,18 @@ public class ServletIO extends HttpServlet {
         return result;
     }
 
+    protected Render view(String viewName){
+        return new JspView(viewName);
+    }
+
+    protected Render view(String viewName, String modelName, Object object){
+        return new JspView(viewName, viewName, object);
+    }
+
+    protected Render view(String viewName, Map<String, Object> modelMap){
+        return new JspView(viewName, modelMap);
+    }
+
     private final List<Method> getPublicMethods(Class<?> clazz) {
         List<Method> methods = new ArrayList<Method>();
         for (Method method : clazz.getDeclaredMethods()) {

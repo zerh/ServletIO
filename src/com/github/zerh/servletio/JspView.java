@@ -9,16 +9,16 @@ public class JspView implements Render{
 	private Map<String, Object> modelMap;
 	private ViewResolver viewResolver;
 	
-	public JspView(String viewName) {
+	JspView(String viewName) {
 		this.viewName = viewName;
 	}
 	
-	public JspView(String viewName, Map<String, Object> modelMap){
+	JspView(String viewName, Map<String, Object> modelMap){
 		this.viewName = viewName;
 		this.modelMap = modelMap;
 	}
 	
-	public JspView(String viewName, String modelName, Object model){
+	JspView(String viewName, String modelName, Object model){
 		this.viewName = viewName;
 		Map<String, Object> modelMap = new HashMap<String, Object>();
 		modelMap.put(modelName, model);
