@@ -75,8 +75,8 @@ ServletIO contains some helper methods that return objects Result:
 - ```redirect(String target)``` redirect to the target.
 - ```temporaryRedirect(String target)``` redirect to the target with 303 code
 
-### JspView
-Returning ```JspView``` you can render a jsp file from the controller
+### Jsp
+Returning ```Jsp``` you can render a jsp file from the controller
 ```java
 import javax.servlet.annotation.WebServlet;
 
@@ -87,8 +87,8 @@ import com.github.zerh.servletio.annotation.Get;
 public class MyApp extends ServletIO {
     
     @Get("/myview")
-    public JspView myJspView(Request req){
-        return view("/WEB-INF/my-view.jsp");
+    public Jsp myJspView(Request req){
+        return jsp("/WEB-INF/my-view.jsp");
     }
 }
 ```
@@ -184,8 +184,8 @@ import com.github.zerh.servletio.annotation.Get;
 public class MyApp extends ServletIO {
     
     @Get
-    public JspView login(Request req){
-    	return view("/WEB-INF/login.jsp");
+    public Jsp login(Request req){
+    	return jsp("/WEB-INF/login.jsp");
     }
     
     @Before(unless="/login")
