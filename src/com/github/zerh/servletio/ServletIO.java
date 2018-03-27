@@ -58,18 +58,17 @@ public class ServletIO extends HttpServlet {
     
     private void servletIOInit(){
         
-        urlGetMap = new HashMap<String, Method>();
-        urlPostMap = new HashMap<String, Method>();
-        urlPutMap = new HashMap<String, Method>();
-        urlDeleteMap = new HashMap<String, Method>();
-        urlOptionsMap = new HashMap<String, Method>();
-
-        afterList = new ArrayList<Method>();
-        beforeList = new ArrayList<Method>();
+        urlGetMap = new HashMap<>();
+        urlPostMap = new HashMap<>();
+        urlPutMap = new HashMap<>();
+        urlDeleteMap = new HashMap<>();
+        urlOptionsMap = new HashMap<>();
+        afterList = new ArrayList<>();
+        beforeList = new ArrayList<>();
         
         map();
         
-        allMappedUrl = new HashSet<String>();
+        allMappedUrl = new HashSet<>();
         allMappedUrl.addAll(urlGetMap.keySet());
         allMappedUrl.addAll(urlPostMap.keySet());
         allMappedUrl.addAll(urlPutMap.keySet());
@@ -157,7 +156,7 @@ public class ServletIO extends HttpServlet {
                 methods.add(method);
             }
         }
-        return methods;//Collections.unmodifiableList(methods);
+        return methods;
     }
 
     private boolean isMappable(Method m) {

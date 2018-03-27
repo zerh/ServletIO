@@ -28,9 +28,9 @@ public class Result implements Render{
     }
     
     void init(){
-        header = new HashMap<String, String>();
-        overwrittenHeader = new HashMap<String, String>();
-        dateHeader = new HashMap<String, Long>();
+        header = new HashMap<>();
+        overwrittenHeader = new HashMap<>();
+        dateHeader = new HashMap<>();
     }
     
     public Result withStatus(int status){
