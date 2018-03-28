@@ -1,3 +1,5 @@
+[![](https://jitpack.io/v/zerh/servlet-io.svg)](https://jitpack.io/#zerh/servlet-io)
+
 # Servlet IO - Convert your servlets to MVC controllers
 
 *Supported since Servlet* **3.0.1**
