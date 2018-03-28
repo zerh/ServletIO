@@ -17,7 +17,7 @@ Add as a maven dependency
 <dependency>
     <groupId>com.github.zerh</groupId>
     <artifactId>servlet-io</artifactId>
-    <version>3.1-SNAPSHOT</version>
+    <version>3.1-bb94161f41-1</version>
 </dependency>
 ```
 
