@@ -17,9 +17,9 @@ Add the **jitpack.io** repository
 Add as a maven dependency
 ```xml
 <dependency>
-	<groupId>com.github.zerh</groupId>
-	<artifactId>servlet-io</artifactId>
-	<version>3.1-bb94161f41-1</version>
+    <groupId>com.github.zerh</groupId>
+    <artifactId>servlet-io</artifactId>
+    <version>3.1-bb94161f41-1</version>
 </dependency>
 ```
 
