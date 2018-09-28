@@ -5,7 +5,7 @@
 
 	<groupId>com.github.zerh.servletio</groupId>
 	<artifactId>servlet-io</artifactId>
-	<version>3.1-SNAPSHOT</version>
+	<version>3.2-SNAPSHOT</version>
 	<packaging>jar</packaging>
 
 	<dependencies>
