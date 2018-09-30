@@ -26,6 +26,8 @@ Add as a maven dependency
 Add **"/*"** to your mapped url, example: ```@WebServlet("/your-path/*")```, and replace the super class ```HttpServlet``` by ```ServletIO```.
 
 ```java
+import javax.servlet.annotation.WebServlet;
+
 import com.github.zerh.servletio.*;
 import com.github.zerh.servletio.annotation.Get;
 
