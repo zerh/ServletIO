@@ -237,7 +237,7 @@ public class MyApp extends ServletIO {
 You can either use ```Request``` or ```Response``` only as method parameters. This classes wrap HttpServletRequest and HttpServletResponse and offer some facilities. The most prominents are:
 
 ###### Request
-- ```com.github.zerh.servletio.bindParam(MyBean.class)``` returns an instance of ```MyBean``` with all values of HTML form, by mapping bean properties names.
+- ```request.bindParam(MyBean.class)``` returns an instance of ```MyBean``` with all values of HTML form, by mapping bean properties names.
 - ```request.dispatcher(String dispatcherName)``` returns an instance of ```com.github.zerh.servletio.Dispatcher```, wrap of ```RequestDispatcher```.
 - ```request.raw``` final property with ```HttpServletRequest``` object reference of the current request.
 
